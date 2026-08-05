@@ -1,0 +1,18 @@
+## Build results
+[Bb]in/
+[Oo]bj/
+x64/
+x86/
+ARM64/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+.vs/
+
+## Publish output
+publish/
+*.zip
+
+## Local runtime data (Mica writes its apps to %LOCALAPPDATA%\Mica, never here)
+*.log

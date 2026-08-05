@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Mica.Builder (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Mica.Builder (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

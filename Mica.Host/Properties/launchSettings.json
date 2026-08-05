@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Mica.Host (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Mica.Host (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

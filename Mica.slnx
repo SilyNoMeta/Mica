@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="ARM64" />
+  </Configurations>
+  <Project Path="Mica.Core/Mica.Core.csproj" />
+  <Project Path="Mica.Host/Mica.Host.csproj" />
+  <Project Path="Mica.Builder/Mica.Builder.csproj" />
+</Solution>
