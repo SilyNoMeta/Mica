@@ -45,10 +45,27 @@ fenêtre sans identifiant retombe sur l'exécutable, et toutes les apps s'affich
 comme « Mica.Host »), et dans `HKCU\Software\Classes\AppUserModelId`, où le shell lit le nom et
 l'icône.
 
+Cela couvre la barre des tâches de Windows. Mais beaucoup de shells — les docks tiers en
+particulier — ignorent complètement l'AppUserModelID et identifient une app en cours par son
+**exécutable**, en affichant l'icône compilée dedans. Avec un hôte partagé unique, elles se
+confondent toutes en une seule entrée sans nom. Chaque app reçoit donc aussi son propre
+exécutable à côté de l'hôte partagé : une copie de `Mica.Host.exe` portant son nom, dont la
+ressource icône est remplacée.
+
+La copie fonctionne parce qu'un apphost .NET stocke en interne le chemin de son assembly managé
+au lieu de le déduire de son propre nom de fichier. WinUI, lui, cherche son index de ressources
+sous `<nom de l'exécutable>.pri` : une copie sans cet index meurt dans `Microsoft.UI.Xaml` avant
+d'atteindre le moindre code applicatif. Un lanceur est donc toujours une paire — `<slug>.exe` et
+`<slug>.pri`, quelques centaines de kilo-octets. Les 40 Mo de runtime restent partagés.
+
 Mica se place aussi *lui-même* dans le menu Démarrer à chaque lancement : une app non packagée
 reste invisible pour Démarrer et la recherche tant qu'aucun raccourci n'existe. La même passe
 repointe les raccourcis des apps vers l'installation courante, pour qu'un déplacement ou une
 recompilation ne les laisse pas orphelins.
+
+> Les lanceurs étant écrits à côté de l'hôte, Mica s'installe par utilisateur (le schéma retenu
+> par Chrome et VS Code) plutôt que dans Program Files. Si le dossier de l'hôte n'est pas
+> accessible en écriture, la création d'app se rabat sur l'exécutable partagé au lieu d'échouer.
 
 ```
 %LOCALAPPDATA%\Mica\apps\<slug>\
@@ -73,7 +90,8 @@ Retirer une app supprime tout : raccourci, profil, extensions, entrée de regist
 Mica.slnx
 ├── Mica.Core/            Tout ce que les deux apps partagent
 │   ├── Shell/            BrowserShellPage — le contenu de la fenêtre d'une app générée
-│   ├── Apps/             AppRegistry (créer/lister/retirer), ShortcutFactory (.lnk + AUMID)
+│   ├── Apps/             AppRegistry (créer/lister/retirer), ShortcutFactory (.lnk + AUMID),
+│   │                     AppLauncherFactory (exécutable par app + ressource icône)
 │   ├── Sites/            SiteInspector (nom + icône), IconPipeline (rendu → .ico), HostRules
 │   ├── Extensions/       CrxInstaller — le chemin d'installation depuis le Chrome Web Store
 │   ├── Integration/      Notifications, instance unique, journal de démarrage

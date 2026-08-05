@@ -38,9 +38,25 @@ needed — on the shortcut, on the window before it is first shown (a window tha
 falls back to the executable, so every app would read as "Mica.Host"), and in
 `HKCU\Software\Classes\AppUserModelId`, which is where the shell reads the name and icon.
 
+That covers Windows' own taskbar. Plenty of shells — third-party docks especially — ignore the
+AppUserModelID entirely and identify a running app by its **executable**, showing the icon
+compiled into it. With a single shared host they all collapse into one nameless entry. So each
+app also gets its own executable next to the shared host: a copy of `Mica.Host.exe` named after
+the app, with its icon resource replaced.
+
+The copy works because a .NET apphost stores the path of its managed assembly internally rather
+than deriving it from its own file name. WinUI does not: it looks up its resource index as
+`<executable name>.pri`, and a copy without one dies inside `Microsoft.UI.Xaml` before reaching
+any app code. So a launcher is always a pair — `<slug>.exe` plus `<slug>.pri`, a few hundred
+kilobytes. The 40 MB runtime stays shared.
+
 Mica also puts *itself* in the Start menu on every run: an unpackaged app is invisible to Start
 and to search until a shortcut exists. The same pass re-points every app's shortcut at the
 current install, so moving or rebuilding Mica does not strand them.
+
+> Because launchers are written next to the host, Mica installs per user (the pattern Chrome and
+> VS Code use) rather than into Program Files. If the host folder is not writable, app creation
+> falls back to the shared executable instead of failing.
 
 ```
 %LOCALAPPDATA%\Mica\apps\<slug>\
@@ -65,7 +81,8 @@ Removing an app deletes all of it: shortcut, profile, extensions, registry entry
 Mica.slnx
 ├── Mica.Core/            Everything both apps share
 │   ├── Shell/            BrowserShellPage — the window content of a generated app
-│   ├── Apps/             AppRegistry (create/list/remove), ShortcutFactory (.lnk + AUMID)
+│   ├── Apps/             AppRegistry (create/list/remove), ShortcutFactory (.lnk + AUMID),
+│   │                     AppLauncherFactory (per-app executable + icon resource)
 │   ├── Sites/            SiteInspector (name + icon), IconPipeline (render → .ico), HostRules
 │   ├── Extensions/       CrxInstaller — the Chrome Web Store install path
 │   ├── Integration/      Notifications, single instance, startup log

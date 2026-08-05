@@ -1,0 +1,280 @@
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
+using Mica.Core.Integration;
+
+namespace Mica.Core.Apps;
+
+/// <summary>
+/// Gives each generated app its own executable, carrying the site's icon.
+/// <para>
+/// The AppUserModelID on the window and the shortcut is what Windows' own taskbar
+/// reads, but plenty of shells — third-party docks especially — identify a running
+/// app by its executable instead, and show the icon compiled into it. Sharing one
+/// <c>Mica.Host.exe</c> makes every app look identical to those. So each app gets a
+/// copy of the host executable named after it, with its icon resource replaced.
+/// </para>
+/// <para>
+/// A renamed copy works because a .NET apphost stores the path of its managed
+/// assembly internally rather than deriving it from its own file name. WinUI does
+/// not: it looks up its resource index as <c>&lt;executable name&gt;.pri</c>, and a
+/// copy without one dies inside Microsoft.UI.Xaml before reaching any app code. So
+/// the launcher is always a pair — the executable and its resource index. Everything
+/// else, including the runtime, stays shared.
+/// </para>
+/// </summary>
+[SupportedOSPlatform("windows")]
+public static class AppLauncherFactory
+{
+    private const int RtIcon = 3;
+    private const int RtGroupIcon = 14;
+    private const ushort NeutralLanguage = 0;
+
+    private static string HostFolder => Path.GetDirectoryName(AppRegistry.HostExecutable)!;
+
+    /// <summary>Path of the per-app executable, next to the shared host.</summary>
+    public static string LauncherPath(string slug) => Path.Combine(HostFolder, $"{slug}.exe");
+
+    private static string ResourceIndexPath(string slug) => Path.Combine(HostFolder, $"{slug}.pri");
+
+    /// <summary>
+    /// Creates or refreshes the executable for an app. Returns the shared host when
+    /// the copy cannot be made — a read-only install directory, or the app running —
+    /// so app creation degrades instead of failing.
+    /// </summary>
+    public static string Create(string slug, string iconPath)
+    {
+        var launcher = LauncherPath(slug);
+
+        try
+        {
+            var hostIndex = Path.ChangeExtension(AppRegistry.HostExecutable, ".pri");
+            if (!File.Exists(hostIndex))
+            {
+                throw new FileNotFoundException("The host resource index is missing.", hostIndex);
+            }
+
+            File.Copy(AppRegistry.HostExecutable, launcher, overwrite: true);
+            File.Copy(hostIndex, ResourceIndexPath(slug), overwrite: true);
+
+            if (File.Exists(iconPath))
+            {
+                ReplaceIcon(launcher, iconPath);
+            }
+
+            return launcher;
+        }
+        catch (Exception ex)
+        {
+            StartupLog.WriteException($"Launcher.{slug}", ex);
+            return File.Exists(launcher) ? launcher : AppRegistry.HostExecutable;
+        }
+    }
+
+    public static void Delete(string slug)
+    {
+        foreach (var path in new[] { LauncherPath(slug), ResourceIndexPath(slug) })
+        {
+            try
+            {
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+            }
+            catch (Exception ex)
+            {
+                StartupLog.WriteException($"Launcher.Delete.{slug}", ex);
+            }
+        }
+    }
+
+    // ---- Icon resources ------------------------------------------------------
+
+    /// <summary>
+    /// Replaces the executable's icon with the contents of an .ico file, reusing the
+    /// existing icon group id so the shell keeps picking the same one.
+    /// </summary>
+    private static void ReplaceIcon(string executablePath, string iconPath)
+    {
+        var icon = IconFile.Read(iconPath);
+        var groupId = FindExistingGroupIconId(executablePath) ?? 1;
+
+        var handle = BeginUpdateResource(executablePath, bDeleteExistingResources: false);
+        if (handle == IntPtr.Zero)
+        {
+            throw new InvalidOperationException(
+                $"Cannot open {Path.GetFileName(executablePath)} for resource update.");
+        }
+
+        var committed = false;
+        try
+        {
+            for (var i = 0; i < icon.Images.Count; i++)
+            {
+                Write(handle, RtIcon, (IntPtr)(i + 1), icon.Images[i]);
+            }
+
+            Write(handle, RtGroupIcon, (IntPtr)groupId, icon.BuildGroupDirectory());
+
+            if (!EndUpdateResource(handle, fDiscard: false))
+            {
+                throw new InvalidOperationException("Committing the icon resource failed.");
+            }
+
+            committed = true;
+        }
+        finally
+        {
+            if (!committed)
+            {
+                EndUpdateResource(handle, fDiscard: true);
+            }
+        }
+    }
+
+    private static void Write(IntPtr handle, int type, IntPtr name, byte[] data)
+    {
+        var buffer = Marshal.AllocHGlobal(data.Length);
+        try
+        {
+            Marshal.Copy(data, 0, buffer, data.Length);
+            if (!UpdateResource(handle, (IntPtr)type, name, NeutralLanguage, buffer, (uint)data.Length))
+            {
+                throw new InvalidOperationException($"UpdateResource failed for type {type}.");
+            }
+        }
+        finally
+        {
+            Marshal.FreeHGlobal(buffer);
+        }
+    }
+
+    private static int? FindExistingGroupIconId(string executablePath)
+    {
+        var module = LoadLibraryEx(executablePath, IntPtr.Zero, LoadLibraryAsDataFile);
+        if (module == IntPtr.Zero)
+        {
+            return null;
+        }
+
+        int? found = null;
+        try
+        {
+            EnumResourceNames(module, (IntPtr)RtGroupIcon, (_, _, name, _) =>
+            {
+                // Integer resource names arrive as a value below 0x10000; named
+                // groups are pointers and are left alone.
+                if (found is null && name.ToInt64() is > 0 and < 0x10000)
+                {
+                    found = (int)name.ToInt64();
+                }
+
+                return true;
+            }, IntPtr.Zero);
+        }
+        catch
+        {
+            // Fall through to the default group id.
+        }
+        finally
+        {
+            FreeLibrary(module);
+        }
+
+        return found;
+    }
+
+    private const uint LoadLibraryAsDataFile = 0x00000002;
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    private static extern IntPtr BeginUpdateResource(string fileName, [MarshalAs(UnmanagedType.Bool)] bool bDeleteExistingResources);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern bool UpdateResource(IntPtr update, IntPtr type, IntPtr name, ushort language, IntPtr data, uint size);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern bool EndUpdateResource(IntPtr update, [MarshalAs(UnmanagedType.Bool)] bool fDiscard);
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    private static extern IntPtr LoadLibraryEx(string fileName, IntPtr file, uint flags);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern bool FreeLibrary(IntPtr module);
+
+    private delegate bool EnumResourceNamesProc(IntPtr module, IntPtr type, IntPtr name, IntPtr param);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern bool EnumResourceNames(IntPtr module, IntPtr type, EnumResourceNamesProc callback, IntPtr param);
+
+    /// <summary>
+    /// A parsed .ico file. On disk an icon is a directory of images; inside an
+    /// executable the same thing is split into one RT_ICON per image plus an
+    /// RT_GROUP_ICON index that references them by resource id.
+    /// </summary>
+    private sealed class IconFile
+    {
+        private readonly List<Entry> _entries = [];
+
+        public List<byte[]> Images { get; } = [];
+
+        public static IconFile Read(string path)
+        {
+            var bytes = File.ReadAllBytes(path);
+            var icon = new IconFile();
+            var count = BitConverter.ToUInt16(bytes, 4);
+
+            for (var i = 0; i < count; i++)
+            {
+                var offset = 6 + (16 * i);
+                var length = (int)BitConverter.ToUInt32(bytes, offset + 8);
+                var imageOffset = (int)BitConverter.ToUInt32(bytes, offset + 12);
+
+                icon._entries.Add(new Entry(
+                    bytes[offset],
+                    bytes[offset + 1],
+                    bytes[offset + 2],
+                    BitConverter.ToUInt16(bytes, offset + 4),
+                    BitConverter.ToUInt16(bytes, offset + 6),
+                    (uint)length));
+
+                icon.Images.Add(bytes[imageOffset..(imageOffset + length)]);
+            }
+
+            return icon;
+        }
+
+        public byte[] BuildGroupDirectory()
+        {
+            using var stream = new MemoryStream();
+            using var writer = new BinaryWriter(stream);
+
+            writer.Write((ushort)0);
+            writer.Write((ushort)1);
+            writer.Write((ushort)_entries.Count);
+
+            for (var i = 0; i < _entries.Count; i++)
+            {
+                var entry = _entries[i];
+                writer.Write(entry.Width);
+                writer.Write(entry.Height);
+                writer.Write(entry.Colors);
+                writer.Write((byte)0);
+                writer.Write(entry.Planes);
+                writer.Write(entry.BitCount);
+                writer.Write(entry.Length);
+                writer.Write((ushort)(i + 1));
+            }
+
+            writer.Flush();
+            return stream.ToArray();
+        }
+
+        private sealed record Entry(
+            byte Width,
+            byte Height,
+            byte Colors,
+            ushort Planes,
+            ushort BitCount,
+            uint Length);
+    }
+}

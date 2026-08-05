@@ -149,6 +149,7 @@ public static class AppRegistry
     {
         ShortcutFactory.Delete(ShortcutPath(config));
         AppIdentity.Remove(MicaPaths.AppUserModelId(config.Slug));
+        AppLauncherFactory.Delete(config.Slug);
 
         try
         {
@@ -184,25 +185,36 @@ public static class AppRegistry
         }
     }
 
-    public static void Launch(WebAppConfig config) =>
-        Process.Start(new ProcessStartInfo(HostExecutable)
+    public static void Launch(WebAppConfig config)
+    {
+        var launcher = AppLauncherFactory.LauncherPath(config.Slug);
+
+        Process.Start(new ProcessStartInfo(File.Exists(launcher) ? launcher : HostExecutable)
         {
             UseShellExecute = false,
             Arguments = $"--app {config.Slug}",
         });
+    }
 
     // ---- Shortcut and uninstall registration ---------------------------------
 
     public static string ShortcutPath(WebAppConfig config) => MicaPaths.ShortcutFile(config.Name);
 
-    private static void CreateShortcut(WebAppConfig config) =>
+    private static void CreateShortcut(WebAppConfig config)
+    {
+        // Shells that identify apps by executable rather than by AppUserModelID get
+        // a real per-app executable to look at; the argument stays for the shared-host
+        // fallback and because being explicit costs nothing.
+        var launcher = AppLauncherFactory.Create(config.Slug, MicaPaths.IconFile(config.Slug));
+
         ShortcutFactory.Create(
             ShortcutPath(config),
-            HostExecutable,
+            launcher,
             $"--app {config.Slug}",
             MicaPaths.IconFile(config.Slug),
             $"{config.Name} — {config.StartUri.Host}",
             MicaPaths.AppUserModelId(config.Slug));
+    }
 
     /// <summary>
     /// Publishes the app in Settings › Installed apps, so removing it feels like

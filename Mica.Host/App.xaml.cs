@@ -34,7 +34,7 @@ public partial class App : Application
             // Without a valid app there is nothing to show; fail quietly rather
             // than leaving an orphan process behind.
             StartupLog.WriteException("App.ResolveConfig", ex);
-            Exit();
+            Environment.Exit(1);
             return;
         }
 
@@ -57,7 +57,10 @@ public partial class App : Application
             && SingleInstanceHelper.RedirectIfAlreadyRunning($"Mica.{Config.Slug}"))
         {
             StartupLog.Write("Redirected to the running instance");
-            Exit();
+
+            // Application.Exit() before a window exists faults inside Microsoft.UI.Xaml;
+            // this instance has nothing to tear down, so leave immediately.
+            Environment.Exit(0);
             return;
         }
 
@@ -95,6 +98,16 @@ public partial class App : Application
                         AllowedHosts = [uri.Host],
                     };
             }
+        }
+
+        // Started without arguments — a dock or a pinned item launching the
+        // executable directly. Each app's executable is named after its slug, so
+        // its own file name says which app to run.
+        var ownName = Path.GetFileNameWithoutExtension(Environment.ProcessPath ?? string.Empty);
+        var config = Path.Combine(MicaPaths.AppFolder(ownName), "app.json");
+        if (ownName.Length > 0 && File.Exists(config))
+        {
+            return WebAppConfig.Load(config);
         }
 
         throw new ArgumentException(
