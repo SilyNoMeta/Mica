@@ -20,7 +20,7 @@ public sealed class NotificationBridge
     /// Registers the notification channel. Unpackaged apps must do this
     /// explicitly; failure is non-fatal and simply disables toasts.
     /// </summary>
-    public void Register()
+    public void Register(string appUserModelId, string displayName, string iconPath)
     {
         try
         {
@@ -31,6 +31,11 @@ public sealed class NotificationBridge
         {
             StartupLog.WriteException("Notifications.Register", ex);
         }
+
+        // Register() fills the shell's name and icon for this id by guessing from
+        // the executable. Every Mica app shares one executable, so without this the
+        // first app to register names all the others. Assert the truth afterwards.
+        AppIdentity.PublishDisplayInfo(appUserModelId, displayName, iconPath);
     }
 
     public void Unregister()

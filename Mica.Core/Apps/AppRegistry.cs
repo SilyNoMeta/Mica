@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Win32;
+using Mica.Core.Integration;
 using Mica.Core.Sites;
 
 namespace Mica.Core.Apps;
@@ -108,6 +109,10 @@ public static class AppRegistry
 
             CreateShortcut(config);
             WriteUninstallEntry(config);
+            AppIdentity.PublishDisplayInfo(
+                MicaPaths.AppUserModelId(slug),
+                config.Name,
+                MicaPaths.IconFile(slug));
         }
         catch
         {
@@ -143,6 +148,7 @@ public static class AppRegistry
     public static void Remove(WebAppConfig config)
     {
         ShortcutFactory.Delete(ShortcutPath(config));
+        AppIdentity.Remove(MicaPaths.AppUserModelId(config.Slug));
 
         try
         {
@@ -218,6 +224,63 @@ public static class AppRegistry
         catch
         {
             // Cosmetic: the app still works and the builder can still remove it.
+        }
+    }
+
+    /// <summary>
+    /// Makes sure Mica itself is in the Start menu, next to the apps it builds.
+    /// Nothing else puts it there — an unpackaged app is invisible to Start and to
+    /// search until a shortcut exists — and the path is refreshed on every run so a
+    /// moved or rebuilt installation keeps working.
+    /// </summary>
+    public static void EnsureBuilderShortcut()
+    {
+        try
+        {
+            var shortcut = MicaPaths.ShortcutFile(MicaPaths.ProductName);
+            var icon = Path.Combine(AppContext.BaseDirectory, "Assets", "AppIcon.ico");
+            var appUserModelId = $"{MicaPaths.ProductName}.Builder";
+
+            ShortcutFactory.Create(
+                shortcut,
+                BuilderExecutable,
+                string.Empty,
+                icon,
+                "Build a Windows app from any website",
+                appUserModelId);
+
+            AppIdentity.PublishDisplayInfo(appUserModelId, MicaPaths.ProductName, icon);
+            StartupLog.Write($"Builder shortcut ensured at {shortcut} -> {BuilderExecutable}");
+        }
+        catch (Exception ex)
+        {
+            StartupLog.WriteException("Builder.Shortcut", ex);
+        }
+    }
+
+    /// <summary>
+    /// Re-points every app's shortcut, uninstall entry and shell identity at the
+    /// current installation. Shortcuts store an absolute path to the host, so moving
+    /// or reinstalling Mica would otherwise leave every app launching from a path
+    /// that no longer exists.
+    /// </summary>
+    public static void RepairAll()
+    {
+        foreach (var config in List())
+        {
+            try
+            {
+                CreateShortcut(config);
+                WriteUninstallEntry(config);
+                AppIdentity.PublishDisplayInfo(
+                    MicaPaths.AppUserModelId(config.Slug),
+                    config.Name,
+                    MicaPaths.IconFile(config.Slug));
+            }
+            catch (Exception ex)
+            {
+                StartupLog.WriteException($"Repair.{config.Slug}", ex);
+            }
         }
     }
 

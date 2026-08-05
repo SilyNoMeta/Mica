@@ -20,10 +20,11 @@ extensions. Press <kbd>Alt</kbd> when you need the toolbar, pin it if you want i
   same domain stay logged into different accounts and sessions survive restarts.
 - **Nothing in the way.** The toolbar is hidden until <kbd>Alt</kbd>, and pinnable.
   Settings are deliberately two things: zoom, and extensions.
-- **Extensions from the Chrome Web Store.** The store's *Add to Chrome* button does nothing
-  inside an embedded browser, so Mica does the install itself: paste the extension's link and
-  it fetches the package from Google's update service, unpacks it and loads it into that app's
-  profile. Want an ad blocker? Install the one you like — Mica does not pick for you.
+- **Extensions from the Chrome Web Store.** The store's *Add to Chrome* button cannot install
+  anything inside an embedded browser — it degrades to a download that fails. Mica intercepts
+  that download and does the install itself, and offers a one-click banner whenever you land on
+  an extension's store page. Pasting the extension's link into settings works too. Want an ad
+  blocker? Install the one you like — Mica does not pick for you.
 - **Web notifications become Windows toasts**, attributed to the app rather than to a browser.
 - **Links stay sensible.** Off-site links you click open in your real browser; redirects and
   sign-in hops stay inside the app so a login never strands your session elsewhere.
@@ -31,8 +32,15 @@ extensions. Press <kbd>Alt</kbd> when you need the toolbar, pin it if you want i
 ## How it works
 
 One host executable serves every app. What makes them behave like separate applications is the
-per-app **AppUserModelID** written into each shortcut: Windows groups taskbar buttons, resolves
-pinning and attributes toasts by that id, not by executable path.
+per-app **AppUserModelID**: Windows groups taskbar buttons, resolves pinning and attributes
+toasts by that id, not by executable path. Mica writes it in three places, and all three are
+needed — on the shortcut, on the window before it is first shown (a window that reports no id
+falls back to the executable, so every app would read as "Mica.Host"), and in
+`HKCU\Software\Classes\AppUserModelId`, which is where the shell reads the name and icon.
+
+Mica also puts *itself* in the Start menu on every run: an unpackaged app is invisible to Start
+and to search until a shortcut exists. The same pass re-points every app's shortcut at the
+current install, so moving or rebuilding Mica does not strand them.
 
 ```
 %LOCALAPPDATA%\Mica\apps\<slug>\
@@ -73,13 +81,13 @@ Prerequisites: .NET SDK 10, and the Windows App Runtime 2.3 (see [Deployment](#d
 
 ```powershell
 dotnet build Mica.slnx -p:Platform=x64
-.\Mica.Builder\bin\x64\Debug\net10.0-windows10.0.26100.0\win-x64\Mica.Builder.exe
+.\Mica.Builder\bin\Debug\net10.0-windows10.0.26100.0\win-x64\Mica.Builder.exe
 ```
 
 Generated apps launch from their Start menu shortcut, or directly:
 
 ```powershell
-.\Mica.Host\bin\x64\Debug\net10.0-windows10.0.26100.0\win-x64\Mica.Host.exe --app gemini
+.\Mica.Host\bin\Debug\net10.0-windows10.0.26100.0\win-x64\Mica.Host.exe --app gemini
 ```
 
 `--url <address>` runs the shell against a site without creating an app — useful for a quick

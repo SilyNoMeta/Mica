@@ -27,6 +27,8 @@ public sealed partial class BrowserShellPage : UserControl
     private CoreWebView2? _core;
     private CoreWebView2Profile? _profile;
     private string? _zoomScriptId;
+    private string? _detectedExtensionId;
+    private bool _installing;
     private bool _started;
 
     /// <summary>Raised when the page title changes, so the window can follow it.</summary>
@@ -91,7 +93,10 @@ public sealed partial class BrowserShellPage : UserControl
         await ApplyZoomAsync();
         await RestoreExtensionsAsync();
 
-        _notifications.Register();
+        _notifications.Register(
+            MicaPaths.AppUserModelId(_config.Slug),
+            _config.Name,
+            MicaPaths.IconFile(_config.Slug));
         _notifications.Attach(_core);
 
         StartupLog.Write($"Navigating to {_config.StartUrl}");
@@ -114,6 +119,7 @@ public sealed partial class BrowserShellPage : UserControl
         webView.HistoryChanged += OnHistoryChanged;
         webView.DocumentTitleChanged += OnDocumentTitleChanged;
         webView.WebMessageReceived += OnWebMessageReceived;
+        webView.DownloadStarting += OnDownloadStarting;
     }
 
     // ---- Toolbar reveal ------------------------------------------------------
@@ -282,6 +288,7 @@ public sealed partial class BrowserShellPage : UserControl
         LoadingBar.IsIndeterminate = false;
         LoadingBar.Visibility = Visibility.Collapsed;
         UpdateNavigationButtons();
+        UpdateExtensionPrompt();
     }
 
     private void OnHistoryChanged(object? sender, object e) => UpdateNavigationButtons();
@@ -388,27 +395,84 @@ public sealed partial class BrowserShellPage : UserControl
     private void OnOpenStoreClick(object sender, RoutedEventArgs e) =>
         _core?.Navigate("https://chromewebstore.google.com/");
 
-    private async void OnInstallExtensionClick(object sender, RoutedEventArgs e)
+    private void OnInstallExtensionClick(object sender, RoutedEventArgs e)
     {
-        if (_profile is null || _core is null)
-        {
-            return;
-        }
-
         // An empty box means "install what I am looking at" — the common case once
         // the user has browsed to the extension's page inside the app.
         var input = string.IsNullOrWhiteSpace(ExtensionInput.Text)
-            ? _core.Source
+            ? _core?.Source
             : ExtensionInput.Text;
 
-        var id = CrxInstaller.ExtractId(input ?? string.Empty);
-        if (id is null)
+        if (CrxInstaller.ExtractId(input ?? string.Empty) is not { } id)
         {
             ShowExtensionStatus("Ce lien ne correspond pas à une extension du Chrome Web Store.");
             return;
         }
 
+        _ = InstallExtensionAsync(id);
+    }
+
+    private void OnInstallDetectedClick(object sender, RoutedEventArgs e)
+    {
+        if (_detectedExtensionId is { } id)
+        {
+            _ = InstallExtensionAsync(id);
+        }
+    }
+
+    /// <summary>
+    /// The store's own "Add to Chrome" button cannot install anything here — inside an
+    /// embedded browser it degrades to downloading the package, which then fails as an
+    /// interrupted download. Catch that download and run the real install instead.
+    /// </summary>
+    private void OnDownloadStarting(object? sender, CoreWebView2DownloadStartingEventArgs e)
+    {
+        if (CrxInstaller.ExtractId(e.DownloadOperation.Uri) is not { } id)
+        {
+            return;
+        }
+
+        e.Cancel = true;
+        _ = InstallExtensionAsync(id);
+    }
+
+    /// <summary>Offers a one-click install while the user is on an extension's store page.</summary>
+    private void UpdateExtensionPrompt()
+    {
+        if (_installing)
+        {
+            return;
+        }
+
+        var source = _core?.Source;
+        var onStorePage = source is not null
+            && source.Contains("chromewebstore.google.com/detail/", StringComparison.OrdinalIgnoreCase);
+
+        _detectedExtensionId = onStorePage ? CrxInstaller.ExtractId(source!) : null;
+
+        if (_detectedExtensionId is null)
+        {
+            ExtensionPrompt.IsOpen = false;
+            return;
+        }
+
+        ShowPrompt(
+            InfoBarSeverity.Informational,
+            "Extension détectée",
+            $"« Ajouter à Chrome » ne fonctionne pas dans une app. Mica peut l'installer dans {_config.Name}.",
+            showAction: true);
+    }
+
+    private async Task InstallExtensionAsync(string id)
+    {
+        if (_profile is null || _core is null || _installing)
+        {
+            return;
+        }
+
+        _installing = true;
         InstallExtensionButton.IsEnabled = false;
+        ShowPrompt(InfoBarSeverity.Informational, "Installation en cours", "Téléchargement de l'extension…", false);
         ShowExtensionStatus("Téléchargement de l'extension…");
 
         try
@@ -421,18 +485,37 @@ public sealed partial class BrowserShellPage : UserControl
             var extension = await _profile.AddBrowserExtensionAsync(folder);
 
             ExtensionInput.Text = string.Empty;
+            _detectedExtensionId = null;
+
+            ShowPrompt(
+                InfoBarSeverity.Success,
+                $"« {extension.Name} » est installée",
+                "Rechargez la page pour l'activer.",
+                showAction: false);
             ShowExtensionStatus($"« {extension.Name} » est installée. Rechargez la page pour l'activer.");
+
             await RefreshExtensionListAsync();
         }
         catch (Exception ex)
         {
             StartupLog.WriteException("Extensions.Install", ex);
+            ShowPrompt(InfoBarSeverity.Error, "Installation impossible", ex.Message, showAction: false);
             ShowExtensionStatus($"Installation impossible : {ex.Message}");
         }
         finally
         {
+            _installing = false;
             InstallExtensionButton.IsEnabled = true;
         }
+    }
+
+    private void ShowPrompt(InfoBarSeverity severity, string title, string message, bool showAction)
+    {
+        ExtensionPrompt.Severity = severity;
+        ExtensionPrompt.Title = title;
+        ExtensionPrompt.Message = message;
+        PromptInstallButton.Visibility = showAction ? Visibility.Visible : Visibility.Collapsed;
+        ExtensionPrompt.IsOpen = true;
     }
 
     private async void OnRemoveExtensionClick(object sender, RoutedEventArgs e)

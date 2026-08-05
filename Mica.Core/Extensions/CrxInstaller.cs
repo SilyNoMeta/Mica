@@ -28,14 +28,21 @@ public static partial class CrxInstaller
     {
         input = input.Trim();
 
-        var direct = BareIdRegex().Match(input);
-        if (direct.Success && input.Length == 32)
+        if (input.Length == 32 && BareIdRegex().IsMatch(input))
         {
             return input.ToLowerInvariant();
         }
 
-        var fromUrl = StoreUrlRegex().Match(input);
-        return fromUrl.Success ? fromUrl.Groups["id"].Value.ToLowerInvariant() : null;
+        var fromStore = StoreUrlRegex().Match(input);
+        if (fromStore.Success)
+        {
+            return fromStore.Groups["id"].Value.ToLowerInvariant();
+        }
+
+        // The update service's own URL, which is what the store's "Add to Chrome"
+        // button ends up requesting inside an embedded browser.
+        var fromUpdate = UpdateUrlRegex().Match(input);
+        return fromUpdate.Success ? fromUpdate.Groups["id"].Value.ToLowerInvariant() : null;
     }
 
     /// <summary>
@@ -175,4 +182,7 @@ public static partial class CrxInstaller
 
     [GeneratedRegex(@"/detail/(?:[^/]+/)?(?<id>[a-p]{32})", RegexOptions.IgnoreCase)]
     private static partial Regex StoreUrlRegex();
+
+    [GeneratedRegex(@"id(?:=|%3D)(?<id>[a-p]{32})", RegexOptions.IgnoreCase)]
+    private static partial Regex UpdateUrlRegex();
 }

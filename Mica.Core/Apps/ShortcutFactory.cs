@@ -1,15 +1,16 @@
 using System.Runtime.InteropServices;
 using System.Text;
+using Mica.Core.Integration;
 
 namespace Mica.Core.Apps;
 
 /// <summary>
 /// Writes Start menu shortcuts that carry an explicit AppUserModelID.
 /// <para>
-/// This is what makes one shared host executable behave like many separate apps:
-/// Windows groups taskbar buttons, resolves pinning and attributes toasts by
-/// AppUserModelID, not by executable path. Without the property every Mica app
-/// would collapse into a single taskbar button.
+/// This is half of what makes one shared host executable behave like many separate
+/// apps: Windows resolves a taskbar button's name and icon by matching its
+/// AppUserModelID against Start menu shortcuts. The other half is
+/// <see cref="AppIdentity"/>, which puts the same id on the window.
 /// </para>
 /// </summary>
 public static class ShortcutFactory
@@ -35,18 +36,7 @@ public static class ShortcutFactory
             link.SetIconLocation(iconPath, 0);
         }
 
-        var store = (IPropertyStore)link;
-        var key = PropertyKeys.AppUserModelId;
-        var value = PropVariant.FromString(appUserModelId);
-        try
-        {
-            store.SetValue(ref key, ref value);
-            store.Commit();
-        }
-        finally
-        {
-            PropVariantClear(ref value);
-        }
+        ShellProperties.SetString((IPropertyStore)link, PropertyKey.AppUserModelId, appUserModelId);
 
         ((IPersistFile)link).Save(shortcutPath, true);
         Marshal.FinalReleaseComObject(link);
@@ -62,50 +52,6 @@ public static class ShortcutFactory
 
     private static string Cap(string value, int max) =>
         string.IsNullOrEmpty(value) || value.Length <= max ? value : value[..max];
-
-    [DllImport("ole32.dll")]
-    private static extern int PropVariantClear(ref PropVariant variant);
-
-    private static class PropertyKeys
-    {
-        /// <summary>PKEY_AppUserModel_ID</summary>
-        public static PropertyKey AppUserModelId => new()
-        {
-            FormatId = new Guid("9F4C2855-9F79-4B39-A8D0-E1D42DE1D5F3"),
-            PropertyId = 5,
-        };
-    }
-
-    [StructLayout(LayoutKind.Sequential, Pack = 4)]
-    private struct PropertyKey
-    {
-        public Guid FormatId;
-        public uint PropertyId;
-    }
-
-    /// <summary>
-    /// A string PROPVARIANT, built by hand: the SDK's InitPropVariantFromString is
-    /// an inline header helper, not an export anything can be P/Invoked into.
-    /// <see cref="PropVariantClear"/> releases the allocation.
-    /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
-    private struct PropVariant
-    {
-        private const ushort VtLpwstr = 31;
-
-        private ushort _type;
-        private ushort _reserved1;
-        private ushort _reserved2;
-        private ushort _reserved3;
-        private IntPtr _value;
-        private IntPtr _padding;
-
-        public static PropVariant FromString(string value) => new()
-        {
-            _type = VtLpwstr,
-            _value = Marshal.StringToCoTaskMemUni(value),
-        };
-    }
 
     [ComImport]
     [Guid("00021401-0000-0000-C000-000000000046")]
@@ -172,21 +118,5 @@ public static class ShortcutFactory
         void SaveCompleted([MarshalAs(UnmanagedType.LPWStr)] string fileName);
 
         void GetCurFile([Out][MarshalAs(UnmanagedType.LPWStr)] StringBuilder fileName);
-    }
-
-    [ComImport]
-    [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    [Guid("886D8EEB-8CF2-4446-8D02-CDBA1DBDCF99")]
-    private interface IPropertyStore
-    {
-        void GetCount(out uint count);
-
-        void GetAt(uint index, out PropertyKey key);
-
-        void GetValue(ref PropertyKey key, out PropVariant value);
-
-        void SetValue(ref PropertyKey key, ref PropVariant value);
-
-        void Commit();
     }
 }

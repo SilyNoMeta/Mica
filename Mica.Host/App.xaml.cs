@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using Microsoft.UI.Xaml;
 using Mica.Core;
 using Mica.Core.Integration;
@@ -17,9 +16,6 @@ public partial class App : Application
     public static WebAppConfig Config { get; private set; } = null!;
 
     public static nint WindowHandle => WinRT.Interop.WindowNative.GetWindowHandle(Window);
-
-    [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
-    private static extern int SetCurrentProcessExplicitAppUserModelID(string appId);
 
     public App()
     {
@@ -49,17 +45,13 @@ public partial class App : Application
 
         StartupLog.Write($"Launching {Config.Name} ({Config.StartUrl})");
 
-        // Must happen before the first window exists: this is what gives each app
-        // its own taskbar button, pinning target and toast identity, even though
-        // every Mica app shares one executable.
-        try
-        {
-            SetCurrentProcessExplicitAppUserModelID(MicaPaths.AppUserModelId(Config.Slug));
-        }
-        catch (Exception ex)
-        {
-            StartupLog.WriteException("App.SetAumid", ex);
-        }
+        var appUserModelId = MicaPaths.AppUserModelId(Config.Slug);
+
+        // Before any window exists: this is what gives each app its own taskbar
+        // button, pinning target and toast identity, even though every Mica app
+        // shares one executable.
+        AppIdentity.ApplyToProcess(appUserModelId);
+        AppIdentity.PublishDisplayInfo(appUserModelId, Config.Name, MicaPaths.IconFile(Config.Slug));
 
         if (!string.IsNullOrEmpty(Config.Slug)
             && SingleInstanceHelper.RedirectIfAlreadyRunning($"Mica.{Config.Slug}"))
@@ -70,6 +62,12 @@ public partial class App : Application
         }
 
         Window = new MainWindow();
+
+        // The taskbar reads the id from the window, and creates the button the
+        // moment it is shown — so this has to land between construction and
+        // Activate, or the app shows up as its executable name.
+        AppIdentity.ApplyToWindow(WindowHandle, appUserModelId);
+
         Window.Activate();
         StartupLog.Write("Window activated");
     }

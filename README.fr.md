@@ -22,11 +22,12 @@ et vous pouvez l'épingler pour qu'elle reste.
   redémarrages.
 - **Rien qui gêne.** Barre masquée jusqu'à <kbd>Alt</kbd>, épinglable. Les réglages se limitent
   volontairement à deux choses : le zoom et les extensions.
-- **Les extensions du Chrome Web Store.** Le bouton « Ajouter à Chrome » du store ne fait rien
-  dans un navigateur embarqué : Mica fait l'installation à sa place. Collez le lien de
-  l'extension, Mica récupère le paquet auprès du service de mise à jour de Google, le
-  décompresse et le charge dans le profil de l'app. Un bloqueur de pub ? Installez celui que
-  vous voulez — Mica ne choisit pas pour vous.
+- **Les extensions du Chrome Web Store.** Le bouton « Ajouter à Chrome » du store ne peut rien
+  installer dans un navigateur embarqué — il se dégrade en téléchargement qui échoue. Mica
+  intercepte ce téléchargement et fait l'installation à sa place, et propose une bannière en un
+  clic dès que vous arrivez sur la page d'une extension. Coller le lien dans les réglages
+  fonctionne aussi. Un bloqueur de pub ? Installez celui que vous voulez — Mica ne choisit pas
+  pour vous.
 - **Les notifications web deviennent des toasts Windows**, attribués à l'app et non à un
   navigateur.
 - **Les liens se comportent bien.** Un lien externe que vous cliquez s'ouvre dans votre vrai
@@ -36,9 +37,18 @@ et vous pouvez l'épingler pour qu'elle reste.
 ## Comment ça marche
 
 Un seul exécutable hôte sert toutes les apps. Ce qui les fait se comporter comme des
-applications distinctes, c'est l'**AppUserModelID** propre à chacune, inscrit dans son
-raccourci : Windows regroupe les boutons de la barre des tâches, résout l'épinglage et attribue
-les toasts d'après cet identifiant, pas d'après le chemin de l'exécutable.
+applications distinctes, c'est l'**AppUserModelID** propre à chacune : Windows regroupe les
+boutons de la barre des tâches, résout l'épinglage et attribue les toasts d'après cet
+identifiant, pas d'après le chemin de l'exécutable. Mica l'inscrit à trois endroits, et les
+trois sont nécessaires — sur le raccourci, sur la fenêtre avant son premier affichage (une
+fenêtre sans identifiant retombe sur l'exécutable, et toutes les apps s'afficheraient alors
+comme « Mica.Host »), et dans `HKCU\Software\Classes\AppUserModelId`, où le shell lit le nom et
+l'icône.
+
+Mica se place aussi *lui-même* dans le menu Démarrer à chaque lancement : une app non packagée
+reste invisible pour Démarrer et la recherche tant qu'aucun raccourci n'existe. La même passe
+repointe les raccourcis des apps vers l'installation courante, pour qu'un déplacement ou une
+recompilation ne les laisse pas orphelins.
 
 ```
 %LOCALAPPDATA%\Mica\apps\<slug>\
@@ -79,13 +89,13 @@ Prérequis : .NET SDK 10, et le Windows App Runtime 2.3 (voir [Déploiement](#d�
 
 ```powershell
 dotnet build Mica.slnx -p:Platform=x64
-.\Mica.Builder\bin\x64\Debug\net10.0-windows10.0.26100.0\win-x64\Mica.Builder.exe
+.\Mica.Builder\bin\Debug\net10.0-windows10.0.26100.0\win-x64\Mica.Builder.exe
 ```
 
 Les apps générées se lancent depuis leur raccourci, ou directement :
 
 ```powershell
-.\Mica.Host\bin\x64\Debug\net10.0-windows10.0.26100.0\win-x64\Mica.Host.exe --app gemini
+.\Mica.Host\bin\Debug\net10.0-windows10.0.26100.0\win-x64\Mica.Host.exe --app gemini
 ```
 
 `--url <adresse>` exécute la coquille sur un site sans créer d'app — pratique pour jeter un œil
