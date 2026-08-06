@@ -20,14 +20,29 @@ public partial class App : Application
     {
         var argv = Environment.GetCommandLineArgs();
 
-        // Settings › Installed apps calls back into the builder to remove an app.
-        // That path never shows UI.
-        for (var i = 1; i < argv.Length - 1; i++)
+        // Settings › Installed apps calls back into the builder to remove one app;
+        // the uninstaller calls back to remove all of them. Neither path shows UI.
+        for (var i = 1; i < argv.Length; i++)
         {
-            if (argv[i] == "--uninstall")
+            if (argv[i] == "--uninstall-all")
             {
-                RemoveSilently(argv[i + 1]);
-                Exit();
+                Run(AppRegistry.RemoveAll);
+                Environment.Exit(0);
+                return;
+            }
+
+            if (argv[i] == "--uninstall" && i + 1 < argv.Length)
+            {
+                var slug = argv[i + 1];
+                Run(() =>
+                {
+                    if (AppRegistry.Find(slug) is { } config)
+                    {
+                        AppRegistry.Remove(config);
+                    }
+                });
+
+                Environment.Exit(0);
                 return;
             }
         }
@@ -52,19 +67,16 @@ public partial class App : Application
         Window.Activate();
     }
 
-    private static void RemoveSilently(string slug)
+    /// <summary>Runs a silent maintenance action; nothing can be reported from one.</summary>
+    private static void Run(Action action)
     {
         try
         {
-            var config = AppRegistry.Find(slug);
-            if (config is not null)
-            {
-                AppRegistry.Remove(config);
-            }
+            action();
         }
         catch
         {
-            // Nothing can be reported from a silent uninstall.
+            // An uninstall that cannot finish must still let the uninstaller proceed.
         }
     }
 }

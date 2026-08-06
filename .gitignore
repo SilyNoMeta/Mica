@@ -10,8 +10,9 @@ ARM64/
 *.suo
 .vs/
 
-## Publish output
+## Publish output and installer artefacts
 publish/
+dist/
 *.zip
 
 ## Local runtime data (Mica writes its apps to %LOCALAPPDATA%\Mica, never here)

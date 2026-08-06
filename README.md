@@ -94,7 +94,9 @@ Mica.slnx
 │   ├── WebAppConfig.cs   One app's configuration
 │   └── MicaPaths.cs      Where everything lives
 ├── Mica.Host/            The shared executable every generated app runs on
-└── Mica.Builder/         The Mica window: your apps, and the Add app flow
+├── Mica.Builder/         The Mica window: your apps, and the Add app flow
+├── installer/            Publish.ps1 (payload) and Mica.iss (Inno Setup)
+└── tools/                Generate-MicaIcon.ps1 — Mica's own mark
 ```
 
 ## Build & run
@@ -118,21 +120,44 @@ look before committing to one.
 > Shortcuts created by a development build point into `bin\`. Rebuilding elsewhere, or deleting
 > the folder, leaves them dangling; recreate the app, or remove it from Settings › Installed apps.
 
-## Deployment
+## Installer
+
+```powershell
+powershell -ExecutionPolicy Bypass -File installer\Publish.ps1
+iscc installer\Mica.iss /DAppVersion=0.1.0
+```
+
+That produces `dist\MicaSetup-<version>-x64.exe`, about 54 MB. It installs per user into
+`%LOCALAPPDATA%\Programs\Mica` with **no administrator rights and no Developer Mode**. Per-user
+is not politeness: Mica writes a launcher into its own install folder for every app you create,
+so that folder has to stay writable by you.
+
+Uninstalling asks whether to remove the apps you built, and defaults to keeping them — removing
+them deletes their browser profiles, which signs you out of every site they open.
+
+Tagging `v*` runs [`.github/workflows/release.yml`](.github/workflows/release.yml), which
+publishes, compiles the installer and attaches it to a draft release.
+
+### Runtime prerequisites
 
 Mica is **unpackaged** on purpose. Requiring Developer Mode and an MSIX registration per app
 would defeat the point of creating apps on demand — so apps are a folder plus a shortcut, and
 creating one is instant.
 
-It is also **framework-dependent** rather than self-contained, which is the one real trade-off
-in the design: a self-contained Windows App SDK layout omits
-`Microsoft.WindowsAppRuntime.Insights.Resource.dll`, and without it `AppNotificationManager`
-cannot register — so self-contained would cost web notifications entirely. The installer chains
-the Windows App Runtime instead. Until that installer exists, install the runtime yourself:
+.NET ships **self-contained**, so no .NET runtime is needed. The Windows App SDK deliberately
+does not: a self-contained SDK layout omits `Microsoft.WindowsAppRuntime.Insights.Resource.dll`,
+and without it `AppNotificationManager` cannot register — self-contained would cost web
+notifications entirely. The installer detects the Windows App Runtime and fetches it if missing;
+that one download is the price of keeping notifications. To install it by hand:
 
 ```powershell
-winget install Microsoft.WindowsAppRuntime.1.8
+winget install Microsoft.WindowsAppRuntime.2
 ```
+
+> `dotnet publish` does not emit an unpackaged WinUI app's own `<name>.pri`, only its
+> libraries'. A published build without it dies inside `Microsoft.UI.Xaml` before reaching any
+> app code, so `Publish.ps1` copies each executable's resource index out of the build output —
+> and Mica needs the host's copy anyway, to hand one to every launcher it writes.
 
 ## Known limitations
 
@@ -145,7 +170,7 @@ winget install Microsoft.WindowsAppRuntime.1.8
   site offers, then to a lettermark — creating an app never fails over an icon.
 - **Extensions follow WebView2's rules.** Whatever manifest versions your WebView2 runtime
   accepts, Mica accepts.
-- No installer yet, and no English UI yet — the app's interface is French.
+- **No English UI yet** — the app's interface is French. The documentation is bilingual.
 
 ## Legal
 

@@ -185,6 +185,48 @@ public static class AppRegistry
         }
     }
 
+    /// <summary>
+    /// Removes every generated app and Mica's own traces outside the install folder:
+    /// the Start menu group, the shell identity registrations and the data directory.
+    /// Used by the uninstaller, which asks the user first — this deletes the browser
+    /// profiles, so it signs them out of every app they built.
+    /// </summary>
+    public static void RemoveAll()
+    {
+        foreach (var config in List())
+        {
+            try
+            {
+                Remove(config);
+            }
+            catch (Exception ex)
+            {
+                StartupLog.WriteException($"RemoveAll.{config.Slug}", ex);
+            }
+        }
+
+        try
+        {
+            ShortcutFactory.Delete(MicaPaths.ShortcutFile(MicaPaths.ProductName));
+            AppIdentity.Remove($"{MicaPaths.ProductName}.Builder");
+
+            if (Directory.Exists(MicaPaths.StartMenuFolder)
+                && !Directory.EnumerateFileSystemEntries(MicaPaths.StartMenuFolder).Any())
+            {
+                Directory.Delete(MicaPaths.StartMenuFolder);
+            }
+
+            if (Directory.Exists(MicaPaths.Root))
+            {
+                Directory.Delete(MicaPaths.Root, recursive: true);
+            }
+        }
+        catch (Exception ex)
+        {
+            StartupLog.WriteException("RemoveAll.Product", ex);
+        }
+    }
+
     public static void Launch(WebAppConfig config)
     {
         var launcher = AppLauncherFactory.LauncherPath(config.Slug);
