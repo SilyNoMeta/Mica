@@ -188,11 +188,13 @@ public sealed partial class BrowserShellPage : UserControl
             altAlone = false;
           }, true);
 
+          // Passive: a non-passive wheel listener takes scrolling off the compositor
+          // and makes every wheel event wait on the page's main thread. Nothing here
+          // needs to cancel the event — the browser's own Ctrl+wheel zoom is already
+          // switched off — and scrolling is not worth risking for a zoom gesture.
           addEventListener('wheel', e => {
-            if (!e.ctrlKey) { return; }
-            e.preventDefault();
-            post(e.deltaY < 0 ? 'mica:zoom-in' : 'mica:zoom-out');
-          }, { capture: true, passive: false });
+            if (e.ctrlKey) { post(e.deltaY < 0 ? 'mica:zoom-in' : 'mica:zoom-out'); }
+          }, { capture: true, passive: true });
 
           addEventListener('blur', () => { altAlone = false; });
           addEventListener('mousedown', () => { altAlone = false; }, true);
