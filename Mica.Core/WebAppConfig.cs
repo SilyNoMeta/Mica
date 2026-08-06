@@ -111,4 +111,21 @@ public sealed class WebAppConfig
 
     public void Save(string path) =>
         File.WriteAllText(path, JsonSerializer.Serialize(this, SerializerOptions));
+
+    /// <summary>
+    /// Changes only the settings a caller owns, on top of whatever is on disk now.
+    /// <para>
+    /// A running app must never write its whole configuration back: Mica edits the
+    /// same file while the app is open, so saving an in-memory copy silently reverts
+    /// whatever the user changed there — and, worse, makes any value the app happens
+    /// to be holding permanent, including one it was only ever meant to hold for a
+    /// moment.
+    /// </para>
+    /// </summary>
+    public static void Update(string path, Action<WebAppConfig> change)
+    {
+        var current = File.Exists(path) ? Load(path) : new WebAppConfig();
+        change(current);
+        current.Save(path);
+    }
 }

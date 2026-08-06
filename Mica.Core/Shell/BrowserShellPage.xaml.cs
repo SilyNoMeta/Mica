@@ -918,7 +918,14 @@ public sealed partial class BrowserShellPage : UserControl
 
         try
         {
-            _config.Save(MicaPaths.ConfigFile(_config.Slug));
+            // Only what the shell owns. Everything else in that file belongs to Mica,
+            // which may have changed it while this app was running.
+            WebAppConfig.Update(MicaPaths.ConfigFile(_config.Slug), saved =>
+            {
+                saved.Zoom = _config.Zoom;
+                saved.ToolbarPinned = _config.ToolbarPinned;
+                saved.RunInBackground = _config.RunInBackground;
+            });
         }
         catch (Exception ex)
         {

@@ -213,7 +213,15 @@ public sealed partial class MainWindow : Window
 
         try
         {
-            _config.Save(MicaPaths.ConfigFile(_config.Slug));
+            // The window owns its size and whether it starts with Windows, and
+            // nothing else in that file. Writing the whole in-memory copy would undo
+            // anything Mica changed while this app was open.
+            WebAppConfig.Update(MicaPaths.ConfigFile(_config.Slug), saved =>
+            {
+                saved.WindowWidth = _config.WindowWidth;
+                saved.WindowHeight = _config.WindowHeight;
+                saved.StartWithWindows = _config.StartWithWindows;
+            });
         }
         catch (Exception ex)
         {
