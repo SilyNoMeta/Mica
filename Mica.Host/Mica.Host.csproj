@@ -25,6 +25,9 @@
     <!-- Fallback when Windows runs in a language Mica does not ship. -->
     <DefaultLanguage>en</DefaultLanguage>
 
+    <!-- Kept in step with Mica.Builder; the release workflow overrides both. -->
+    <Version>0.4.0</Version>
+
     <!--
       Mica deliberately produces plain desktop apps rather than MSIX packages: the
       end user creates apps on demand, so requiring Developer Mode and a package

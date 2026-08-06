@@ -154,6 +154,21 @@
   <data name="SwitchOn" xml:space="preserve">
     <value>켬</value>
   </data>
+  <data name="UpdateAction" xml:space="preserve">
+    <value>업데이트</value>
+  </data>
+  <data name="UpdateAvailableTitle" xml:space="preserve">
+    <value>Mica {0}을(를) 사용할 수 있습니다</value>
+  </data>
+  <data name="UpdateDownloading" xml:space="preserve">
+    <value>Mica {0} 내려받는 중…</value>
+  </data>
+  <data name="UpdateFailedTitle" xml:space="preserve">
+    <value>업데이트하지 못했습니다</value>
+  </data>
+  <data name="UpdateInstalling" xml:space="preserve">
+    <value>Mica가 종료된 뒤 업데이트하고 다시 열립니다.</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>내 앱</value>
   </data>

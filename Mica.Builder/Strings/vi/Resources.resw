@@ -154,6 +154,21 @@
   <data name="SwitchOn" xml:space="preserve">
     <value>Bật</value>
   </data>
+  <data name="UpdateAction" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="UpdateAvailableTitle" xml:space="preserve">
+    <value>Đã có Mica {0}</value>
+  </data>
+  <data name="UpdateDownloading" xml:space="preserve">
+    <value>Đang tải Mica {0}…</value>
+  </data>
+  <data name="UpdateFailedTitle" xml:space="preserve">
+    <value>Không cập nhật được</value>
+  </data>
+  <data name="UpdateInstalling" xml:space="preserve">
+    <value>Mica sẽ đóng lại, cập nhật rồi mở lại.</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>Ứng dụng của bạn</value>
   </data>

@@ -154,6 +154,21 @@
   <data name="SwitchOn" xml:space="preserve">
     <value>Вкл.</value>
   </data>
+  <data name="UpdateAction" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="UpdateAvailableTitle" xml:space="preserve">
+    <value>Доступна Mica {0}</value>
+  </data>
+  <data name="UpdateDownloading" xml:space="preserve">
+    <value>Загрузка Mica {0}…</value>
+  </data>
+  <data name="UpdateFailedTitle" xml:space="preserve">
+    <value>Не удалось обновить</value>
+  </data>
+  <data name="UpdateInstalling" xml:space="preserve">
+    <value>Mica закроется, обновится и откроется снова.</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>Ваши приложения</value>
   </data>

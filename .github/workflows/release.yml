@@ -42,7 +42,9 @@ jobs:
 
       - name: Publish payload
         shell: pwsh
-        run: ./installer/Publish.ps1 -Architecture x64
+        # The version is stamped into the assemblies: Mica compares it against the
+        # latest release tag to decide whether an update exists.
+        run: ./installer/Publish.ps1 -Architecture x64 -Version ${{ steps.version.outputs.version }}
 
       - name: Install Inno Setup
         shell: pwsh

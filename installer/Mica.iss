@@ -82,6 +82,10 @@ Filename: "{tmp}\WindowsAppRuntimeInstall.exe"; Parameters: "--quiet"; \
 Filename: "{app}\{#AppExeName}"; Description: "{cm:LaunchProgram,{#AppName}}"; \
     Flags: nowait postinstall skipifsilent
 
+; Mica updates itself by running this silently and quitting, so it cannot reopen
+; itself afterwards — its files are being replaced. /relaunch=1 asks Setup to do it.
+Filename: "{app}\{#AppExeName}"; Flags: nowait; Check: ShouldRelaunch
+
 [UninstallRun]
 ; Runs while the files are still present. The builder removes each generated app:
 ; its shortcut, launcher, browser profile and Installed-apps entry.
@@ -149,6 +153,11 @@ begin
       DownloadPage.Hide;
     end;
   end;
+end;
+
+function ShouldRelaunch: Boolean;
+begin
+  Result := ExpandConstant('{param:relaunch|0}') = '1';
 end;
 
 { Deleting someone's apps — and with them their signed-in sessions — is not a

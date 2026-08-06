@@ -154,6 +154,21 @@
   <data name="SwitchOn" xml:space="preserve">
     <value>مفعّل</value>
   </data>
+  <data name="UpdateAction" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="UpdateAvailableTitle" xml:space="preserve">
+    <value>الإصدار {0} من Mica متاح</value>
+  </data>
+  <data name="UpdateDownloading" xml:space="preserve">
+    <value>جارٍ تنزيل Mica {0}…</value>
+  </data>
+  <data name="UpdateFailedTitle" xml:space="preserve">
+    <value>تعذّر التحديث</value>
+  </data>
+  <data name="UpdateInstalling" xml:space="preserve">
+    <value>سيُغلق Mica ويُحدَّث ثم يُعاد فتحه.</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>تطبيقاتك</value>
   </data>

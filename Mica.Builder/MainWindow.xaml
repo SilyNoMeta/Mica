@@ -192,10 +192,14 @@
             </Grid>
         </Grid>
 
-        <InfoBar
-            x:Name="StatusBar"
-            Grid.Row="3"
-            Margin="16,0,16,16"
-            IsOpen="False" />
+        <StackPanel Grid.Row="3" Margin="16,0,16,16" Spacing="8">
+            <InfoBar x:Name="UpdateBar" IsOpen="False">
+                <InfoBar.ActionButton>
+                    <Button x:Name="UpdateButton" Click="OnUpdateClick" />
+                </InfoBar.ActionButton>
+            </InfoBar>
+
+            <InfoBar x:Name="StatusBar" IsOpen="False" />
+        </StackPanel>
     </Grid>
 </Window>

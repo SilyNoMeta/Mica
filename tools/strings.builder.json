@@ -351,6 +351,48 @@
     "vi": "Theo mặc định, các ứng dụng dùng chung một bộ máy trình duyệt, tiết kiệm khoảng 250 MB mỗi ứng dụng. Tài khoản và dữ liệu vẫn tách biệt trong cả hai trường hợp. Hãy cấp cho ứng dụng này bộ máy riêng nếu bạn không muốn một ứng dụng bị treo hay lỗi kéo theo những ứng dụng khác. Có hiệu lực từ lần khởi động sau, với phiên đã đăng xuất.",
     "ar": "تتشارك التطبيقات محرك تصفح واحدًا افتراضيًا، ما يوفّر نحو 250 ميغابايت لكل تطبيق. تبقى الحسابات والبيانات منفصلة في الحالتين. امنح هذا التطبيق محركًا خاصًا به إن كنت تفضّل ألا يجرّ تطبيق متجمّد أو منهار البقية معه. يسري من التشغيل التالي، مع جلسة مسجَّل خروجها."
   },
+  "UpdateAvailableTitle": {
+    "en": "Mica {0} is available", "fr": "Mica {0} est disponible",
+    "es": "Mica {0} está disponible", "pt-BR": "O Mica {0} está disponível",
+    "de": "Mica {0} ist verfügbar", "it": "Mica {0} è disponibile",
+    "ru": "Доступна Mica {0}", "zh-Hans": "Mica {0} 可用",
+    "ja": "Mica {0} が利用できます", "ko": "Mica {0}을(를) 사용할 수 있습니다",
+    "vi": "Đã có Mica {0}", "ar": "الإصدار {0} من Mica متاح"
+  },
+  "UpdateAction": {
+    "en": "Update", "fr": "Mettre à jour", "es": "Actualizar", "pt-BR": "Atualizar",
+    "de": "Aktualisieren", "it": "Aggiorna", "ru": "Обновить", "zh-Hans": "更新",
+    "ja": "更新", "ko": "업데이트", "vi": "Cập nhật", "ar": "تحديث"
+  },
+  "UpdateDownloading": {
+    "en": "Downloading Mica {0}…", "fr": "Téléchargement de Mica {0}…",
+    "es": "Descargando Mica {0}…", "pt-BR": "Baixando o Mica {0}…",
+    "de": "Mica {0} wird heruntergeladen…", "it": "Download di Mica {0}…",
+    "ru": "Загрузка Mica {0}…", "zh-Hans": "正在下载 Mica {0}…",
+    "ja": "Mica {0} をダウンロードしています…", "ko": "Mica {0} 내려받는 중…",
+    "vi": "Đang tải Mica {0}…", "ar": "جارٍ تنزيل Mica {0}…"
+  },
+  "UpdateInstalling": {
+    "en": "Mica will close, update and reopen.",
+    "fr": "Mica va se fermer, se mettre à jour et rouvrir.",
+    "es": "Mica se cerrará, se actualizará y volverá a abrirse.",
+    "pt-BR": "O Mica vai fechar, atualizar e abrir de novo.",
+    "de": "Mica wird geschlossen, aktualisiert und erneut geöffnet.",
+    "it": "Mica si chiuderà, si aggiornerà e si riaprirà.",
+    "ru": "Mica закроется, обновится и откроется снова.",
+    "zh-Hans": "Mica 将关闭、更新并重新打开。",
+    "ja": "Mica はいったん終了し、更新してから再び開きます。",
+    "ko": "Mica가 종료된 뒤 업데이트하고 다시 열립니다.",
+    "vi": "Mica sẽ đóng lại, cập nhật rồi mở lại.",
+    "ar": "سيُغلق Mica ويُحدَّث ثم يُعاد فتحه."
+  },
+  "UpdateFailedTitle": {
+    "en": "Could not update", "fr": "Mise à jour impossible", "es": "No se pudo actualizar",
+    "pt-BR": "Não foi possível atualizar", "de": "Aktualisieren fehlgeschlagen",
+    "it": "Aggiornamento non riuscito", "ru": "Не удалось обновить", "zh-Hans": "更新失败",
+    "ja": "更新できませんでした", "ko": "업데이트하지 못했습니다",
+    "vi": "Không cập nhật được", "ar": "تعذّر التحديث"
+  },
   "Done": {
     "en": "Done", "fr": "Terminé", "es": "Listo", "pt-BR": "Concluído",
     "de": "Fertig", "it": "Fatto", "ru": "Готово", "zh-Hans": "完成",

@@ -191,6 +191,22 @@ dans Mica : *Lui donner son propre moteur*, désactivé par défaut.
 Changer de mode redémarre l'app sur un profil vierge et déconnecté, ses données n'étant pas
 rangées au même endroit dans les deux cas.
 
+## Mises à jour
+
+Mica interroge GitHub à son ouverture, au plus une fois par jour, et affiche un bandeau nommant
+la version avec ses notes de publication. Rien n'est téléchargé tant que le bouton n'est pas
+pressé : l'installateur n'est pas signé, SmartScreen peut donc l'interroger, et mieux vaut que
+cela arrive à la suite d'un clic délibéré que de quelque chose qui s'est produit tout seul. Le
+clic récupère l'installateur, l'exécute en silence et rouvre Mica sur la nouvelle version.
+
+Seule la fenêtre Mica vérifie — jamais une app générée. Une requête par jour plutôt qu'une par
+app ouverte, et un avis de mise à jour a sa place là où l'utilisateur gère ses apps, pas au
+milieu de ses messages.
+
+La comparaison porte sur la version de l'assembly face au tag de la release : le workflow de
+publication y inscrit donc la version qu'il construit. Une charge utile compilée avec la
+mauvaise version ne se mettrait jamais à jour, ou proposerait une mise à jour qu'elle est déjà.
+
 ## Installateur
 
 ```powershell

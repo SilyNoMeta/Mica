@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Mica.Core;
 using Mica.Core.Apps;
 using Mica.Core.Localization;
+using Mica.Core.Updates;
 using Windows.Graphics;
 
 namespace Mica.Builder;
@@ -33,6 +34,56 @@ public sealed partial class MainWindow : Window
         ApplyStrings();
 
         _ = RefreshAsync();
+        _ = CheckForUpdateAsync();
+    }
+
+    // ---- Updates -------------------------------------------------------------
+
+    private UpdateInfo? _update;
+
+    /// <summary>
+    /// Looks for a newer Mica in the background, at most once a day. Nothing is
+    /// downloaded until the user presses the button: the installer is unsigned, and
+    /// SmartScreen questioning it is far better met after a deliberate click.
+    /// </summary>
+    private async Task CheckForUpdateAsync()
+    {
+        _update = await UpdateChecker.CheckAsync();
+        if (_update is null)
+        {
+            return;
+        }
+
+        UpdateButton.Content = Strings.Get("UpdateAction");
+        UpdateBar.Severity = InfoBarSeverity.Informational;
+        UpdateBar.Title = Strings.Format("UpdateAvailableTitle", _update.Version);
+        UpdateBar.Message = _update.Notes;
+        UpdateBar.IsOpen = true;
+    }
+
+    private async void OnUpdateClick(object sender, RoutedEventArgs e)
+    {
+        if (_update is not { } update)
+        {
+            return;
+        }
+
+        UpdateButton.IsEnabled = false;
+        UpdateBar.Title = Strings.Format("UpdateDownloading", update.Version);
+        UpdateBar.Message = Strings.Get("UpdateInstalling");
+
+        try
+        {
+            var installer = await UpdateChecker.DownloadAsync(update);
+            UpdateChecker.InstallAndExit(installer);
+        }
+        catch (Exception ex)
+        {
+            UpdateBar.Severity = InfoBarSeverity.Error;
+            UpdateBar.Title = Strings.Get("UpdateFailedTitle");
+            UpdateBar.Message = ex.Message;
+            UpdateButton.IsEnabled = true;
+        }
     }
 
     private void ApplyStrings()

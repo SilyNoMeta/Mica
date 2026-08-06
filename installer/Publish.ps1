@@ -22,6 +22,11 @@ param(
     [ValidateSet('x64', 'arm64')]
     [string]$Architecture = 'x64',
 
+    # Stamped into the assemblies. Mica compares this against the latest release tag
+    # to decide whether an update exists, so a payload built with the wrong version
+    # would either never update or offer an update it already is.
+    [string]$Version,
+
     [string]$Output
 )
 
@@ -44,12 +49,15 @@ $platform = if ($Architecture -eq 'arm64') { 'ARM64' } else { 'x64' }
 foreach ($project in @('Mica.Host', 'Mica.Builder')) {
     Write-Host "Publishing $project ($Architecture)..."
 
+    $versionArgs = if ($Version) { @("-p:Version=$Version") } else { @() }
+
     dotnet publish (Join-Path $root "$project\$project.csproj") `
         --configuration $Configuration `
         --runtime "win-$Architecture" `
         --self-contained true `
         -p:Platform=$platform `
         -p:DebugType=none `
+        @versionArgs `
         --output $Output `
         --nologo
 

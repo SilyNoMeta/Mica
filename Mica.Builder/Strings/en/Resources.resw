@@ -154,6 +154,21 @@
   <data name="SwitchOn" xml:space="preserve">
     <value>On</value>
   </data>
+  <data name="UpdateAction" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="UpdateAvailableTitle" xml:space="preserve">
+    <value>Mica {0} is available</value>
+  </data>
+  <data name="UpdateDownloading" xml:space="preserve">
+    <value>Downloading Mica {0}…</value>
+  </data>
+  <data name="UpdateFailedTitle" xml:space="preserve">
+    <value>Could not update</value>
+  </data>
+  <data name="UpdateInstalling" xml:space="preserve">
+    <value>Mica will close, update and reopen.</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>Your apps</value>
   </data>

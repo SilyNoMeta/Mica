@@ -183,6 +183,22 @@ by default.
 Switching either way starts that app from a fresh, signed-out profile, since its data lives
 in a different place in each mode.
 
+## Updates
+
+Mica asks GitHub for the latest release when it opens, at most once a day, and shows a bar
+naming the version with its release notes. Nothing is downloaded until the button is pressed:
+the installer is not code signed, so SmartScreen may question it, and that is far better met
+as the result of a deliberate click than as something that happened by itself. Pressing it
+fetches the installer, runs it silently and reopens Mica on the new version.
+
+Only the Mica window checks — never a generated app. One request a day rather than one per
+open app, and an update notice belongs where the user manages their apps rather than in the
+middle of their messages.
+
+The comparison is the assembly version against the release tag, so the release workflow stamps
+the version it is building. A payload built with the wrong version would either never update
+or offer an update it already is.
+
 ## Installer
 
 ```powershell
