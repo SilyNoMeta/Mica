@@ -25,12 +25,6 @@
   <data name="ShellBackgroundHint" xml:space="preserve">
     <value>关闭窗口时应用会留在通知区域而不是退出，通知因此继续送达。等待期间它会持续占用内存。</value>
   </data>
-  <data name="ShellBackgroundOff" xml:space="preserve">
-    <value>关</value>
-  </data>
-  <data name="ShellBackgroundOn" xml:space="preserve">
-    <value>开</value>
-  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>“添加至 Chrome”在应用内无效。Mica 可以把它安装到 {0}。</value>
   </data>
@@ -113,6 +107,12 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>重置</value>
+  </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>开</value>
   </data>
   <data name="TrayOpen" xml:space="preserve">
     <value>打开</value>

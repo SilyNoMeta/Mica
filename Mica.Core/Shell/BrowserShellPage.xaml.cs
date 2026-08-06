@@ -75,8 +75,8 @@ public sealed partial class BrowserShellPage : UserControl
         ZoomResetButton.Content = Strings.Get("ShellZoomReset");
 
         BackgroundHeading.Text = Strings.Get("ShellBackground");
-        BackgroundToggle.OnContent = Strings.Get("ShellBackgroundOn");
-        BackgroundToggle.OffContent = Strings.Get("ShellBackgroundOff");
+        BackgroundToggle.OnContent = Strings.Get("SwitchOn");
+        BackgroundToggle.OffContent = Strings.Get("SwitchOff");
         BackgroundHint.Text = Strings.Get("ShellBackgroundHint");
         BackgroundToggle.IsOn = _config.RunInBackground;
 

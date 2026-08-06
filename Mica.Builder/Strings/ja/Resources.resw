@@ -142,6 +142,12 @@
   <data name="SettingsStartupHint" xml:space="preserve">
     <value>上の設定と組み合わせると、アプリは通知領域に直接起動します。Windows は [設定] › [アプリ] › [スタートアップ] に表示し、そこでも無効にできます。</value>
   </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>オフ</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>オン</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>あなたのアプリ</value>
   </data>

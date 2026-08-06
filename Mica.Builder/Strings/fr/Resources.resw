@@ -142,6 +142,12 @@
   <data name="SettingsStartupHint" xml:space="preserve">
     <value>Combiné au réglage ci-dessus, l&apos;app démarre directement dans la zone de notification. Windows la liste dans Paramètres › Applications › Démarrage, où vous pouvez aussi la désactiver.</value>
   </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>Activé</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>Vos apps</value>
   </data>

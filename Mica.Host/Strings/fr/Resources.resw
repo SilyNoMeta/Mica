@@ -25,12 +25,6 @@
   <data name="ShellBackgroundHint" xml:space="preserve">
     <value>Fermer la fenêtre laisse l&apos;app dans la zone de notification au lieu de quitter, pour que les notifications continuent d&apos;arriver. Elle continue d&apos;occuper de la mémoire en attendant.</value>
   </data>
-  <data name="ShellBackgroundOff" xml:space="preserve">
-    <value>Désactivé</value>
-  </data>
-  <data name="ShellBackgroundOn" xml:space="preserve">
-    <value>Activé</value>
-  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>« Ajouter à Chrome » ne fonctionne pas dans une app. Mica peut l&apos;installer dans {0}.</value>
   </data>
@@ -113,6 +107,12 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>Rétablir</value>
+  </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>Désactivé</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>Activé</value>
   </data>
   <data name="TrayOpen" xml:space="preserve">
     <value>Ouvrir</value>

@@ -25,12 +25,6 @@
   <data name="ShellBackgroundHint" xml:space="preserve">
     <value>Đóng cửa sổ sẽ để ứng dụng nằm ở khay thông báo thay vì thoát, nhờ đó thông báo vẫn tiếp tục đến. Trong lúc chờ, nó vẫn chiếm bộ nhớ.</value>
   </data>
-  <data name="ShellBackgroundOff" xml:space="preserve">
-    <value>Tắt</value>
-  </data>
-  <data name="ShellBackgroundOn" xml:space="preserve">
-    <value>Bật</value>
-  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>“Thêm vào Chrome” không hoạt động bên trong ứng dụng. Mica có thể cài nó vào {0}.</value>
   </data>
@@ -113,6 +107,12 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>Đặt lại</value>
+  </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>Bật</value>
   </data>
   <data name="TrayOpen" xml:space="preserve">
     <value>Mở</value>

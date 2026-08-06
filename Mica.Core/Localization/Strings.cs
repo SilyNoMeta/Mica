@@ -52,13 +52,40 @@ public static class Strings
                 .GetValue($"{ResourceMap}/{key}", Context)
                 .ValueAsString;
 
-            return string.IsNullOrEmpty(value) ? key : value;
+            if (!string.IsNullOrEmpty(value))
+            {
+                return value;
+            }
         }
         catch
         {
-            return key;
+            // Falls through to the report below.
         }
+
+        ReportMissing(key);
+        return key;
     }
+
+    /// <summary>
+    /// Records a key that resolved to nothing, once each. A missing string shows as
+    /// its own key rather than throwing, which is right for the user but means a
+    /// mistake — a key that only exists in the other project's catalogue, say — can
+    /// otherwise sit in the interface unnoticed.
+    /// </summary>
+    private static void ReportMissing(string key)
+    {
+        lock (Missing)
+        {
+            if (!Missing.Add(key))
+            {
+                return;
+            }
+        }
+
+        Integration.StartupLog.Write($"MISSING STRING: {key}");
+    }
+
+    private static readonly HashSet<string> Missing = new(StringComparer.Ordinal);
 
     public static string Format(string key, params object?[] arguments) =>
         string.Format(CultureInfo.CurrentCulture, Get(key), arguments);

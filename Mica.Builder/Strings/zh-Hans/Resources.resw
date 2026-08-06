@@ -142,6 +142,12 @@
   <data name="SettingsStartupHint" xml:space="preserve">
     <value>与上面的选项配合，应用会直接启动到通知区域。Windows 会在“设置 › 应用 › 启动”中列出它，你也可以在那里关闭。</value>
   </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>关</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>开</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>你的应用</value>
   </data>

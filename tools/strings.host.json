@@ -205,12 +205,12 @@
     "de": "Hintergrund", "it": "Secondo piano", "ru": "Фоновый режим", "zh-Hans": "后台运行",
     "ja": "バックグラウンド", "ko": "백그라운드", "vi": "Chạy nền", "ar": "الخلفية"
   },
-  "ShellBackgroundOn": {
+  "SwitchOn": {
     "en": "On", "fr": "Activé", "es": "Activado", "pt-BR": "Ativado",
     "de": "Ein", "it": "Attivo", "ru": "Вкл.", "zh-Hans": "开",
     "ja": "オン", "ko": "켬", "vi": "Bật", "ar": "مفعّل"
   },
-  "ShellBackgroundOff": {
+  "SwitchOff": {
     "en": "Off", "fr": "Désactivé", "es": "Desactivado", "pt-BR": "Desativado",
     "de": "Aus", "it": "Disattivo", "ru": "Выкл.", "zh-Hans": "关",
     "ja": "オフ", "ko": "끔", "vi": "Tắt", "ar": "معطّل"

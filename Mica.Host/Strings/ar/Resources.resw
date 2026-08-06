@@ -25,12 +25,6 @@
   <data name="ShellBackgroundHint" xml:space="preserve">
     <value>إغلاق النافذة يُبقي التطبيق في منطقة الإشعارات بدل الخروج، فتستمر الإشعارات في الوصول. ويظل يستهلك الذاكرة أثناء الانتظار.</value>
   </data>
-  <data name="ShellBackgroundOff" xml:space="preserve">
-    <value>معطّل</value>
-  </data>
-  <data name="ShellBackgroundOn" xml:space="preserve">
-    <value>مفعّل</value>
-  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>زر «إضافة إلى Chrome» لا يعمل داخل التطبيق. يمكن لـ Mica تثبيتها في {0}.</value>
   </data>
@@ -113,6 +107,12 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>إعادة تعيين</value>
+  </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>معطّل</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>مفعّل</value>
   </data>
   <data name="TrayOpen" xml:space="preserve">
     <value>فتح</value>

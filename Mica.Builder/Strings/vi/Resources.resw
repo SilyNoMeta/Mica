@@ -142,6 +142,12 @@
   <data name="SettingsStartupHint" xml:space="preserve">
     <value>Kết hợp với tùy chọn ở trên, ứng dụng khởi động thẳng vào khay thông báo. Windows liệt kê nó trong Cài đặt › Ứng dụng › Khởi động, nơi bạn cũng có thể tắt.</value>
   </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>Bật</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>Ứng dụng của bạn</value>
   </data>

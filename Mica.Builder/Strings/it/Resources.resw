@@ -142,6 +142,12 @@
   <data name="SettingsStartupHint" xml:space="preserve">
     <value>Insieme all&apos;impostazione qui sopra, l&apos;app si avvia direttamente nell&apos;area di notifica. Windows la elenca in Impostazioni › App › Avvio, dove puoi anche disattivarla.</value>
   </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>Disattivo</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>Attivo</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>Le tue app</value>
   </data>

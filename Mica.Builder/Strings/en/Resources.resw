@@ -142,6 +142,12 @@
   <data name="SettingsStartupHint" xml:space="preserve">
     <value>Combined with the setting above, the app starts straight into the notification area. Windows lists it under Settings › Apps › Startup, where you can turn it off too.</value>
   </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>On</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>Your apps</value>
   </data>

@@ -25,12 +25,6 @@
   <data name="ShellBackgroundHint" xml:space="preserve">
     <value>ウィンドウを閉じてもアプリは終了せず通知領域に残るため、通知が届き続けます。待機中もメモリを使い続けます。</value>
   </data>
-  <data name="ShellBackgroundOff" xml:space="preserve">
-    <value>オフ</value>
-  </data>
-  <data name="ShellBackgroundOn" xml:space="preserve">
-    <value>オン</value>
-  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>「Chrome に追加」はアプリ内では動作しません。Mica が {0} にインストールできます。</value>
   </data>
@@ -113,6 +107,12 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>リセット</value>
+  </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>オフ</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>オン</value>
   </data>
   <data name="TrayOpen" xml:space="preserve">
     <value>開く</value>

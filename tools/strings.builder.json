@@ -263,6 +263,16 @@
     "vi": "Địa chỉ này không hợp lệ. Ví dụ: gemini.google.com",
     "ar": "هذا العنوان غير صالح. مثال: gemini.google.com"
   },
+  "SwitchOn": {
+    "en": "On", "fr": "Activé", "es": "Activado", "pt-BR": "Ativado",
+    "de": "Ein", "it": "Attivo", "ru": "Вкл.", "zh-Hans": "开",
+    "ja": "オン", "ko": "켬", "vi": "Bật", "ar": "مفعّل"
+  },
+  "SwitchOff": {
+    "en": "Off", "fr": "Désactivé", "es": "Desactivado", "pt-BR": "Desativado",
+    "de": "Aus", "it": "Disattivo", "ru": "Выкл.", "zh-Hans": "关",
+    "ja": "オフ", "ko": "끔", "vi": "Tắt", "ar": "معطّل"
+  },
   "AppSettings": {
     "en": "Settings", "fr": "Réglages", "es": "Ajustes", "pt-BR": "Configurações",
     "de": "Einstellungen", "it": "Impostazioni", "ru": "Настройки", "zh-Hans": "设置",

@@ -142,6 +142,12 @@
   <data name="SettingsStartupHint" xml:space="preserve">
     <value>Вместе с настройкой выше приложение запускается сразу в область уведомлений. Windows показывает его в «Параметры › Приложения › Автозагрузка», где его тоже можно отключить.</value>
   </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>Вкл.</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>Ваши приложения</value>
   </data>

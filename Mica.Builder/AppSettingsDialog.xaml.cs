@@ -40,13 +40,13 @@ public sealed partial class AppSettingsDialog : ContentDialog
         PrimaryButtonText = Strings.Get("Done");
 
         BackgroundToggle.Header = Strings.Get("SettingsBackground");
-        BackgroundToggle.OnContent = Strings.Get("ShellBackgroundOn");
-        BackgroundToggle.OffContent = Strings.Get("ShellBackgroundOff");
+        BackgroundToggle.OnContent = Strings.Get("SwitchOn");
+        BackgroundToggle.OffContent = Strings.Get("SwitchOff");
         BackgroundHint.Text = Strings.Get("SettingsBackgroundHint");
 
         StartupToggle.Header = Strings.Get("SettingsStartup");
-        StartupToggle.OnContent = Strings.Get("ShellBackgroundOn");
-        StartupToggle.OffContent = Strings.Get("ShellBackgroundOff");
+        StartupToggle.OnContent = Strings.Get("SwitchOn");
+        StartupToggle.OffContent = Strings.Get("SwitchOff");
         StartupHint.Text = Strings.Get("SettingsStartupHint");
     }
 

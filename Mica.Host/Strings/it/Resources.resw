@@ -25,12 +25,6 @@
   <data name="ShellBackgroundHint" xml:space="preserve">
     <value>Chiudere la finestra lascia l&apos;app nell&apos;area di notifica invece di uscire, così le notifiche continuano ad arrivare. Nel frattempo continua a occupare memoria.</value>
   </data>
-  <data name="ShellBackgroundOff" xml:space="preserve">
-    <value>Disattivo</value>
-  </data>
-  <data name="ShellBackgroundOn" xml:space="preserve">
-    <value>Attivo</value>
-  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>«Aggiungi» non funziona in un&apos;app. Mica può installarla in {0}.</value>
   </data>
@@ -113,6 +107,12 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>Reimposta</value>
+  </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>Disattivo</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>Attivo</value>
   </data>
   <data name="TrayOpen" xml:space="preserve">
     <value>Apri</value>

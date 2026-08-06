@@ -142,6 +142,12 @@
   <data name="SettingsStartupHint" xml:space="preserve">
     <value>Zusammen mit der Einstellung darüber startet die App direkt in den Infobereich. Windows führt sie unter Einstellungen › Apps › Autostart, wo Sie sie ebenfalls deaktivieren können.</value>
   </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>Aus</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>Ein</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>Ihre Apps</value>
   </data>

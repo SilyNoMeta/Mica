@@ -142,6 +142,12 @@
   <data name="SettingsStartupHint" xml:space="preserve">
     <value>Junto con el ajuste anterior, la app arranca directamente en el área de notificación. Windows la muestra en Configuración › Aplicaciones › Inicio, donde también puedes desactivarla.</value>
   </data>
+  <data name="SwitchOff" xml:space="preserve">
+    <value>Desactivado</value>
+  </data>
+  <data name="SwitchOn" xml:space="preserve">
+    <value>Activado</value>
+  </data>
   <data name="YourApps" xml:space="preserve">
     <value>Tus apps</value>
   </data>
