@@ -37,7 +37,6 @@ public sealed class TrayIcon : IDisposable
     private const int WmApp = 0x8000;
     private const int TrayCallback = WmApp + 1;
 
-    private const int WmDestroy = 0x0002;
     private const int WmLeftButtonUp = 0x0202;
     private const int WmLeftButtonDoubleClick = 0x0203;
     private const int WmRightButtonUp = 0x0205;
@@ -87,8 +86,11 @@ public sealed class TrayIcon : IDisposable
         // foreground: SetForegroundWindow fails on a window that was never shown, and
         // a menu whose owner is not the foreground window refuses to close when the
         // user clicks away from it.
+        // Untitled on purpose: a titled top-level window gets picked up as the
+        // process's main window by anything walking the window list, which would put
+        // this 1×1 placeholder forward instead of the app's real window.
         _window = CreateWindowEx(
-            WsExToolWindow, _className, _className, WsPopup,
+            WsExToolWindow, _className, string.Empty, WsPopup,
             -32000, -32000, 1, 1,
             IntPtr.Zero, IntPtr.Zero, moduleHandle, IntPtr.Zero);
 
@@ -169,11 +171,10 @@ public sealed class TrayIcon : IDisposable
                     return IntPtr.Zero;
             }
         }
-        else if (message == WmDestroy)
-        {
-            PostQuitMessage(0);
-        }
-
+        // No PostQuitMessage on WM_DESTROY. This window shares the application's UI
+        // thread and its message loop: posting WM_QUIT there ends the loop and takes
+        // the whole app down. Turning the setting off disposes this icon, so that
+        // path is reached in normal use, not only at shutdown.
         return DefWindowProc(window, message, wParam, lParam);
     }
 
@@ -398,9 +399,6 @@ public sealed class TrayIcon : IDisposable
 
     [DllImport("user32.dll", CharSet = CharSet.Unicode)]
     private static extern IntPtr DefWindowProc(IntPtr window, uint message, IntPtr wParam, IntPtr lParam);
-
-    [DllImport("user32.dll")]
-    private static extern void PostQuitMessage(int exitCode);
 
     [DllImport("user32.dll", CharSet = CharSet.Unicode)]
     private static extern bool PostMessage(IntPtr window, uint message, IntPtr wParam, IntPtr lParam);
