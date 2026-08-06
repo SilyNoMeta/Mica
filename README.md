@@ -42,7 +42,9 @@ That covers Windows' own taskbar. Plenty of shells — third-party docks especia
 AppUserModelID entirely and identify a running app by its **executable**, showing the icon
 compiled into it. With a single shared host they all collapse into one nameless entry. So each
 app also gets its own executable next to the shared host: a copy of `Mica.Host.exe` named after
-the app, with its icon resource replaced.
+the app, with its icon **and its version resource** rewritten. The icon alone is not enough —
+those shells read `FileDescription` for the label, so a copy that keeps the host's version
+resource is still called "Mica.Host" whatever the file is named.
 
 The copy works because a .NET apphost stores the path of its managed assembly internally rather
 than deriving it from its own file name. WinUI does not: it looks up its resource index as

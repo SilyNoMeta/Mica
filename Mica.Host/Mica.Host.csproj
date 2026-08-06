@@ -15,6 +15,14 @@
     <Nullable>enable</Nullable>
 
     <!--
+      Per-app launchers overwrite this with the app's own name; it is the label a
+      shell would show if a launcher could not be written.
+    -->
+    <AssemblyTitle>Mica</AssemblyTitle>
+    <Product>Mica</Product>
+    <Company>Mica</Company>
+
+    <!--
       Mica deliberately produces plain desktop apps rather than MSIX packages: the
       end user creates apps on demand, so requiring Developer Mode and a package
       registration per app is not acceptable.

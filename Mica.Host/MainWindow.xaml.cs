@@ -34,8 +34,9 @@ public sealed partial class MainWindow : Window
 
         AppWindow.Resize(new SizeInt32(_config.WindowWidth, _config.WindowHeight));
 
+        // The title stays the app's name rather than following the page: this is an
+        // app, not a browser tab, and the name is what the taskbar and docks show.
         Shell.Configure(_config);
-        Shell.TitleChanged += (_, title) => AppTitleBar.Title = title;
 
         Closed += OnClosed;
     }

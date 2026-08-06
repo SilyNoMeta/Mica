@@ -14,6 +14,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
+    <!--
+      Shells that identify an app by its executable read FileDescription for the
+      label; without this it would read "Mica.Builder" rather than the product name.
+    -->
+    <AssemblyTitle>Mica</AssemblyTitle>
+    <Product>Mica</Product>
+    <Company>Mica</Company>
+
     <!-- See Mica.Host.csproj for why Mica is unpackaged and framework-dependent. -->
     <WindowsPackageType>None</WindowsPackageType>
     <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>

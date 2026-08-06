@@ -205,7 +205,7 @@ public static class AppRegistry
         // Shells that identify apps by executable rather than by AppUserModelID get
         // a real per-app executable to look at; the argument stays for the shared-host
         // fallback and because being explicit costs nothing.
-        var launcher = AppLauncherFactory.Create(config.Slug, MicaPaths.IconFile(config.Slug));
+        var launcher = AppLauncherFactory.Create(config);
 
         ShortcutFactory.Create(
             ShortcutPath(config),

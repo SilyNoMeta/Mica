@@ -27,7 +27,8 @@ public static class AppLauncherFactory
 {
     private const int RtIcon = 3;
     private const int RtGroupIcon = 14;
-    private const ushort NeutralLanguage = 0;
+    private const int RtVersion = 16;
+    private const ushort DefaultLanguage = 0x0409;
 
     private static string HostFolder => Path.GetDirectoryName(AppRegistry.HostExecutable)!;
 
@@ -41,8 +42,9 @@ public static class AppLauncherFactory
     /// the copy cannot be made — a read-only install directory, or the app running —
     /// so app creation degrades instead of failing.
     /// </summary>
-    public static string Create(string slug, string iconPath)
+    public static string Create(WebAppConfig config)
     {
+        var slug = config.Slug;
         var launcher = LauncherPath(slug);
 
         try
@@ -56,10 +58,7 @@ public static class AppLauncherFactory
             File.Copy(AppRegistry.HostExecutable, launcher, overwrite: true);
             File.Copy(hostIndex, ResourceIndexPath(slug), overwrite: true);
 
-            if (File.Exists(iconPath))
-            {
-                ReplaceIcon(launcher, iconPath);
-            }
+            PatchResources(launcher, config);
 
             return launcher;
         }
@@ -91,13 +90,19 @@ public static class AppLauncherFactory
     // ---- Icon resources ------------------------------------------------------
 
     /// <summary>
-    /// Replaces the executable's icon with the contents of an .ico file, reusing the
-    /// existing icon group id so the shell keeps picking the same one.
+    /// Stamps the app's identity onto its executable: the site's icon, and a version
+    /// resource naming it after the app. Both are rewritten in one update so the file
+    /// is never left half-branded.
     /// </summary>
-    private static void ReplaceIcon(string executablePath, string iconPath)
+    private static void PatchResources(string executablePath, WebAppConfig config)
     {
-        var icon = IconFile.Read(iconPath);
-        var groupId = FindExistingGroupIconId(executablePath) ?? 1;
+        var iconPath = MicaPaths.IconFile(config.Slug);
+        var icon = File.Exists(iconPath) ? IconFile.Read(iconPath) : null;
+
+        // Reuse the ids and language the host already carries, so the shell keeps
+        // resolving the same resources rather than finding two candidates.
+        var groupIcon = FindResource(executablePath, RtGroupIcon);
+        var version = FindResource(executablePath, RtVersion);
 
         var handle = BeginUpdateResource(executablePath, bDeleteExistingResources: false);
         if (handle == IntPtr.Zero)
@@ -109,16 +114,26 @@ public static class AppLauncherFactory
         var committed = false;
         try
         {
-            for (var i = 0; i < icon.Images.Count; i++)
+            if (icon is not null)
             {
-                Write(handle, RtIcon, (IntPtr)(i + 1), icon.Images[i]);
+                for (var i = 0; i < icon.Images.Count; i++)
+                {
+                    Write(handle, RtIcon, (IntPtr)(i + 1), groupIcon.Language, icon.Images[i]);
+                }
+
+                Write(handle, RtGroupIcon, (IntPtr)groupIcon.Id, groupIcon.Language, icon.BuildGroupDirectory());
             }
 
-            Write(handle, RtGroupIcon, (IntPtr)groupId, icon.BuildGroupDirectory());
+            Write(
+                handle,
+                RtVersion,
+                (IntPtr)version.Id,
+                version.Language,
+                VersionResource.Build(config.Name, $"{config.Slug}.exe", config.StartUri.Host));
 
             if (!EndUpdateResource(handle, fDiscard: false))
             {
-                throw new InvalidOperationException("Committing the icon resource failed.");
+                throw new InvalidOperationException("Committing the resource update failed.");
             }
 
             committed = true;
@@ -132,13 +147,13 @@ public static class AppLauncherFactory
         }
     }
 
-    private static void Write(IntPtr handle, int type, IntPtr name, byte[] data)
+    private static void Write(IntPtr handle, int type, IntPtr name, ushort language, byte[] data)
     {
         var buffer = Marshal.AllocHGlobal(data.Length);
         try
         {
             Marshal.Copy(data, 0, buffer, data.Length);
-            if (!UpdateResource(handle, (IntPtr)type, name, NeutralLanguage, buffer, (uint)data.Length))
+            if (!UpdateResource(handle, (IntPtr)type, name, language, buffer, (uint)data.Length))
             {
                 throw new InvalidOperationException($"UpdateResource failed for type {type}.");
             }
@@ -149,39 +164,51 @@ public static class AppLauncherFactory
         }
     }
 
-    private static int? FindExistingGroupIconId(string executablePath)
+    /// <summary>Where a resource of the given type already lives in the executable.</summary>
+    private readonly record struct ResourceSlot(int Id, ushort Language);
+
+    private static ResourceSlot FindResource(string executablePath, int type)
     {
         var module = LoadLibraryEx(executablePath, IntPtr.Zero, LoadLibraryAsDataFile);
         if (module == IntPtr.Zero)
         {
-            return null;
+            return new ResourceSlot(1, DefaultLanguage);
         }
 
-        int? found = null;
+        var id = 0;
+        ushort language = 0;
+
         try
         {
-            EnumResourceNames(module, (IntPtr)RtGroupIcon, (_, _, name, _) =>
+            EnumResourceNames(module, (IntPtr)type, (_, _, name, _) =>
             {
                 // Integer resource names arrive as a value below 0x10000; named
-                // groups are pointers and are left alone.
-                if (found is null && name.ToInt64() is > 0 and < 0x10000)
+                // resources are string pointers and are left alone.
+                if (id != 0 || name.ToInt64() is <= 0 or >= 0x10000)
                 {
-                    found = (int)name.ToInt64();
+                    return true;
                 }
 
-                return true;
+                id = (int)name.ToInt64();
+                EnumResourceLanguages(module, (IntPtr)type, name, (_, _, _, lang, _) =>
+                {
+                    language = lang;
+                    return false;
+                }, IntPtr.Zero);
+
+                return false;
             }, IntPtr.Zero);
         }
         catch
         {
-            // Fall through to the default group id.
+            // Fall through to the defaults below.
         }
         finally
         {
             FreeLibrary(module);
         }
 
-        return found;
+        return new ResourceSlot(id == 0 ? 1 : id, language);
     }
 
     private const uint LoadLibraryAsDataFile = 0x00000002;
@@ -205,6 +232,11 @@ public static class AppLauncherFactory
 
     [DllImport("kernel32.dll", SetLastError = true)]
     private static extern bool EnumResourceNames(IntPtr module, IntPtr type, EnumResourceNamesProc callback, IntPtr param);
+
+    private delegate bool EnumResourceLanguagesProc(IntPtr module, IntPtr type, IntPtr name, ushort language, IntPtr param);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    private static extern bool EnumResourceLanguages(IntPtr module, IntPtr type, IntPtr name, EnumResourceLanguagesProc callback, IntPtr param);
 
     /// <summary>
     /// A parsed .ico file. On disk an icon is a directory of images; inside an

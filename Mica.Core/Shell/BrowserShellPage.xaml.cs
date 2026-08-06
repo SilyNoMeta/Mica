@@ -31,9 +31,6 @@ public sealed partial class BrowserShellPage : UserControl
     private bool _installing;
     private bool _started;
 
-    /// <summary>Raised when the page title changes, so the window can follow it.</summary>
-    public event EventHandler<string>? TitleChanged;
-
     public BrowserShellPage()
     {
         InitializeComponent();
@@ -117,7 +114,6 @@ public sealed partial class BrowserShellPage : UserControl
         webView.NavigationCompleted += OnNavigationCompleted;
         webView.NewWindowRequested += OnNewWindowRequested;
         webView.HistoryChanged += OnHistoryChanged;
-        webView.DocumentTitleChanged += OnDocumentTitleChanged;
         webView.WebMessageReceived += OnWebMessageReceived;
         webView.DownloadStarting += OnDownloadStarting;
     }
@@ -292,12 +288,6 @@ public sealed partial class BrowserShellPage : UserControl
     }
 
     private void OnHistoryChanged(object? sender, object e) => UpdateNavigationButtons();
-
-    private void OnDocumentTitleChanged(object? sender, object e)
-    {
-        var title = _core?.DocumentTitle;
-        TitleChanged?.Invoke(this, string.IsNullOrWhiteSpace(title) ? _config.Name : title);
-    }
 
     private void UpdateNavigationButtons()
     {

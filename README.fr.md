@@ -49,8 +49,10 @@ Cela couvre la barre des tâches de Windows. Mais beaucoup de shells — les doc
 particulier — ignorent complètement l'AppUserModelID et identifient une app en cours par son
 **exécutable**, en affichant l'icône compilée dedans. Avec un hôte partagé unique, elles se
 confondent toutes en une seule entrée sans nom. Chaque app reçoit donc aussi son propre
-exécutable à côté de l'hôte partagé : une copie de `Mica.Host.exe` portant son nom, dont la
-ressource icône est remplacée.
+exécutable à côté de l'hôte partagé : une copie de `Mica.Host.exe` portant son nom, dont on
+réécrit l'icône **et la ressource version**. L'icône seule ne suffit pas : ces shells lisent le
+`FileDescription` pour le libellé, donc une copie qui conserve la ressource version de l'hôte
+s'appelle encore « Mica.Host », quel que soit le nom du fichier.
 
 La copie fonctionne parce qu'un apphost .NET stocke en interne le chemin de son assembly managé
 au lieu de le déduire de son propre nom de fichier. WinUI, lui, cherche son index de ressources
