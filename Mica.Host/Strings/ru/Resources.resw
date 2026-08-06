@@ -29,7 +29,7 @@
     <value>Кнопка «Установить» не работает внутри приложения. Mica может установить расширение в {0}.</value>
   </data>
   <data name="ShellDetectedTitle" xml:space="preserve">
-    <value>Обнаружено расширение</value>
+    <value>Обнаружено расширение: {0}</value>
   </data>
   <data name="ShellDownloading" xml:space="preserve">
     <value>Загрузка расширения…</value>

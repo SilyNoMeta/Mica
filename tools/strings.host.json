@@ -136,10 +136,10 @@
     "ko": "확장 프로그램을 내려받는 중…", "vi": "Đang tải tiện ích…", "ar": "جارٍ تنزيل الإضافة…"
   },
   "ShellDetectedTitle": {
-    "en": "Extension detected", "fr": "Extension détectée", "es": "Extensión detectada",
-    "pt-BR": "Extensão detectada", "de": "Erweiterung erkannt", "it": "Estensione rilevata",
-    "ru": "Обнаружено расширение", "zh-Hans": "检测到扩展", "ja": "拡張機能を検出しました",
-    "ko": "확장 프로그램을 찾았습니다", "vi": "Đã phát hiện tiện ích", "ar": "تم اكتشاف إضافة"
+    "en": "Extension detected: {0}", "fr": "Extension détectée : {0}", "es": "Extensión detectada: {0}",
+    "pt-BR": "Extensão detectada: {0}", "de": "Erweiterung erkannt: {0}", "it": "Estensione rilevata: {0}",
+    "ru": "Обнаружено расширение: {0}", "zh-Hans": "检测到扩展：{0}", "ja": "拡張機能を検出しました: {0}",
+    "ko": "확장 프로그램을 찾았습니다: {0}", "vi": "Đã phát hiện tiện ích: {0}", "ar": "تم اكتشاف إضافة: {0}"
   },
   "ShellDetectedBody": {
     "en": "“Add to Chrome” does not work inside an app. Mica can install it in {0}.",

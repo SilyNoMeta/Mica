@@ -29,7 +29,7 @@
     <value>زر «إضافة إلى Chrome» لا يعمل داخل التطبيق. يمكن لـ Mica تثبيتها في {0}.</value>
   </data>
   <data name="ShellDetectedTitle" xml:space="preserve">
-    <value>تم اكتشاف إضافة</value>
+    <value>تم اكتشاف إضافة: {0}</value>
   </data>
   <data name="ShellDownloading" xml:space="preserve">
     <value>جارٍ تنزيل الإضافة…</value>

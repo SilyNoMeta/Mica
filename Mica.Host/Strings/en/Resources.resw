@@ -29,7 +29,7 @@
     <value>“Add to Chrome” does not work inside an app. Mica can install it in {0}.</value>
   </data>
   <data name="ShellDetectedTitle" xml:space="preserve">
-    <value>Extension detected</value>
+    <value>Extension detected: {0}</value>
   </data>
   <data name="ShellDownloading" xml:space="preserve">
     <value>Downloading the extension…</value>

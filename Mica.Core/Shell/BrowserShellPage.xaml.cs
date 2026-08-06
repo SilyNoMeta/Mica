@@ -88,6 +88,23 @@ public sealed partial class BrowserShellPage : UserControl
         PromptInstallButton.Content = Strings.Get("ShellInstallInApp");
     }
 
+    /// <summary>
+    /// Stops the page being drawn while the window is hidden in the notification
+    /// area, and starts again when it comes back.
+    /// <para>
+    /// This is not suspension: script keeps running, which is the whole point of the
+    /// background mode — a site can only raise a notification while it is alive.
+    /// </para>
+    /// <para>
+    /// Worth about 2 MB, measured, not the tens of megabytes it looked like it might
+    /// be: Windows already stops compositing a window nobody can see. It stays
+    /// because saying so explicitly beats relying on the compositor noticing, but it
+    /// is not a memory lever and should not be mistaken for one.
+    /// </para>
+    /// </summary>
+    public void SetRenderingEnabled(bool enabled) =>
+        Browser.Visibility = enabled ? Visibility.Visible : Visibility.Collapsed;
+
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
         if (_started)
@@ -149,6 +166,8 @@ public sealed partial class BrowserShellPage : UserControl
         ConfigureWebView(_core);
 
         await _core.AddScriptToExecuteOnDocumentCreatedAsync(ShellScript);
+        await _core.AddScriptToExecuteOnDocumentCreatedAsync(
+            BuildStoreScript(Strings.Get("ShellInstallInApp")));
         await ApplyZoomAsync();
         await RestoreExtensionsAsync();
 
@@ -197,6 +216,12 @@ public sealed partial class BrowserShellPage : UserControl
         webView.HistoryChanged += OnHistoryChanged;
         webView.WebMessageReceived += OnWebMessageReceived;
         webView.DownloadStarting += OnDownloadStarting;
+
+        // The Chrome Web Store is a single-page app: moving between extensions never
+        // completes a navigation, so watching NavigationCompleted alone left the
+        // prompt showing the extension the user had arrived on, until a reload.
+        webView.SourceChanged += (_, _) => UpdateExtensionPrompt();
+        webView.DocumentTitleChanged += (_, _) => UpdateExtensionPrompt();
     }
 
     // ---- Toolbar reveal ------------------------------------------------------
@@ -240,6 +265,78 @@ public sealed partial class BrowserShellPage : UserControl
         })();
         """;
 
+    /// <summary>
+    /// Injected on the Chrome Web Store only. Its "Add to Chrome" button cannot work
+    /// inside an embedded browser, so rather than let the user press it and meet an
+    /// interrupted download, the button is taken over: relabelled, and its click
+    /// routed to Mica's own installer.
+    /// <para>
+    /// The button is matched by its text rather than by a selector, and clicks are
+    /// caught in the capture phase, so neither the store's markup nor its
+    /// single-page navigation can slip past it.
+    /// </para>
+    /// </summary>
+    private static string BuildStoreScript(string installLabel) =>
+        $$"""
+          (() => {
+            if (location.host !== 'chromewebstore.google.com') { return; }
+
+            const post = m => { try { window.chrome.webview.postMessage(m); } catch (e) { } };
+            const LABEL = {{System.Text.Json.JsonSerializer.Serialize(installLabel)}};
+
+            // Matched as "chrome" plus a verb rather than as whole phrases: the store
+            // says "Ajouter à Google Chrome" in French and "Add to Chrome" in English,
+            // and a phrase list misses every wording it was not told about.
+            const VERBS = ['add', 'ajouter', 'añadir', 'adicionar', 'usar', 'hinzufügen',
+              'aggiungi', 'установить', 'добавить', '添加', '追加', '추가', 'thêm', 'إضافة'];
+
+            const isInstallButton = el => {
+              if (!el) { return false; }
+              const text = (el.innerText || '').trim().toLowerCase();
+              return text.length > 0
+                && text.length < 60
+                && text.includes('chrome')
+                && VERBS.some(v => text.includes(v));
+            };
+
+            // Registered before anything can throw, so the takeover survives even if
+            // the relabelling below ever fails on a future version of the store.
+            addEventListener('click', e => {
+              const button = e.target && e.target.closest
+                ? e.target.closest('button, [role="button"], a')
+                : null;
+
+              if (!isInstallButton(button)) { return; }
+
+              e.preventDefault();
+              e.stopImmediatePropagation();
+              post('mica:install-here');
+            }, true);
+
+            // Relabel whatever the store renders, including after its own in-page
+            // navigations, so the button says what it will actually do.
+            const relabel = () => {
+              for (const el of document.querySelectorAll('button, [role="button"]')) {
+                if (isInstallButton(el) && el.innerText.trim() !== LABEL) {
+                  el.innerText = LABEL;
+                }
+              }
+            };
+
+            // This runs at document creation, where documentElement does not exist
+            // yet: observing it straight away throws, and the exception takes the
+            // whole script down — including the click handler above it.
+            const watch = () => {
+              relabel();
+              new MutationObserver(relabel).observe(document.documentElement,
+                { childList: true, subtree: true, characterData: true });
+            };
+
+            if (document.documentElement) { watch(); }
+            else { addEventListener('DOMContentLoaded', watch); }
+          })();
+          """;
+
     private void OnWebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
     {
         string message;
@@ -269,6 +366,9 @@ public sealed partial class BrowserShellPage : UserControl
                 break;
             case "mica:zoom-reset":
                 _ = SetZoomAsync(1.0);
+                break;
+            case "mica:install-here":
+                OnInstallDetectedClick(this, new RoutedEventArgs());
                 break;
         }
     }
@@ -541,6 +641,8 @@ public sealed partial class BrowserShellPage : UserControl
 
         _detectedExtensionId = onStorePage ? CrxInstaller.ExtractId(source!) : null;
 
+        // Closed as soon as the user leaves the extension's page — the prompt used to
+        // linger, naming an extension they had already navigated away from.
         if (_detectedExtensionId is null)
         {
             ExtensionPrompt.IsOpen = false;
@@ -549,9 +651,39 @@ public sealed partial class BrowserShellPage : UserControl
 
         ShowPrompt(
             InfoBarSeverity.Informational,
-            Strings.Get("ShellDetectedTitle"),
+            Strings.Format("ShellDetectedTitle", StoreItemName(source!)),
             Strings.Format("ShellDetectedBody", _config.Name),
             showAction: true);
+    }
+
+    /// <summary>
+    /// The name of the extension a store page is showing. The document title carries
+    /// it in the user's language; the URL slug is the fallback for the moment before
+    /// the title catches up with a single-page navigation.
+    /// </summary>
+    private string StoreItemName(string source)
+    {
+        var title = _core?.DocumentTitle ?? string.Empty;
+        var separator = title.LastIndexOf(" - ", StringComparison.Ordinal);
+
+        if (separator > 0 && title[(separator + 3)..].Contains("Chrome", StringComparison.OrdinalIgnoreCase))
+        {
+            title = title[..separator];
+        }
+
+        if (title.Length is > 0 and < 80 && !title.Contains("chromewebstore", StringComparison.OrdinalIgnoreCase))
+        {
+            return title.Trim();
+        }
+
+        var match = System.Text.RegularExpressions.Regex.Match(source, "/detail/([^/]+)/");
+        if (!match.Success)
+        {
+            return source;
+        }
+
+        var slug = Uri.UnescapeDataString(match.Groups[1].Value).Replace('-', ' ').Trim();
+        return slug.Length == 0 ? source : char.ToUpperInvariant(slug[0]) + slug[1..];
     }
 
     private async Task InstallExtensionAsync(string id)
@@ -583,12 +715,15 @@ public sealed partial class BrowserShellPage : UserControl
             _detectedExtensionId = null;
 
             var installed = Strings.Format("ShellInstalledTitle", extension.Name);
-            var activate = Strings.Get("ShellReloadToActivate");
 
-            ShowPrompt(InfoBarSeverity.Success, installed, activate, showAction: false);
-            ShowExtensionStatus($"{installed} {activate}");
+            ShowPrompt(InfoBarSeverity.Success, installed, string.Empty, showAction: false);
+            ShowExtensionStatus(installed);
 
             await RefreshExtensionListAsync();
+
+            // An extension only takes effect on pages loaded after it, so reload
+            // rather than telling the user to do it themselves.
+            _core.Reload();
         }
         catch (Exception ex)
         {
@@ -698,10 +833,27 @@ public sealed partial class BrowserShellPage : UserControl
         // and would just look like clutter the user is responsible for.
         var removeLabel = Strings.Get("ShellRemoveExtension");
 
-        ExtensionList.ItemsSource = extensions
+        var mine = extensions
             .Where(extension => Directory.Exists(Path.Combine(root, extension.Id)))
+            .ToList();
+
+        ExtensionList.ItemsSource = mine
             .Select(extension => new ExtensionEntry(extension.Id, extension.Name, removeLabel))
             .ToList();
+
+        var bar = new List<ToolbarExtension>();
+        foreach (var extension in mine)
+        {
+            var folder = Path.Combine(root, extension.Id);
+            var (iconPath, actionPage) = ExtensionManifest.ReadAction(folder);
+
+            bar.Add(new ToolbarExtension(
+                extension.Name,
+                iconPath is null ? null : await ImageLoader.LoadAsync(iconPath),
+                actionPage is null ? null : $"chrome-extension://{extension.Id}/{actionPage}"));
+        }
+
+        ExtensionBar.ItemsSource = bar;
     }
 
     private void ShowExtensionStatus(string message)
@@ -732,4 +884,24 @@ public sealed partial class BrowserShellPage : UserControl
     /// row because a DataTemplate inside a class library cannot reach the resources.
     /// </summary>
     public sealed record ExtensionEntry(string Id, string Name, string RemoveLabel);
+
+    /// <summary>An extension's button in the toolbar.</summary>
+    public sealed record ToolbarExtension(
+        string Name,
+        Microsoft.UI.Xaml.Media.Imaging.BitmapImage? Icon,
+        string? ActionUrl);
+
+    /// <summary>
+    /// Opens an extension's own page — its popup, or its options when it has none.
+    /// It opens in the app's window rather than a panel of its own: WebView2 does not
+    /// surface extension popups, so this is the honest approximation, and Home comes
+    /// back to the site.
+    /// </summary>
+    private void OnExtensionActionClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement { Tag: string url } && url.Length > 0)
+        {
+            _core?.Navigate(url);
+        }
+    }
 }

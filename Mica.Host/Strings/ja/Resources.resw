@@ -29,7 +29,7 @@
     <value>「Chrome に追加」はアプリ内では動作しません。Mica が {0} にインストールできます。</value>
   </data>
   <data name="ShellDetectedTitle" xml:space="preserve">
-    <value>拡張機能を検出しました</value>
+    <value>拡張機能を検出しました: {0}</value>
   </data>
   <data name="ShellDownloading" xml:space="preserve">
     <value>拡張機能をダウンロードしています…</value>

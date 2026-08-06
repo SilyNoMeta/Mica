@@ -81,6 +81,31 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     Spacing="2">
+                    <!--  Installed extensions, the way a browser shows them.  -->
+                    <ItemsControl x:Name="ExtensionBar" VerticalAlignment="Center">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="2" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Padding="7,6"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Click="OnExtensionActionClick"
+                                    Tag="{Binding ActionUrl}"
+                                    ToolTipService.ToolTip="{Binding Name}">
+                                    <Image
+                                        Width="16"
+                                        Height="16"
+                                        Source="{Binding Icon}" />
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
                     <ToggleButton
                         x:Name="PinButton"
                         Padding="9,6"

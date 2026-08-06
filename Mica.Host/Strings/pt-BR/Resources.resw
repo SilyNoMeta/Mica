@@ -29,7 +29,7 @@
     <value>“Usar no Chrome” não funciona dentro de um app. O Mica pode instalá-la em {0}.</value>
   </data>
   <data name="ShellDetectedTitle" xml:space="preserve">
-    <value>Extensão detectada</value>
+    <value>Extensão detectada: {0}</value>
   </data>
   <data name="ShellDownloading" xml:space="preserve">
     <value>Baixando a extensão…</value>

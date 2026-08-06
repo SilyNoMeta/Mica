@@ -29,7 +29,7 @@
     <value>„Hinzufügen“ funktioniert in einer App nicht. Mica kann sie in {0} installieren.</value>
   </data>
   <data name="ShellDetectedTitle" xml:space="preserve">
-    <value>Erweiterung erkannt</value>
+    <value>Erweiterung erkannt: {0}</value>
   </data>
   <data name="ShellDownloading" xml:space="preserve">
     <value>Erweiterung wird heruntergeladen…</value>

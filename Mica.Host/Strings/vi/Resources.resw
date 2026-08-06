@@ -29,7 +29,7 @@
     <value>“Thêm vào Chrome” không hoạt động bên trong ứng dụng. Mica có thể cài nó vào {0}.</value>
   </data>
   <data name="ShellDetectedTitle" xml:space="preserve">
-    <value>Đã phát hiện tiện ích</value>
+    <value>Đã phát hiện tiện ích: {0}</value>
   </data>
   <data name="ShellDownloading" xml:space="preserve">
     <value>Đang tải tiện ích…</value>

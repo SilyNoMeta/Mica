@@ -64,6 +64,7 @@ public sealed partial class MainWindow : Window
     /// </summary>
     public void Restore()
     {
+        Shell.SetRenderingEnabled(true);
         AppWindow.Show();
         Activate();
 
@@ -146,6 +147,10 @@ public sealed partial class MainWindow : Window
 
         args.Cancel = true;
         AppWindow.Hide();
+
+        // Nothing is on screen to draw; script keeps running so notifications
+        // continue to arrive.
+        Shell.SetRenderingEnabled(false);
 
         if (!_announcedTray)
         {

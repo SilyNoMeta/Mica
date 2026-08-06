@@ -29,7 +29,7 @@
     <value>“添加至 Chrome”在应用内无效。Mica 可以把它安装到 {0}。</value>
   </data>
   <data name="ShellDetectedTitle" xml:space="preserve">
-    <value>检测到扩展</value>
+    <value>检测到扩展：{0}</value>
   </data>
   <data name="ShellDownloading" xml:space="preserve">
     <value>正在下载扩展…</value>

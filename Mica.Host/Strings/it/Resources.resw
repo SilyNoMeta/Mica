@@ -29,7 +29,7 @@
     <value>«Aggiungi» non funziona in un&apos;app. Mica può installarla in {0}.</value>
   </data>
   <data name="ShellDetectedTitle" xml:space="preserve">
-    <value>Estensione rilevata</value>
+    <value>Estensione rilevata: {0}</value>
   </data>
   <data name="ShellDownloading" xml:space="preserve">
     <value>Download dell&apos;estensione…</value>
