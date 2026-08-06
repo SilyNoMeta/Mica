@@ -49,7 +49,10 @@ $platform = if ($Architecture -eq 'arm64') { 'ARM64' } else { 'x64' }
 foreach ($project in @('Mica.Host', 'Mica.Builder')) {
     Write-Host "Publishing $project ($Architecture)..."
 
-    $versionArgs = if ($Version) { @("-p:Version=$Version") } else { @() }
+    # Typed as an array on purpose: PowerShell unwraps a single-element collection
+    # into a bare string, and splatting a string spreads it one character per
+    # argument — which MSBuild reports as an unknown switch.
+    [string[]]$versionArgs = if ($Version) { , "-p:Version=$Version" } else { @() }
 
     dotnet publish (Join-Path $root "$project\$project.csproj") `
         --configuration $Configuration `
