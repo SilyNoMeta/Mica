@@ -217,6 +217,21 @@ by default.
 Switching either way starts that app from a fresh, signed-out profile, since its data lives
 in a different place in each mode.
 
+An app waiting in the notification area asks the engine for its low memory target rather
+than staying as it was. Script and network connections keep running at that level — which is
+the whole point of the background mode, since a suspended app raises no notifications — while
+Chromium drops caches and lets Windows page browser memory out. Measured with Gemini visible
+and Messenger sent to the tray, across every WebView2 process: **1752 MB → 1449 MB** of
+working set, returning to normal when the window comes back. The commit charge barely moves
+(1177 MB → 1138 MB): this hands physical RAM back to the rest of the machine rather than
+shrinking what the engine reserves.
+
+Two settings the engine takes at startup have to be identical for every app sharing it —
+whether extensions are on, and the browser arguments — because an environment cannot attach
+to a browser started with different ones, and the attempt leaves a live window with nothing
+in it. Both are therefore constants in the code, never derived from what happens to be
+installed.
+
 ## Updates
 
 Mica asks GitHub for the latest release when it opens, at most once a day, and shows a bar

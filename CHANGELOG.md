@@ -5,6 +5,22 @@ matching the tag into the release body, and Mica displays the part written in th
 language. Keep both `### en` and `### fr` for every version — English is what Mica falls back to
 when it has no section for the current language.
 
+## 1.1.0
+
+### en
+- An app waiting in the notification area now hands back the memory it is not using —
+  measured at around 300 MB of RAM for one app — and takes it back when you reopen it.
+- The Mica window shows its own icon again; the installed copy was missing the file.
+- Icons are decoded at the size they are drawn, pages are read only as far as they need to
+  be, and an extension downloads to disk instead of into memory.
+
+### fr
+- Une app qui attend dans la zone de notification rend la mémoire qu'elle n'utilise pas —
+  mesuré à environ 300 Mo de RAM pour une app — et la reprend à la réouverture.
+- La fenêtre Mica affiche de nouveau son icône ; le fichier manquait à la copie installée.
+- Les icônes sont décodées à la taille où elles sont dessinées, les pages ne sont lues que
+  jusqu'où il faut, et une extension se télécharge sur le disque plutôt qu'en mémoire.
+
 ## 1.0.0
 
 ### en

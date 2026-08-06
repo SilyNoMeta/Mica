@@ -146,7 +146,7 @@ public sealed partial class MainWindow : Window
                 app.Name,
                 app.StartUri.Host,
                 app.StartUrl,
-                await ImageLoader.LoadAsync(MicaPaths.IconFile(app.Slug)),
+                await ImageLoader.LoadAsync(MicaPaths.IconFile(app.Slug), 64),
                 moreActions,
                 open,
                 refresh,

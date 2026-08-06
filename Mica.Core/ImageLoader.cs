@@ -10,7 +10,12 @@ namespace Mica.Core;
 /// </summary>
 public static class ImageLoader
 {
-    public static async Task<BitmapImage?> LoadAsync(string path)
+    /// <param name="decodePixelWidth">
+    /// Decodes the image at this width rather than at its natural size. An icon
+    /// drawn at 16 px otherwise keeps a 512 px surface in memory for nothing;
+    /// the size it is shown at is enough. Zero keeps the natural size.
+    /// </param>
+    public static async Task<BitmapImage?> LoadAsync(string path, int decodePixelWidth = 0)
     {
         try
         {
@@ -23,6 +28,11 @@ public static class ImageLoader
             using var stream = await file.OpenReadAsync();
 
             var bitmap = new BitmapImage();
+            if (decodePixelWidth > 0)
+            {
+                bitmap.DecodePixelWidth = decodePixelWidth;
+            }
+
             await bitmap.SetSourceAsync(stream);
             return bitmap;
         }

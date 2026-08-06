@@ -64,12 +64,23 @@ public sealed partial class MainWindow : Window
     /// </summary>
     public void Restore()
     {
+        Shell.SetMemoryTarget(false);
         Shell.SetRenderingEnabled(true);
         AppWindow.Show();
         Activate();
 
         // Show() alone leaves the window behind whatever had focus.
         SetForegroundWindow(WinRT.Interop.WindowNative.GetWindowHandle(this));
+    }
+
+    /// <summary>
+    /// Launched to wait in the notification area: the window hides at once and the
+    /// browser runs at its low-memory level until it is asked back.
+    /// </summary>
+    public void StartHidden()
+    {
+        AppWindow.Hide();
+        Shell.SetMemoryTarget(true);
     }
 
     /// <summary>
@@ -149,8 +160,10 @@ public sealed partial class MainWindow : Window
         AppWindow.Hide();
 
         // Nothing is on screen to draw; script keeps running so notifications
-        // continue to arrive.
+        // continue to arrive. The engine sheds what it can while hidden and asks
+        // for it back in Restore().
         Shell.SetRenderingEnabled(false);
+        Shell.SetMemoryTarget(true);
 
         if (!_announcedTray)
         {
@@ -174,7 +187,12 @@ public sealed partial class MainWindow : Window
             var file = await Windows.Storage.StorageFile.GetFileFromPathAsync(path);
             using var stream = await file.OpenReadAsync();
 
-            var bitmap = new BitmapImage();
+            var bitmap = new BitmapImage
+            {
+                // The title bar draws it at caption size; decoding the whole icon
+                // would hold a 256 px surface for a 16 px drawing.
+                DecodePixelWidth = 64,
+            };
             await bitmap.SetSourceAsync(stream);
 
             AppTitleBar.IconSource = new Microsoft.UI.Xaml.Controls.ImageIconSource

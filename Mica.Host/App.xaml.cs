@@ -88,7 +88,7 @@ public partial class App : Application
         // throwing a window at someone who just logged in.
         if (argv.Contains("--tray") && Config.RunInBackground)
         {
-            window.AppWindow.Hide();
+            window.StartHidden();
             StartupLog.Write("Started hidden in the notification area");
         }
 

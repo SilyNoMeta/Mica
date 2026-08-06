@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
@@ -18,6 +19,13 @@ public sealed record SiteMetadata(string Name, Uri? IconUrl, Uri ResolvedUrl);
 /// </summary>
 public static partial class SiteInspector
 {
+    /// <summary>
+    /// Everything the inspector reads sits in the document's head — the manifest
+    /// link, the icons, the name — so there is no reason to pull the rest of a
+    /// multi-megabyte page into memory.
+    /// </summary>
+    private const int MaxHtmlBytes = 1 << 20;
+
     private static readonly HttpClient Http = CreateClient();
 
     private static HttpClient CreateClient()
@@ -54,9 +62,10 @@ public static partial class SiteInspector
 
         try
         {
-            using var response = await Http.GetAsync(url, cancellationToken);
+            using var response = await Http.GetAsync(
+                url, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
             resolved = response.RequestMessage?.RequestUri ?? url;
-            html = await response.Content.ReadAsStringAsync(cancellationToken);
+            html = await ReadCappedAsync(response.Content, cancellationToken);
         }
         catch (Exception)
         {
@@ -89,6 +98,45 @@ public static partial class SiteInspector
         var iconUrl = best?.Url ?? new Uri(resolved, "/favicon.ico");
 
         return new SiteMetadata(CleanName(name, resolved), iconUrl, resolved);
+    }
+
+    /// <summary>
+    /// Reads at most <see cref="MaxHtmlBytes"/> of the document. The declared
+    /// charset is honoured when there is one; UTF-8 stands in otherwise.
+    /// </summary>
+    private static async Task<string> ReadCappedAsync(HttpContent content, CancellationToken cancellationToken)
+    {
+        var encoding = Encoding.UTF8;
+
+        try
+        {
+            if (!string.IsNullOrEmpty(content.Headers.ContentType?.CharSet))
+            {
+                encoding = Encoding.GetEncoding(content.Headers.ContentType!.CharSet);
+            }
+        }
+        catch
+        {
+            // A charset nobody knows falls back to the guess.
+        }
+
+        using var stream = await content.ReadAsStreamAsync(cancellationToken);
+
+        var bytes = new byte[MaxHtmlBytes];
+        var total = 0;
+
+        while (total < bytes.Length)
+        {
+            var read = await stream.ReadAsync(bytes.AsMemory(total, bytes.Length - total), cancellationToken);
+            if (read == 0)
+            {
+                break;
+            }
+
+            total += read;
+        }
+
+        return encoding.GetString(bytes, 0, total);
     }
 
     // ---- Web app manifest ----------------------------------------------------

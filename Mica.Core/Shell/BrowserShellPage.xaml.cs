@@ -32,6 +32,7 @@ public sealed partial class BrowserShellPage : UserControl
     private ExtensionIndex? _index;
     private bool _installing;
     private bool _started;
+    private bool _lowMemoryRequested;
 
     public BrowserShellPage()
     {
@@ -106,6 +107,28 @@ public sealed partial class BrowserShellPage : UserControl
     public void SetRenderingEnabled(bool enabled) =>
         Browser.Visibility = enabled ? Visibility.Visible : Visibility.Collapsed;
 
+    /// <summary>
+    /// Asks the engine to shed as much memory as it can, or to come back to
+    /// normal. Unlike a suspension, script and network connections stay alive at
+    /// the low level — which is what keeps notifications arriving while the
+    /// window sits in the notification area — and the engine drops caches and
+    /// lets Windows swap browser memory out, swapping it back in when a script
+    /// needs it. The level does not return to normal on its own: a window coming
+    /// back to the front has to ask. Safe to call before the browser exists; the
+    /// request is remembered and applied the moment it does.
+    /// </summary>
+    public void SetMemoryTarget(bool low)
+    {
+        _lowMemoryRequested = low;
+
+        if (_core is not null)
+        {
+            _core.MemoryUsageTargetLevel = low
+                ? CoreWebView2MemoryUsageTargetLevel.Low
+                : CoreWebView2MemoryUsageTargetLevel.Normal;
+        }
+    }
+
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
         if (_started)
@@ -131,8 +154,24 @@ public sealed partial class BrowserShellPage : UserControl
     {
         StartupLog.Write("Creating WebView2 environment");
 
-        // Extensions can only be turned on when the environment is created.
-        var options = new CoreWebView2EnvironmentOptions { AreBrowserExtensionsEnabled = true };
+        // Extensions can only be turned on when the environment is created, and every
+        // app that shares the browser has to give the same answer: an environment
+        // cannot attach to a browser started with the other one, and the attempt
+        // fails silently enough to leave a live window with nothing in it. So the
+        // answer is a constant. Deciding it from whether any extension happens to be
+        // installed looks like a saving and is a trap — the value flips the moment
+        // someone installs their first extension, and the next app they open is the
+        // one that breaks.
+        //
+        // The extra arguments prune machinery a site wrapper has no use for: page
+        // translation, media casting, content suggestions. They are identical for
+        // every app for the same reason.
+        var options = new CoreWebView2EnvironmentOptions
+        {
+            AreBrowserExtensionsEnabled = true,
+            AdditionalBrowserArguments =
+                "--disable-features=Translate,MediaRouter,InterestFeed,OptimizationHints",
+        };
 
         // Which user data folder an app uses is what decides whether it gets its own
         // browser engine: WebView2 gives every client sharing a folder one browser,
@@ -162,6 +201,14 @@ public sealed partial class BrowserShellPage : UserControl
 
         _core = Browser.CoreWebView2;
         _profile = _core.Profile;
+
+        // An app started hidden asks for the low-memory level before the browser
+        // exists; honour that now that it does.
+        if (_lowMemoryRequested)
+        {
+            _core.MemoryUsageTargetLevel = CoreWebView2MemoryUsageTargetLevel.Low;
+        }
+
         StartupLog.Write("WebView2 ready");
 
         ConfigureWebView(_core);
@@ -895,7 +942,7 @@ public sealed partial class BrowserShellPage : UserControl
 
             bar.Add(new ToolbarExtension(
                 extension.Name,
-                iconPath is null ? null : await ImageLoader.LoadAsync(iconPath),
+                iconPath is null ? null : await ImageLoader.LoadAsync(iconPath, 48),
                 actionPage is null ? null : $"chrome-extension://{extension.Id}/{actionPage}"));
         }
 

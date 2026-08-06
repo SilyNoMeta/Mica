@@ -62,28 +62,46 @@ public static partial class CrxInstaller
         string browserVersion,
         CancellationToken cancellationToken = default)
     {
-        var crx = await DownloadAsync(id, browserVersion, cancellationToken);
-        var zipOffset = FindZipOffset(crx);
+        // An extension can be tens of megabytes; it streams to a temporary file
+        // rather than sitting in memory for the whole install.
+        var download = await DownloadAsync(id, browserVersion, cancellationToken);
 
-        var target = Path.Combine(extensionsFolder, id);
-        if (Directory.Exists(target))
+        try
         {
-            Directory.Delete(target, recursive: true);
+            var target = Path.Combine(extensionsFolder, id);
+            if (Directory.Exists(target))
+            {
+                Directory.Delete(target, recursive: true);
+            }
+
+            Directory.CreateDirectory(target);
+
+            using (var file = File.OpenRead(download))
+            using (var zip = new SubStream(file, FindZipOffset(file)))
+            using (var archive = new ZipArchive(zip, ZipArchiveMode.Read))
+            {
+                archive.ExtractToDirectory(target, overwriteFiles: true);
+            }
+
+            if (!File.Exists(Path.Combine(target, "manifest.json")))
+            {
+                Directory.Delete(target, recursive: true);
+                throw new InvalidDataException("The downloaded package does not contain a browser extension.");
+            }
+
+            return target;
         }
-
-        Directory.CreateDirectory(target);
-
-        using var stream = new MemoryStream(crx, zipOffset, crx.Length - zipOffset, writable: false);
-        using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
-        archive.ExtractToDirectory(target, overwriteFiles: true);
-
-        if (!File.Exists(Path.Combine(target, "manifest.json")))
+        finally
         {
-            Directory.Delete(target, recursive: true);
-            throw new InvalidDataException("The downloaded package does not contain a browser extension.");
+            try
+            {
+                File.Delete(download);
+            }
+            catch
+            {
+                // A leftover temporary file costs a few megabytes, not the install.
+            }
         }
-
-        return target;
     }
 
     /// <summary>Reads an unpacked extension's display name, resolving localised names.</summary>
@@ -130,7 +148,8 @@ public static partial class CrxInstaller
         }
     }
 
-    private static async Task<byte[]> DownloadAsync(string id, string browserVersion, CancellationToken cancellationToken)
+    /// <summary>Downloads the packed extension to a temporary file and returns its path.</summary>
+    private static async Task<string> DownloadAsync(string id, string browserVersion, CancellationToken cancellationToken)
     {
         var major = browserVersion.Split('.').FirstOrDefault() ?? "140";
         var url =
@@ -139,42 +158,110 @@ public static partial class CrxInstaller
             $"&prodversion={major}.0.0.0" +
             $"&x=id%3D{id}%26installsource%3Dondemand%26uc";
 
-        using var response = await Http.GetAsync(url, cancellationToken);
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new HttpRequestException(
-                $"The Chrome Web Store did not return this extension ({(int)response.StatusCode}).");
-        }
+        var download = Path.GetTempFileName();
 
-        var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken);
-        if (bytes.Length < 16)
+        try
         {
-            throw new InvalidDataException("The Chrome Web Store returned an empty package.");
-        }
+            using var response = await Http.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(
+                    $"The Chrome Web Store did not return this extension ({(int)response.StatusCode}).");
+            }
 
-        return bytes;
+            await using var file = new FileStream(
+                download, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: 81_920, useAsync: true);
+            await response.Content.CopyToAsync(file, cancellationToken);
+
+            if (file.Length < 16)
+            {
+                throw new InvalidDataException("The Chrome Web Store returned an empty package.");
+            }
+
+            return download;
+        }
+        catch
+        {
+            try
+            {
+                File.Delete(download);
+            }
+            catch
+            {
+                // Best effort on the way to an error the caller reports.
+            }
+
+            throw;
+        }
     }
 
     /// <summary>
     /// Locates the ZIP payload inside a CRX container. CRX2 and CRX3 differ only
     /// in how the signature block before the archive is sized.
     /// </summary>
-    private static int FindZipOffset(byte[] crx)
+    private static int FindZipOffset(Stream crx)
     {
-        if (crx[0] != 'C' || crx[1] != 'r' || crx[2] != '2' || crx[3] != '4')
+        var header = new byte[16];
+        var total = 0;
+
+        while (total < header.Length)
         {
-            // Some mirrors serve the bare ZIP.
-            return crx[0] == 'P' && crx[1] == 'K' ? 0 : throw new InvalidDataException("Not a CRX package.");
+            var read = crx.Read(header, total, header.Length - total);
+            if (read == 0)
+            {
+                throw new InvalidDataException("Not a CRX package.");
+            }
+
+            total += read;
         }
 
-        var version = BitConverter.ToUInt32(crx, 4);
+        if (header[0] != 'C' || header[1] != 'r' || header[2] != '2' || header[3] != '4')
+        {
+            // Some mirrors serve the bare ZIP.
+            return header[0] == 'P' && header[1] == 'K' ? 0 : throw new InvalidDataException("Not a CRX package.");
+        }
+
+        var version = BitConverter.ToUInt32(header, 4);
 
         return version switch
         {
-            3 => 12 + (int)BitConverter.ToUInt32(crx, 8),
-            2 => 16 + (int)BitConverter.ToUInt32(crx, 8) + (int)BitConverter.ToUInt32(crx, 12),
+            3 => 12 + (int)BitConverter.ToUInt32(header, 8),
+            2 => 16 + (int)BitConverter.ToUInt32(header, 8) + (int)BitConverter.ToUInt32(header, 12),
             _ => throw new InvalidDataException($"Unsupported CRX version {version}."),
         };
+    }
+
+    /// <summary>
+    /// A read-only window onto another stream. ZipArchive wants the archive to
+    /// fill its stream, and the CRX payload starts after the signature block; this
+    /// presents exactly that without copying the payload anywhere.
+    /// </summary>
+    private sealed class SubStream(Stream inner, long offset) : Stream
+    {
+        public override bool CanRead => true;
+        public override bool CanSeek => inner.CanSeek;
+        public override bool CanWrite => false;
+        public override long Length => inner.Length - offset;
+
+        public override long Position
+        {
+            get => inner.Position - offset;
+            set => inner.Position = value + offset;
+        }
+
+        public override void Flush()
+        {
+        }
+
+        public override int Read(byte[] buffer, int readOffset, int count) =>
+            inner.Read(buffer, readOffset, count);
+
+        public override long Seek(long seekOffset, SeekOrigin origin) =>
+            inner.Seek(seekOffset + (origin == SeekOrigin.Begin ? offset : 0), origin) - offset;
+
+        public override void SetLength(long value) => throw new NotSupportedException();
+
+        public override void Write(byte[] buffer, int writeOffset, int count) => throw new NotSupportedException();
     }
 
     [GeneratedRegex("^[a-p]{32}$", RegexOptions.IgnoreCase)]

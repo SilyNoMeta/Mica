@@ -87,13 +87,21 @@ foreach ($project in @('Mica.Host', 'Mica.Builder')) {
     Write-Host "Added $project.pri"
 }
 
+# The builder reads its window icon as a loose file next to the executable, and
+# the publish layout drops it the same way it drops the resource index. Without
+# it the window falls back to the generic icon Windows draws for any app.
+New-Item -ItemType Directory -Force -Path (Join-Path $Output 'Assets') | Out-Null
+Copy-Item -LiteralPath (Join-Path $root 'Mica.Builder\Assets\AppIcon.ico') `
+    -Destination (Join-Path $Output 'Assets\AppIcon.ico') -Force
+Write-Host 'Added Assets\AppIcon.ico'
+
 Get-ChildItem -LiteralPath $Output -Filter '*.pdb' -Recurse | Remove-Item -Force
 
 $size = [math]::Round((Get-ChildItem -LiteralPath $Output -Recurse -File |
         Measure-Object -Property Length -Sum).Sum / 1MB, 1)
 $count = (Get-ChildItem -LiteralPath $Output -Recurse -File).Count
 
-foreach ($required in @('Mica.Builder.exe', 'Mica.Builder.pri', 'Mica.Host.exe', 'Mica.Host.pri')) {
+foreach ($required in @('Mica.Builder.exe', 'Mica.Builder.pri', 'Mica.Host.exe', 'Mica.Host.pri', 'Assets\AppIcon.ico')) {
     if (-not (Test-Path (Join-Path $Output $required))) {
         throw "The payload is missing $required."
     }

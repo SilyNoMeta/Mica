@@ -39,7 +39,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Assets\AppIcon.ico" />
+    <!--
+      The builder reads this file back from disk to set its window icon, so it has
+      to survive the publish layout — dotnet publish drops loose content the same
+      way it drops the application's own resource index, and a published copy
+      without the icon falls back to the generic one Windows draws. The publish
+      script copies it as well, and fails when it is missing.
+    -->
+    <Content Include="Assets\AppIcon.ico" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
