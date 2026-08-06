@@ -16,6 +16,9 @@
   <data name="FlowDirection" xml:space="preserve">
     <value>LeftToRight</value>
   </data>
+  <data name="ShellAlreadyInstalled" xml:space="preserve">
+    <value>{0}은(는) 이미 설치되어 있습니다</value>
+  </data>
   <data name="ShellBack" xml:space="preserve">
     <value>뒤로 (Alt+←)</value>
   </data>

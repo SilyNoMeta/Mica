@@ -29,6 +29,7 @@ public sealed partial class BrowserShellPage : UserControl
     private CoreWebView2Profile? _profile;
     private string? _zoomScriptId;
     private string? _detectedExtensionId;
+    private ExtensionIndex? _index;
     private bool _installing;
     private bool _started;
 
@@ -166,8 +167,7 @@ public sealed partial class BrowserShellPage : UserControl
         ConfigureWebView(_core);
 
         await _core.AddScriptToExecuteOnDocumentCreatedAsync(ShellScript);
-        await _core.AddScriptToExecuteOnDocumentCreatedAsync(
-            BuildStoreScript(Strings.Get("ShellInstallInApp")));
+        await _core.AddScriptToExecuteOnDocumentCreatedAsync(BuildStoreScript());
         await ApplyZoomAsync();
         await RestoreExtensionsAsync();
 
@@ -276,66 +276,72 @@ public sealed partial class BrowserShellPage : UserControl
     /// single-page navigation can slip past it.
     /// </para>
     /// </summary>
-    private static string BuildStoreScript(string installLabel) =>
-        $$"""
-          (() => {
-            if (location.host !== 'chromewebstore.google.com') { return; }
+    private static string BuildStoreScript() =>
+        """
+        (() => {
+          if (location.host !== 'chromewebstore.google.com') { return; }
 
-            const post = m => { try { window.chrome.webview.postMessage(m); } catch (e) { } };
-            const LABEL = {{System.Text.Json.JsonSerializer.Serialize(installLabel)}};
+          const post = m => { try { window.chrome.webview.postMessage(m); } catch (e) { } };
 
-            // Matched as "chrome" plus a verb rather than as whole phrases: the store
-            // says "Ajouter à Google Chrome" in French and "Add to Chrome" in English,
-            // and a phrase list misses every wording it was not told about.
-            const VERBS = ['add', 'ajouter', 'añadir', 'adicionar', 'usar', 'hinzufügen',
-              'aggiungi', 'установить', 'добавить', '添加', '追加', '추가', 'thêm', 'إضافة'];
+          // Matched as "chrome" plus a verb rather than as whole phrases: the store
+          // says "Ajouter à Google Chrome" in French and "Add to Chrome" in English,
+          // and a phrase list misses every wording it was not told about.
+          const VERBS = ['add', 'ajouter', 'añadir', 'adicionar', 'usar', 'hinzufügen',
+            'aggiungi', 'установить', 'добавить', '添加', '追加', '추가', 'thêm', 'إضافة'];
 
-            const isInstallButton = el => {
-              if (!el) { return false; }
-              const text = (el.innerText || '').trim().toLowerCase();
-              return text.length > 0
-                && text.length < 60
-                && text.includes('chrome')
-                && VERBS.some(v => text.includes(v));
-            };
+          const isInstallButton = el => {
+            if (!el) { return false; }
+            const text = (el.innerText || '').trim().toLowerCase();
+            return text.length > 0
+              && text.length < 60
+              && text.includes('chrome')
+              && VERBS.some(v => text.includes(v));
+          };
 
-            // Registered before anything can throw, so the takeover survives even if
-            // the relabelling below ever fails on a future version of the store.
-            addEventListener('click', e => {
-              const button = e.target && e.target.closest
-                ? e.target.closest('button, [role="button"], a')
-                : null;
+          // Kept as a safety net in case a future store build renders a button that
+          // slips past the disabling below.
+          addEventListener('click', e => {
+            const button = e.target && e.target.closest
+              ? e.target.closest('button, [role="button"], a')
+              : null;
 
-              if (!isInstallButton(button)) { return; }
+            if (!isInstallButton(button)) { return; }
 
-              e.preventDefault();
-              e.stopImmediatePropagation();
-              post('mica:install-here');
-            }, true);
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            post('mica:install-here');
+          }, true);
 
-            // Relabel whatever the store renders, including after its own in-page
-            // navigations, so the button says what it will actually do.
-            const relabel = () => {
-              for (const el of document.querySelectorAll('button, [role="button"]')) {
-                if (isInstallButton(el) && el.innerText.trim() !== LABEL) {
-                  el.innerText = LABEL;
-                }
-              }
-            };
+          // The store's button is left saying what it says and turned off, rather
+          // than relabelled: dressing someone else's control up as ours is the kind
+          // of thing that makes a page untrustworthy. Mica's own button is in the
+          // bar above.
+          const disable = () => {
+            for (const el of document.querySelectorAll('button, [role="button"], a')) {
+              if (!isInstallButton(el) || el.dataset.micaOff === '1') { continue; }
 
-            // This runs at document creation, where documentElement does not exist
-            // yet: observing it straight away throws, and the exception takes the
-            // whole script down — including the click handler above it.
-            const watch = () => {
-              relabel();
-              new MutationObserver(relabel).observe(document.documentElement,
-                { childList: true, subtree: true, characterData: true });
-            };
+              el.dataset.micaOff = '1';
+              el.setAttribute('aria-disabled', 'true');
+              el.style.pointerEvents = 'none';
+              el.style.opacity = '0.4';
+              el.style.filter = 'grayscale(1)';
+              if ('disabled' in el) { el.disabled = true; }
+            }
+          };
 
-            if (document.documentElement) { watch(); }
-            else { addEventListener('DOMContentLoaded', watch); }
-          })();
-          """;
+          // This runs at document creation, where documentElement does not exist
+          // yet: observing it straight away throws, and the exception takes the
+          // whole script down — including the click handler above it.
+          const watch = () => {
+            disable();
+            new MutationObserver(disable).observe(document.documentElement,
+              { childList: true, subtree: true, characterData: true });
+          };
+
+          if (document.documentElement) { watch(); }
+          else { addEventListener('DOMContentLoaded', watch); }
+        })();
+        """;
 
     private void OnWebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
     {
@@ -649,9 +655,25 @@ public sealed partial class BrowserShellPage : UserControl
             return;
         }
 
+        var name = StoreItemName(source!);
+
+        // Already installed: say so and offer nothing. Reloading after an install
+        // brings the user straight back to this page, and re-offering there read as
+        // if the install had not worked.
+        if (Index.HasStoreId(_detectedExtensionId))
+        {
+            _detectedExtensionId = null;
+            ShowPrompt(
+                InfoBarSeverity.Success,
+                Strings.Format("ShellAlreadyInstalled", name),
+                string.Empty,
+                showAction: false);
+            return;
+        }
+
         ShowPrompt(
             InfoBarSeverity.Informational,
-            Strings.Format("ShellDetectedTitle", StoreItemName(source!)),
+            Strings.Format("ShellDetectedTitle", name),
             Strings.Format("ShellDetectedBody", _config.Name),
             showAction: true);
     }
@@ -711,6 +733,11 @@ public sealed partial class BrowserShellPage : UserControl
 
             var extension = await _profile.AddBrowserExtensionAsync(folder);
 
+            // The reported id is derived from the folder path, not from the store, so
+            // it has to be written down now — afterwards there is no way back to
+            // either the store id or the folder.
+            Index.Record(extension.Id, id, folder);
+
             ExtensionInput.Text = string.Empty;
             _detectedExtensionId = null;
 
@@ -738,6 +765,9 @@ public sealed partial class BrowserShellPage : UserControl
         }
     }
 
+    private ExtensionIndex Index =>
+        _index ??= ExtensionIndex.Load(MicaPaths.ExtensionsFolder(_config.Slug));
+
     private void ShowPrompt(InfoBarSeverity severity, string title, string message, bool showAction)
     {
         ExtensionPrompt.Severity = severity;
@@ -764,11 +794,14 @@ public sealed partial class BrowserShellPage : UserControl
                 }
             }
 
-            var folder = Path.Combine(MicaPaths.ExtensionsFolder(_config.Slug), id);
-            if (Directory.Exists(folder))
+            // The folder is whatever the index recorded, not a folder named after the
+            // id: those are two different identifiers.
+            if (Index.ByRuntimeId(id) is { } entry && Directory.Exists(entry.Folder))
             {
-                Directory.Delete(folder, recursive: true);
+                Directory.Delete(entry.Folder, recursive: true);
             }
+
+            Index.Remove(id);
 
             ShowExtensionStatus(Strings.Get("ShellExtensionRemoved"));
             await RefreshExtensionListAsync();
@@ -793,7 +826,7 @@ public sealed partial class BrowserShellPage : UserControl
 
         try
         {
-            var installed = (await _profile.GetBrowserExtensionsAsync())
+            var loaded = (await _profile.GetBrowserExtensionsAsync())
                 .Select(extension => extension.Id)
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
@@ -802,11 +835,23 @@ public sealed partial class BrowserShellPage : UserControl
             {
                 foreach (var folder in Directory.EnumerateDirectories(root))
                 {
-                    if (!installed.Contains(Path.GetFileName(folder))
-                        && File.Exists(Path.Combine(folder, "manifest.json")))
+                    if (!File.Exists(Path.Combine(folder, "manifest.json")))
                     {
-                        await _profile.AddBrowserExtensionAsync(folder);
+                        continue;
                     }
+
+                    // Compare against what the index says this folder loads as, since
+                    // the runtime id is not the folder name.
+                    var known = Index.Entries.FirstOrDefault(e =>
+                        string.Equals(e.Folder, folder, StringComparison.OrdinalIgnoreCase));
+
+                    if (known is not null && loaded.Contains(known.RuntimeId))
+                    {
+                        continue;
+                    }
+
+                    var extension = await _profile.AddBrowserExtensionAsync(folder);
+                    Index.Record(extension.Id, known?.StoreId ?? Path.GetFileName(folder), folder);
                 }
             }
 
@@ -825,27 +870,28 @@ public sealed partial class BrowserShellPage : UserControl
             return;
         }
 
-        var root = MicaPaths.ExtensionsFolder(_config.Slug);
         var extensions = await _profile.GetBrowserExtensionsAsync();
 
         // Only list what the user installed. WebView2 also reports its own built-in
         // extensions (the PDF viewer, the clipboard helper), which cannot be removed
-        // and would just look like clutter the user is responsible for.
+        // and would just look like clutter the user is responsible for. The index is
+        // what tells them apart — an unpacked extension's id is derived from its
+        // folder path, so it matches neither the store id nor the folder name.
         var removeLabel = Strings.Get("ShellRemoveExtension");
 
         var mine = extensions
-            .Where(extension => Directory.Exists(Path.Combine(root, extension.Id)))
+            .Select(extension => (Extension: extension, Entry: Index.ByRuntimeId(extension.Id)))
+            .Where(pair => pair.Entry is not null)
             .ToList();
 
         ExtensionList.ItemsSource = mine
-            .Select(extension => new ExtensionEntry(extension.Id, extension.Name, removeLabel))
+            .Select(pair => new ExtensionEntry(pair.Extension.Id, pair.Extension.Name, removeLabel))
             .ToList();
 
         var bar = new List<ToolbarExtension>();
-        foreach (var extension in mine)
+        foreach (var (extension, entry) in mine)
         {
-            var folder = Path.Combine(root, extension.Id);
-            var (iconPath, actionPage) = ExtensionManifest.ReadAction(folder);
+            var (iconPath, actionPage) = ExtensionManifest.ReadAction(entry!.Folder);
 
             bar.Add(new ToolbarExtension(
                 extension.Name,
@@ -854,6 +900,7 @@ public sealed partial class BrowserShellPage : UserControl
         }
 
         ExtensionBar.ItemsSource = bar;
+        StartupLog.Write($"Toolbar shows {bar.Count} extension(s) of {extensions.Count} in the profile");
     }
 
     private void ShowExtensionStatus(string message)

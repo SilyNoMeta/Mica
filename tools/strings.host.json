@@ -155,6 +155,14 @@
     "vi": "“Thêm vào Chrome” không hoạt động bên trong ứng dụng. Mica có thể cài nó vào {0}.",
     "ar": "زر «إضافة إلى Chrome» لا يعمل داخل التطبيق. يمكن لـ Mica تثبيتها في {0}."
   },
+  "ShellAlreadyInstalled": {
+    "en": "{0} is already installed here", "fr": "{0} est déjà installée ici",
+    "es": "{0} ya está instalada aquí", "pt-BR": "{0} já está instalada aqui",
+    "de": "{0} ist hier bereits installiert", "it": "{0} è già installata qui",
+    "ru": "{0} здесь уже установлено", "zh-Hans": "{0} 已安装在此应用中",
+    "ja": "{0} はこのアプリに導入済みです", "ko": "{0}은(는) 이미 설치되어 있습니다",
+    "vi": "{0} đã được cài ở đây", "ar": "{0} مثبَّت هنا بالفعل"
+  },
   "ShellInstallInApp": {
     "en": "Install in the app", "fr": "Installer dans l'app", "es": "Instalar en la app",
     "pt-BR": "Instalar no app", "de": "In der App installieren", "it": "Installa nell'app",

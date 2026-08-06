@@ -16,6 +16,9 @@
   <data name="FlowDirection" xml:space="preserve">
     <value>RightToLeft</value>
   </data>
+  <data name="ShellAlreadyInstalled" xml:space="preserve">
+    <value>{0} مثبَّت هنا بالفعل</value>
+  </data>
   <data name="ShellBack" xml:space="preserve">
     <value>رجوع (Alt+→)</value>
   </data>

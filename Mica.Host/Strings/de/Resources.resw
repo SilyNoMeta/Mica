@@ -16,6 +16,9 @@
   <data name="FlowDirection" xml:space="preserve">
     <value>LeftToRight</value>
   </data>
+  <data name="ShellAlreadyInstalled" xml:space="preserve">
+    <value>{0} ist hier bereits installiert</value>
+  </data>
   <data name="ShellBack" xml:space="preserve">
     <value>Zurück (Alt+←)</value>
   </data>
