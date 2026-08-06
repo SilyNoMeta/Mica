@@ -25,6 +25,12 @@
   <data name="AppsCountOne" xml:space="preserve">
     <value>1 приложение · ярлыки в «Пуск › Mica»</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="AppSettingsTitle" xml:space="preserve">
+    <value>Настройки {0}</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
@@ -63,6 +69,9 @@
   </data>
   <data name="DialogUrlHeader" xml:space="preserve">
     <value>Адрес сайта</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Готово</value>
   </data>
   <data name="EmptyBody" xml:space="preserve">
     <value>Укажите Mica адрес сайта — и получите приложение Windows с его настоящим именем, настоящим значком и собственным ярлыком.</value>
@@ -120,6 +129,18 @@
   </data>
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>Не удалось удалить</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>Продолжать работу после закрытия</value>
+  </data>
+  <data name="SettingsBackgroundHint" xml:space="preserve">
+    <value>Приложение ждёт в области уведомлений вместо выхода, чтобы его уведомления продолжали приходить. Всё это время браузерный движок остаётся в памяти.</value>
+  </data>
+  <data name="SettingsStartup" xml:space="preserve">
+    <value>Запускать вместе с Windows</value>
+  </data>
+  <data name="SettingsStartupHint" xml:space="preserve">
+    <value>Вместе с настройкой выше приложение запускается сразу в область уведомлений. Windows показывает его в «Параметры › Приложения › Автозагрузка», где его тоже можно отключить.</value>
   </data>
   <data name="YourApps" xml:space="preserve">
     <value>Ваши приложения</value>

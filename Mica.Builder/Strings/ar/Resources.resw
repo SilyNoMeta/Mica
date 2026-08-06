@@ -25,6 +25,12 @@
   <data name="AppsCountOne" xml:space="preserve">
     <value>تطبيق واحد · الاختصارات في «ابدأ › Mica»</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="AppSettingsTitle" xml:space="preserve">
+    <value>إعدادات {0}</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
@@ -63,6 +69,9 @@
   </data>
   <data name="DialogUrlHeader" xml:space="preserve">
     <value>عنوان الموقع</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>تم</value>
   </data>
   <data name="EmptyBody" xml:space="preserve">
     <value>أعطِ Mica عنوان موقع، فتحصل على تطبيق Windows يحمل اسم الموقع الحقيقي وأيقونته الحقيقية واختصارًا خاصًا به.</value>
@@ -120,6 +129,18 @@
   </data>
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>تعذّرت الإزالة</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>الاستمرار في العمل بعد الإغلاق</value>
+  </data>
+  <data name="SettingsBackgroundHint" xml:space="preserve">
+    <value>ينتظر التطبيق في منطقة الإشعارات بدل الخروج، فتستمر إشعاراته في الوصول. ويبقي محرك المتصفح في الذاكرة طوال ذلك.</value>
+  </data>
+  <data name="SettingsStartup" xml:space="preserve">
+    <value>التشغيل مع بدء Windows</value>
+  </data>
+  <data name="SettingsStartupHint" xml:space="preserve">
+    <value>مع الإعداد أعلاه، يبدأ التطبيق مباشرة في منطقة الإشعارات. ويُدرجه Windows ضمن الإعدادات › التطبيقات › بدء التشغيل، حيث يمكنك تعطيله أيضًا.</value>
   </data>
   <data name="YourApps" xml:space="preserve">
     <value>تطبيقاتك</value>

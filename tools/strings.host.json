@@ -198,5 +198,67 @@
     "pt-BR": "Não foi possível remover", "de": "Entfernen fehlgeschlagen", "it": "Rimozione non riuscita",
     "ru": "Не удалось удалить", "zh-Hans": "移除失败", "ja": "削除できませんでした",
     "ko": "제거하지 못했습니다", "vi": "Không gỡ được", "ar": "تعذّرت الإزالة"
+  },
+
+  "ShellBackground": {
+    "en": "Background", "fr": "Arrière-plan", "es": "Segundo plano", "pt-BR": "Segundo plano",
+    "de": "Hintergrund", "it": "Secondo piano", "ru": "Фоновый режим", "zh-Hans": "后台运行",
+    "ja": "バックグラウンド", "ko": "백그라운드", "vi": "Chạy nền", "ar": "الخلفية"
+  },
+  "ShellBackgroundOn": {
+    "en": "On", "fr": "Activé", "es": "Activado", "pt-BR": "Ativado",
+    "de": "Ein", "it": "Attivo", "ru": "Вкл.", "zh-Hans": "开",
+    "ja": "オン", "ko": "켬", "vi": "Bật", "ar": "مفعّل"
+  },
+  "ShellBackgroundOff": {
+    "en": "Off", "fr": "Désactivé", "es": "Desactivado", "pt-BR": "Desativado",
+    "de": "Aus", "it": "Disattivo", "ru": "Выкл.", "zh-Hans": "关",
+    "ja": "オフ", "ko": "끔", "vi": "Tắt", "ar": "معطّل"
+  },
+  "ShellBackgroundHint": {
+    "en": "Closing the window leaves the app in the notification area instead of quitting, so notifications keep arriving. It keeps using memory while it waits.",
+    "fr": "Fermer la fenêtre laisse l'app dans la zone de notification au lieu de quitter, pour que les notifications continuent d'arriver. Elle continue d'occuper de la mémoire en attendant.",
+    "es": "Cerrar la ventana deja la app en el área de notificación en vez de salir, así siguen llegando las notificaciones. Mientras espera, sigue ocupando memoria.",
+    "pt-BR": "Fechar a janela deixa o app na área de notificação em vez de sair, para que as notificações continuem chegando. Enquanto espera, ele continua ocupando memória.",
+    "de": "Beim Schließen bleibt die App im Infobereich, statt sich zu beenden, damit weiterhin Benachrichtigungen ankommen. Sie belegt dabei weiter Arbeitsspeicher.",
+    "it": "Chiudere la finestra lascia l'app nell'area di notifica invece di uscire, così le notifiche continuano ad arrivare. Nel frattempo continua a occupare memoria.",
+    "ru": "Закрытие окна оставляет приложение в области уведомлений вместо выхода, чтобы уведомления продолжали приходить. Пока оно ждёт, память остаётся занятой.",
+    "zh-Hans": "关闭窗口时应用会留在通知区域而不是退出，通知因此继续送达。等待期间它会持续占用内存。",
+    "ja": "ウィンドウを閉じてもアプリは終了せず通知領域に残るため、通知が届き続けます。待機中もメモリを使い続けます。",
+    "ko": "창을 닫아도 앱은 종료되지 않고 알림 영역에 남아 있어 알림이 계속 도착합니다. 대기하는 동안 메모리를 계속 사용합니다.",
+    "vi": "Đóng cửa sổ sẽ để ứng dụng nằm ở khay thông báo thay vì thoát, nhờ đó thông báo vẫn tiếp tục đến. Trong lúc chờ, nó vẫn chiếm bộ nhớ.",
+    "ar": "إغلاق النافذة يُبقي التطبيق في منطقة الإشعارات بدل الخروج، فتستمر الإشعارات في الوصول. ويظل يستهلك الذاكرة أثناء الانتظار."
+  },
+  "TrayOpen": {
+    "en": "Open", "fr": "Ouvrir", "es": "Abrir", "pt-BR": "Abrir",
+    "de": "Öffnen", "it": "Apri", "ru": "Открыть", "zh-Hans": "打开",
+    "ja": "開く", "ko": "열기", "vi": "Mở", "ar": "فتح"
+  },
+  "TrayStartWithWindows": {
+    "en": "Start with Windows", "fr": "Lancer au démarrage de Windows",
+    "es": "Iniciar con Windows", "pt-BR": "Iniciar com o Windows",
+    "de": "Mit Windows starten", "it": "Avvia con Windows",
+    "ru": "Запускать вместе с Windows", "zh-Hans": "开机时启动",
+    "ja": "Windows の起動時に開く", "ko": "Windows 시작 시 실행",
+    "vi": "Khởi động cùng Windows", "ar": "التشغيل مع بدء Windows"
+  },
+  "TrayQuit": {
+    "en": "Quit", "fr": "Quitter", "es": "Salir", "pt-BR": "Sair",
+    "de": "Beenden", "it": "Esci", "ru": "Выйти", "zh-Hans": "退出",
+    "ja": "終了", "ko": "종료", "vi": "Thoát", "ar": "إنهاء"
+  },
+  "TrayStillRunning": {
+    "en": "{0} is still running here. Notifications keep arriving; quit from this icon's menu.",
+    "fr": "{0} tourne toujours ici. Les notifications continuent d'arriver ; quittez depuis le menu de cette icône.",
+    "es": "{0} sigue aquí. Las notificaciones seguirán llegando; sal desde el menú de este icono.",
+    "pt-BR": "{0} continua aqui. As notificações continuam chegando; saia pelo menu deste ícone.",
+    "de": "{0} läuft hier weiter. Benachrichtigungen kommen weiterhin an; beenden können Sie über das Menü dieses Symbols.",
+    "it": "{0} è ancora qui. Le notifiche continuano ad arrivare; esci dal menu di questa icona.",
+    "ru": "{0} продолжает работать здесь. Уведомления будут приходить; выйти можно из меню этого значка.",
+    "zh-Hans": "{0} 仍在这里运行。通知会继续送达；可从此图标的菜单退出。",
+    "ja": "{0} はここで動作し続けています。通知は届き続けます。終了はこのアイコンのメニューから。",
+    "ko": "{0}은(는) 여기서 계속 실행 중입니다. 알림이 계속 도착하며, 종료는 이 아이콘의 메뉴에서 할 수 있습니다.",
+    "vi": "{0} vẫn đang chạy ở đây. Thông báo vẫn tiếp tục đến; thoát từ menu của biểu tượng này.",
+    "ar": "{0} لا يزال يعمل هنا. ستستمر الإشعارات في الوصول؛ يمكنك الإنهاء من قائمة هذه الأيقونة."
   }
 }

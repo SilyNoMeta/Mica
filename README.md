@@ -26,6 +26,10 @@ extensions. Press <kbd>Alt</kbd> when you need the toolbar, pin it if you want i
   an extension's store page. Pasting the extension's link into settings works too. Want an ad
   blocker? Install the one you like — Mica does not pick for you.
 - **Web notifications become Windows toasts**, attributed to the app rather than to a browser.
+  Turn on *keep running when closed* and the app waits in the notification area instead of
+  quitting, so its notifications keep arriving; it can also start with Windows, straight into the
+  tray. Both are off by default — a resident process holding a browser engine in memory is not
+  something to hand out unasked.
 - **Links stay sensible.** Off-site links you click open in your real browser; redirects and
   sign-in hops stay inside the app so a login never strands your session elsewhere.
 
@@ -193,7 +197,12 @@ winget install Microsoft.WindowsAppRuntime.2
 
 ## Known limitations
 
-- **Notifications only while the app is open.** There is no background push without a service.
+- **Notifications need the app running.** *Keep running when closed* covers this by keeping the
+  page loaded in the background; there is still no push while the app is fully quit, which would
+  need a service. Each backgrounded app holds its own browser engine, roughly 150–300 MB.
+- **A launcher carries a copy of the host's resource index**, so an updated Mica would leave older
+  apps showing raw resource keys. Each app refreshes that copy at launch, which repairs itself on
+  the next start rather than instantly.
 - **Zoom is applied by the shell, not the browser.** WinUI's WebView2 control does not expose
   `ZoomFactor`, so Mica scales the document with Chromium's CSS `zoom`, which reflows layout the
   same way browser zoom does. <kbd>Ctrl</kbd> +/−/0 and <kbd>Ctrl</kbd>+wheel are routed to it.

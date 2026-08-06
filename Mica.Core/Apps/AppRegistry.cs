@@ -150,6 +150,7 @@ public static class AppRegistry
         ShortcutFactory.Delete(ShortcutPath(config));
         AppIdentity.Remove(MicaPaths.AppUserModelId(config.Slug));
         AppLauncherFactory.Delete(config.Slug);
+        StartupRegistration.Remove(config);
 
         try
         {

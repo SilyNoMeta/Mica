@@ -54,6 +54,7 @@ public sealed partial class MainWindow : Window
         var moreActions = Strings.Get("MoreActions");
         var open = Strings.Get("Open");
         var refresh = Strings.Get("RefreshIcon");
+        var settings = Strings.Get("AppSettings");
         var remove = Strings.Get("Remove");
 
         foreach (var app in apps)
@@ -67,6 +68,7 @@ public sealed partial class MainWindow : Window
                 moreActions,
                 open,
                 refresh,
+                settings,
                 remove));
         }
 
@@ -168,6 +170,17 @@ public sealed partial class MainWindow : Window
         }
     }
 
+    private async void OnAppSettingsClick(object sender, RoutedEventArgs e)
+    {
+        if (SlugOf(sender) is not { } slug || AppRegistry.Find(slug) is not { } config)
+        {
+            return;
+        }
+
+        var dialog = new AppSettingsDialog(config) { XamlRoot = Content.XamlRoot };
+        await dialog.ShowAsync();
+    }
+
     private async void OnRemoveAppClick(object sender, RoutedEventArgs e)
     {
         if (SlugOf(sender) is not { } slug || AppRegistry.Find(slug) is not { } config)
@@ -235,5 +248,6 @@ public sealed partial class MainWindow : Window
         string MoreActionsLabel,
         string OpenLabel,
         string RefreshLabel,
+        string SettingsLabel,
         string RemoveLabel);
 }

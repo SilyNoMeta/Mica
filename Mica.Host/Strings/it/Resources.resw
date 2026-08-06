@@ -19,6 +19,18 @@
   <data name="ShellBack" xml:space="preserve">
     <value>Indietro (Alt+←)</value>
   </data>
+  <data name="ShellBackground" xml:space="preserve">
+    <value>Secondo piano</value>
+  </data>
+  <data name="ShellBackgroundHint" xml:space="preserve">
+    <value>Chiudere la finestra lascia l&apos;app nell&apos;area di notifica invece di uscire, così le notifiche continuano ad arrivare. Nel frattempo continua a occupare memoria.</value>
+  </data>
+  <data name="ShellBackgroundOff" xml:space="preserve">
+    <value>Disattivo</value>
+  </data>
+  <data name="ShellBackgroundOn" xml:space="preserve">
+    <value>Attivo</value>
+  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>«Aggiungi» non funziona in un&apos;app. Mica può installarla in {0}.</value>
   </data>
@@ -101,5 +113,17 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>Reimposta</value>
+  </data>
+  <data name="TrayOpen" xml:space="preserve">
+    <value>Apri</value>
+  </data>
+  <data name="TrayQuit" xml:space="preserve">
+    <value>Esci</value>
+  </data>
+  <data name="TrayStartWithWindows" xml:space="preserve">
+    <value>Avvia con Windows</value>
+  </data>
+  <data name="TrayStillRunning" xml:space="preserve">
+    <value>{0} è ancora qui. Le notifiche continuano ad arrivare; esci dal menu di questa icona.</value>
   </data>
 </root>

@@ -74,6 +74,12 @@ public sealed partial class BrowserShellPage : UserControl
         ToolTipService.SetToolTip(ZoomInButton, Strings.Get("ShellZoomIn"));
         ZoomResetButton.Content = Strings.Get("ShellZoomReset");
 
+        BackgroundHeading.Text = Strings.Get("ShellBackground");
+        BackgroundToggle.OnContent = Strings.Get("ShellBackgroundOn");
+        BackgroundToggle.OffContent = Strings.Get("ShellBackgroundOff");
+        BackgroundHint.Text = Strings.Get("ShellBackgroundHint");
+        BackgroundToggle.IsOn = _config.RunInBackground;
+
         ExtensionsHeading.Text = Strings.Get("ShellExtensions");
         ExtensionsHint.Text = Strings.Get("ShellExtensionsHint");
         OpenStoreButton.Content = Strings.Get("ShellOpenWebStore");
@@ -250,6 +256,24 @@ public sealed partial class BrowserShellPage : UserControl
     {
         _config.ToolbarPinned = PinButton.IsChecked == true;
         SaveConfig();
+    }
+
+    /// <summary>
+    /// Raised when the user changes whether the app keeps running once its window is
+    /// closed. The window owns the notification-area icon, so it has to react.
+    /// </summary>
+    public event EventHandler? BackgroundModeChanged;
+
+    private void OnBackgroundToggled(object sender, RoutedEventArgs e)
+    {
+        if (_config.RunInBackground == BackgroundToggle.IsOn)
+        {
+            return;
+        }
+
+        _config.RunInBackground = BackgroundToggle.IsOn;
+        SaveConfig();
+        BackgroundModeChanged?.Invoke(this, EventArgs.Empty);
     }
 
     // ---- Navigation ----------------------------------------------------------

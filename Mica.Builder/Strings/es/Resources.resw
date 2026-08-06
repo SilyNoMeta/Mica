@@ -25,6 +25,12 @@
   <data name="AppsCountOne" xml:space="preserve">
     <value>1 app · accesos directos en Inicio › Mica</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="AppSettingsTitle" xml:space="preserve">
+    <value>Ajustes de {0}</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
@@ -63,6 +69,9 @@
   </data>
   <data name="DialogUrlHeader" xml:space="preserve">
     <value>Dirección del sitio</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Listo</value>
   </data>
   <data name="EmptyBody" xml:space="preserve">
     <value>Dale a Mica la dirección de un sitio y obtendrás una app de Windows con su nombre real, su icono real y su propio acceso directo.</value>
@@ -120,6 +129,18 @@
   </data>
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>No se pudo quitar</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>Seguir en ejecución al cerrar</value>
+  </data>
+  <data name="SettingsBackgroundHint" xml:space="preserve">
+    <value>La app espera en el área de notificación en vez de salir, así siguen llegando sus notificaciones. Mientras tanto mantiene su motor de navegación en memoria.</value>
+  </data>
+  <data name="SettingsStartup" xml:space="preserve">
+    <value>Iniciar con Windows</value>
+  </data>
+  <data name="SettingsStartupHint" xml:space="preserve">
+    <value>Junto con el ajuste anterior, la app arranca directamente en el área de notificación. Windows la muestra en Configuración › Aplicaciones › Inicio, donde también puedes desactivarla.</value>
   </data>
   <data name="YourApps" xml:space="preserve">
     <value>Tus apps</value>

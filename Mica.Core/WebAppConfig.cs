@@ -35,6 +35,20 @@ public sealed class WebAppConfig
     /// <summary>True when the user pinned the toolbar so it stays visible.</summary>
     public bool ToolbarPinned { get; set; }
 
+    /// <summary>
+    /// Closing the window leaves the app running in the notification area instead of
+    /// quitting. This is what makes web notifications keep arriving: the page stays
+    /// loaded, so the site can still raise them.
+    /// <para>
+    /// Off by default — a background process nobody asked for, holding a browser
+    /// engine in memory, is not a reasonable default.
+    /// </para>
+    /// </summary>
+    public bool RunInBackground { get; set; }
+
+    /// <summary>True when the app starts with Windows, minimized to the notification area.</summary>
+    public bool StartWithWindows { get; set; }
+
     public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
 
     [JsonIgnore]

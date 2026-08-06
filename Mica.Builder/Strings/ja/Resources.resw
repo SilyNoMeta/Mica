@@ -25,6 +25,12 @@
   <data name="AppsCountOne" xml:space="preserve">
     <value>1 個のアプリ · ショートカットは [スタート] › Mica</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="AppSettingsTitle" xml:space="preserve">
+    <value>{0} の設定</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>
@@ -63,6 +69,9 @@
   </data>
   <data name="DialogUrlHeader" xml:space="preserve">
     <value>サイトのアドレス</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>完了</value>
   </data>
   <data name="EmptyBody" xml:space="preserve">
     <value>サイトのアドレスを Mica に渡すと、そのサイト本来の名前とアイコン、そして専用のショートカットを備えた Windows アプリになります。</value>
@@ -120,6 +129,18 @@
   </data>
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>削除できませんでした</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>閉じても実行し続ける</value>
+  </data>
+  <data name="SettingsBackgroundHint" xml:space="preserve">
+    <value>アプリは終了せず通知領域で待機するため、通知が届き続けます。待機中はブラウザーエンジンがメモリに残ります。</value>
+  </data>
+  <data name="SettingsStartup" xml:space="preserve">
+    <value>Windows の起動時に開く</value>
+  </data>
+  <data name="SettingsStartupHint" xml:space="preserve">
+    <value>上の設定と組み合わせると、アプリは通知領域に直接起動します。Windows は [設定] › [アプリ] › [スタートアップ] に表示し、そこでも無効にできます。</value>
   </data>
   <data name="YourApps" xml:space="preserve">
     <value>あなたのアプリ</value>

@@ -19,6 +19,18 @@
   <data name="ShellBack" xml:space="preserve">
     <value>Zurück (Alt+←)</value>
   </data>
+  <data name="ShellBackground" xml:space="preserve">
+    <value>Hintergrund</value>
+  </data>
+  <data name="ShellBackgroundHint" xml:space="preserve">
+    <value>Beim Schließen bleibt die App im Infobereich, statt sich zu beenden, damit weiterhin Benachrichtigungen ankommen. Sie belegt dabei weiter Arbeitsspeicher.</value>
+  </data>
+  <data name="ShellBackgroundOff" xml:space="preserve">
+    <value>Aus</value>
+  </data>
+  <data name="ShellBackgroundOn" xml:space="preserve">
+    <value>Ein</value>
+  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>„Hinzufügen“ funktioniert in einer App nicht. Mica kann sie in {0} installieren.</value>
   </data>
@@ -101,5 +113,17 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>Zurücksetzen</value>
+  </data>
+  <data name="TrayOpen" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
+  <data name="TrayQuit" xml:space="preserve">
+    <value>Beenden</value>
+  </data>
+  <data name="TrayStartWithWindows" xml:space="preserve">
+    <value>Mit Windows starten</value>
+  </data>
+  <data name="TrayStillRunning" xml:space="preserve">
+    <value>{0} läuft hier weiter. Benachrichtigungen kommen weiterhin an; beenden können Sie über das Menü dieses Symbols.</value>
   </data>
 </root>

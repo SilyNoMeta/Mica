@@ -116,6 +116,14 @@
                                                 <FontIcon Glyph="&#xE72C;" />
                                             </MenuFlyoutItem.Icon>
                                         </MenuFlyoutItem>
+                                        <MenuFlyoutItem
+                                            Click="OnAppSettingsClick"
+                                            Tag="{Binding Slug}"
+                                            Text="{Binding SettingsLabel}">
+                                            <MenuFlyoutItem.Icon>
+                                                <FontIcon Glyph="&#xE713;" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
                                         <MenuFlyoutSeparator />
                                         <MenuFlyoutItem
                                             Click="OnRemoveAppClick"

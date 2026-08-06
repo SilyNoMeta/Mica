@@ -19,6 +19,18 @@
   <data name="ShellBack" xml:space="preserve">
     <value>뒤로 (Alt+←)</value>
   </data>
+  <data name="ShellBackground" xml:space="preserve">
+    <value>백그라운드</value>
+  </data>
+  <data name="ShellBackgroundHint" xml:space="preserve">
+    <value>창을 닫아도 앱은 종료되지 않고 알림 영역에 남아 있어 알림이 계속 도착합니다. 대기하는 동안 메모리를 계속 사용합니다.</value>
+  </data>
+  <data name="ShellBackgroundOff" xml:space="preserve">
+    <value>끔</value>
+  </data>
+  <data name="ShellBackgroundOn" xml:space="preserve">
+    <value>켬</value>
+  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>“Chrome에 추가”는 앱 안에서 작동하지 않습니다. Mica가 {0}에 설치할 수 있습니다.</value>
   </data>
@@ -101,5 +113,17 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>재설정</value>
+  </data>
+  <data name="TrayOpen" xml:space="preserve">
+    <value>열기</value>
+  </data>
+  <data name="TrayQuit" xml:space="preserve">
+    <value>종료</value>
+  </data>
+  <data name="TrayStartWithWindows" xml:space="preserve">
+    <value>Windows 시작 시 실행</value>
+  </data>
+  <data name="TrayStillRunning" xml:space="preserve">
+    <value>{0}은(는) 여기서 계속 실행 중입니다. 알림이 계속 도착하며, 종료는 이 아이콘의 메뉴에서 할 수 있습니다.</value>
   </data>
 </root>

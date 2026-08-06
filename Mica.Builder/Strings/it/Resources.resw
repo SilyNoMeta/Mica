@@ -25,6 +25,12 @@
   <data name="AppsCountOne" xml:space="preserve">
     <value>1 app · collegamenti in Start › Mica</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="AppSettingsTitle" xml:space="preserve">
+    <value>Impostazioni di {0}</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annulla</value>
   </data>
@@ -63,6 +69,9 @@
   </data>
   <data name="DialogUrlHeader" xml:space="preserve">
     <value>Indirizzo del sito</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Fatto</value>
   </data>
   <data name="EmptyBody" xml:space="preserve">
     <value>Dai a Mica l&apos;indirizzo di un sito e ottieni un&apos;app Windows con il suo vero nome, la sua vera icona e un collegamento tutto suo.</value>
@@ -120,6 +129,18 @@
   </data>
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>Rimozione non riuscita</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>Continua a funzionare alla chiusura</value>
+  </data>
+  <data name="SettingsBackgroundHint" xml:space="preserve">
+    <value>L&apos;app resta in attesa nell&apos;area di notifica invece di uscire, così le sue notifiche continuano ad arrivare. Nel frattempo tiene in memoria il suo motore di rendering.</value>
+  </data>
+  <data name="SettingsStartup" xml:space="preserve">
+    <value>Avvia con Windows</value>
+  </data>
+  <data name="SettingsStartupHint" xml:space="preserve">
+    <value>Insieme all&apos;impostazione qui sopra, l&apos;app si avvia direttamente nell&apos;area di notifica. Windows la elenca in Impostazioni › App › Avvio, dove puoi anche disattivarla.</value>
   </data>
   <data name="YourApps" xml:space="preserve">
     <value>Le tue app</value>

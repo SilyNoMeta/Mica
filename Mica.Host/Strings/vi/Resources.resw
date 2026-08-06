@@ -19,6 +19,18 @@
   <data name="ShellBack" xml:space="preserve">
     <value>Quay lại (Alt+←)</value>
   </data>
+  <data name="ShellBackground" xml:space="preserve">
+    <value>Chạy nền</value>
+  </data>
+  <data name="ShellBackgroundHint" xml:space="preserve">
+    <value>Đóng cửa sổ sẽ để ứng dụng nằm ở khay thông báo thay vì thoát, nhờ đó thông báo vẫn tiếp tục đến. Trong lúc chờ, nó vẫn chiếm bộ nhớ.</value>
+  </data>
+  <data name="ShellBackgroundOff" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="ShellBackgroundOn" xml:space="preserve">
+    <value>Bật</value>
+  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>“Thêm vào Chrome” không hoạt động bên trong ứng dụng. Mica có thể cài nó vào {0}.</value>
   </data>
@@ -101,5 +113,17 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>Đặt lại</value>
+  </data>
+  <data name="TrayOpen" xml:space="preserve">
+    <value>Mở</value>
+  </data>
+  <data name="TrayQuit" xml:space="preserve">
+    <value>Thoát</value>
+  </data>
+  <data name="TrayStartWithWindows" xml:space="preserve">
+    <value>Khởi động cùng Windows</value>
+  </data>
+  <data name="TrayStillRunning" xml:space="preserve">
+    <value>{0} vẫn đang chạy ở đây. Thông báo vẫn tiếp tục đến; thoát từ menu của biểu tượng này.</value>
   </data>
 </root>

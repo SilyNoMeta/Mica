@@ -263,6 +263,66 @@
     "vi": "Địa chỉ này không hợp lệ. Ví dụ: gemini.google.com",
     "ar": "هذا العنوان غير صالح. مثال: gemini.google.com"
   },
+  "AppSettings": {
+    "en": "Settings", "fr": "Réglages", "es": "Ajustes", "pt-BR": "Configurações",
+    "de": "Einstellungen", "it": "Impostazioni", "ru": "Настройки", "zh-Hans": "设置",
+    "ja": "設定", "ko": "설정", "vi": "Cài đặt", "ar": "الإعدادات"
+  },
+  "AppSettingsTitle": {
+    "en": "{0} settings", "fr": "Réglages de {0}", "es": "Ajustes de {0}",
+    "pt-BR": "Configurações de {0}", "de": "Einstellungen für {0}", "it": "Impostazioni di {0}",
+    "ru": "Настройки {0}", "zh-Hans": "{0} 设置", "ja": "{0} の設定",
+    "ko": "{0} 설정", "vi": "Cài đặt {0}", "ar": "إعدادات {0}"
+  },
+  "SettingsBackground": {
+    "en": "Keep running when closed", "fr": "Garder ouverte à la fermeture",
+    "es": "Seguir en ejecución al cerrar", "pt-BR": "Continuar em execução ao fechar",
+    "de": "Beim Schließen weiterlaufen lassen", "it": "Continua a funzionare alla chiusura",
+    "ru": "Продолжать работу после закрытия", "zh-Hans": "关闭后继续运行",
+    "ja": "閉じても実行し続ける", "ko": "닫아도 계속 실행",
+    "vi": "Vẫn chạy khi đóng", "ar": "الاستمرار في العمل بعد الإغلاق"
+  },
+  "SettingsBackgroundHint": {
+    "en": "The app waits in the notification area instead of quitting, so its notifications keep arriving. It holds its browser engine in memory while it waits.",
+    "fr": "L'app attend dans la zone de notification au lieu de quitter, pour que ses notifications continuent d'arriver. Elle garde son moteur de rendu en mémoire pendant ce temps.",
+    "es": "La app espera en el área de notificación en vez de salir, así siguen llegando sus notificaciones. Mientras tanto mantiene su motor de navegación en memoria.",
+    "pt-BR": "O app espera na área de notificação em vez de sair, para que suas notificações continuem chegando. Enquanto isso, mantém o motor de navegação na memória.",
+    "de": "Die App wartet im Infobereich, statt sich zu beenden, damit ihre Benachrichtigungen weiter ankommen. Solange bleibt ihre Browser-Engine im Arbeitsspeicher.",
+    "it": "L'app resta in attesa nell'area di notifica invece di uscire, così le sue notifiche continuano ad arrivare. Nel frattempo tiene in memoria il suo motore di rendering.",
+    "ru": "Приложение ждёт в области уведомлений вместо выхода, чтобы его уведомления продолжали приходить. Всё это время браузерный движок остаётся в памяти.",
+    "zh-Hans": "应用会留在通知区域等待而不是退出，因此通知会继续送达。等待期间它的浏览器引擎会一直占用内存。",
+    "ja": "アプリは終了せず通知領域で待機するため、通知が届き続けます。待機中はブラウザーエンジンがメモリに残ります。",
+    "ko": "앱이 종료되지 않고 알림 영역에서 대기하므로 알림이 계속 도착합니다. 대기하는 동안 브라우저 엔진이 메모리에 남아 있습니다.",
+    "vi": "Ứng dụng chờ ở khay thông báo thay vì thoát, nhờ đó thông báo của nó vẫn tiếp tục đến. Trong lúc chờ, nó giữ bộ máy trình duyệt trong bộ nhớ.",
+    "ar": "ينتظر التطبيق في منطقة الإشعارات بدل الخروج، فتستمر إشعاراته في الوصول. ويبقي محرك المتصفح في الذاكرة طوال ذلك."
+  },
+  "SettingsStartup": {
+    "en": "Start with Windows", "fr": "Lancer au démarrage de Windows",
+    "es": "Iniciar con Windows", "pt-BR": "Iniciar com o Windows",
+    "de": "Mit Windows starten", "it": "Avvia con Windows",
+    "ru": "Запускать вместе с Windows", "zh-Hans": "开机时启动",
+    "ja": "Windows の起動時に開く", "ko": "Windows 시작 시 실행",
+    "vi": "Khởi động cùng Windows", "ar": "التشغيل مع بدء Windows"
+  },
+  "SettingsStartupHint": {
+    "en": "Combined with the setting above, the app starts straight into the notification area. Windows lists it under Settings › Apps › Startup, where you can turn it off too.",
+    "fr": "Combiné au réglage ci-dessus, l'app démarre directement dans la zone de notification. Windows la liste dans Paramètres › Applications › Démarrage, où vous pouvez aussi la désactiver.",
+    "es": "Junto con el ajuste anterior, la app arranca directamente en el área de notificación. Windows la muestra en Configuración › Aplicaciones › Inicio, donde también puedes desactivarla.",
+    "pt-BR": "Junto com a opção acima, o app inicia direto na área de notificação. O Windows o lista em Configurações › Aplicativos › Inicializar, onde você também pode desativá-lo.",
+    "de": "Zusammen mit der Einstellung darüber startet die App direkt in den Infobereich. Windows führt sie unter Einstellungen › Apps › Autostart, wo Sie sie ebenfalls deaktivieren können.",
+    "it": "Insieme all'impostazione qui sopra, l'app si avvia direttamente nell'area di notifica. Windows la elenca in Impostazioni › App › Avvio, dove puoi anche disattivarla.",
+    "ru": "Вместе с настройкой выше приложение запускается сразу в область уведомлений. Windows показывает его в «Параметры › Приложения › Автозагрузка», где его тоже можно отключить.",
+    "zh-Hans": "与上面的选项配合，应用会直接启动到通知区域。Windows 会在“设置 › 应用 › 启动”中列出它，你也可以在那里关闭。",
+    "ja": "上の設定と組み合わせると、アプリは通知領域に直接起動します。Windows は [設定] › [アプリ] › [スタートアップ] に表示し、そこでも無効にできます。",
+    "ko": "위 설정과 함께 사용하면 앱이 곧바로 알림 영역에서 시작됩니다. Windows는 설정 › 앱 › 시작 프로그램에 표시하며 거기서도 끌 수 있습니다.",
+    "vi": "Kết hợp với tùy chọn ở trên, ứng dụng khởi động thẳng vào khay thông báo. Windows liệt kê nó trong Cài đặt › Ứng dụng › Khởi động, nơi bạn cũng có thể tắt.",
+    "ar": "مع الإعداد أعلاه، يبدأ التطبيق مباشرة في منطقة الإشعارات. ويُدرجه Windows ضمن الإعدادات › التطبيقات › بدء التشغيل، حيث يمكنك تعطيله أيضًا."
+  },
+  "Done": {
+    "en": "Done", "fr": "Terminé", "es": "Listo", "pt-BR": "Concluído",
+    "de": "Fertig", "it": "Fatto", "ru": "Готово", "zh-Hans": "完成",
+    "ja": "完了", "ko": "완료", "vi": "Xong", "ar": "تم"
+  },
   "DialogCreateFailed": {
     "en": "The app could not be created: {0}", "fr": "L'app n'a pas pu être créée : {0}",
     "es": "No se pudo crear la app: {0}", "pt-BR": "Não foi possível criar o app: {0}",

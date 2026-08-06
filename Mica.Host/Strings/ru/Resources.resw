@@ -19,6 +19,18 @@
   <data name="ShellBack" xml:space="preserve">
     <value>Назад (Alt+←)</value>
   </data>
+  <data name="ShellBackground" xml:space="preserve">
+    <value>Фоновый режим</value>
+  </data>
+  <data name="ShellBackgroundHint" xml:space="preserve">
+    <value>Закрытие окна оставляет приложение в области уведомлений вместо выхода, чтобы уведомления продолжали приходить. Пока оно ждёт, память остаётся занятой.</value>
+  </data>
+  <data name="ShellBackgroundOff" xml:space="preserve">
+    <value>Выкл.</value>
+  </data>
+  <data name="ShellBackgroundOn" xml:space="preserve">
+    <value>Вкл.</value>
+  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>Кнопка «Установить» не работает внутри приложения. Mica может установить расширение в {0}.</value>
   </data>
@@ -101,5 +113,17 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>Сбросить</value>
+  </data>
+  <data name="TrayOpen" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="TrayQuit" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="TrayStartWithWindows" xml:space="preserve">
+    <value>Запускать вместе с Windows</value>
+  </data>
+  <data name="TrayStillRunning" xml:space="preserve">
+    <value>{0} продолжает работать здесь. Уведомления будут приходить; выйти можно из меню этого значка.</value>
   </data>
 </root>

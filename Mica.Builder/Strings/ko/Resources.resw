@@ -25,6 +25,12 @@
   <data name="AppsCountOne" xml:space="preserve">
     <value>앱 1개 · 바로 가기는 시작 › Mica</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>설정</value>
+  </data>
+  <data name="AppSettingsTitle" xml:space="preserve">
+    <value>{0} 설정</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>취소</value>
   </data>
@@ -63,6 +69,9 @@
   </data>
   <data name="DialogUrlHeader" xml:space="preserve">
     <value>사이트 주소</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>완료</value>
   </data>
   <data name="EmptyBody" xml:space="preserve">
     <value>Mica에 사이트 주소를 알려주면 그 사이트의 진짜 이름과 진짜 아이콘, 그리고 전용 바로 가기를 갖춘 Windows 앱이 만들어집니다.</value>
@@ -120,6 +129,18 @@
   </data>
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>제거하지 못했습니다</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>닫아도 계속 실행</value>
+  </data>
+  <data name="SettingsBackgroundHint" xml:space="preserve">
+    <value>앱이 종료되지 않고 알림 영역에서 대기하므로 알림이 계속 도착합니다. 대기하는 동안 브라우저 엔진이 메모리에 남아 있습니다.</value>
+  </data>
+  <data name="SettingsStartup" xml:space="preserve">
+    <value>Windows 시작 시 실행</value>
+  </data>
+  <data name="SettingsStartupHint" xml:space="preserve">
+    <value>위 설정과 함께 사용하면 앱이 곧바로 알림 영역에서 시작됩니다. Windows는 설정 › 앱 › 시작 프로그램에 표시하며 거기서도 끌 수 있습니다.</value>
   </data>
   <data name="YourApps" xml:space="preserve">
     <value>내 앱</value>

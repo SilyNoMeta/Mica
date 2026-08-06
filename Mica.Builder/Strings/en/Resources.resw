@@ -25,6 +25,12 @@
   <data name="AppsCountOne" xml:space="preserve">
     <value>1 app · shortcuts in Start › Mica</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="AppSettingsTitle" xml:space="preserve">
+    <value>{0} settings</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -63,6 +69,9 @@
   </data>
   <data name="DialogUrlHeader" xml:space="preserve">
     <value>Site address</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
   </data>
   <data name="EmptyBody" xml:space="preserve">
     <value>Give Mica a site address and you get a Windows app with the site&apos;s real name, its real icon and a shortcut of its own.</value>
@@ -120,6 +129,18 @@
   </data>
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>Could not remove</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>Keep running when closed</value>
+  </data>
+  <data name="SettingsBackgroundHint" xml:space="preserve">
+    <value>The app waits in the notification area instead of quitting, so its notifications keep arriving. It holds its browser engine in memory while it waits.</value>
+  </data>
+  <data name="SettingsStartup" xml:space="preserve">
+    <value>Start with Windows</value>
+  </data>
+  <data name="SettingsStartupHint" xml:space="preserve">
+    <value>Combined with the setting above, the app starts straight into the notification area. Windows lists it under Settings › Apps › Startup, where you can turn it off too.</value>
   </data>
   <data name="YourApps" xml:space="preserve">
     <value>Your apps</value>

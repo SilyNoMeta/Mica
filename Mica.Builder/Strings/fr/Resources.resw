@@ -25,6 +25,12 @@
   <data name="AppsCountOne" xml:space="preserve">
     <value>1 app · raccourcis dans Démarrer › Mica</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Réglages</value>
+  </data>
+  <data name="AppSettingsTitle" xml:space="preserve">
+    <value>Réglages de {0}</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>
@@ -63,6 +69,9 @@
   </data>
   <data name="DialogUrlHeader" xml:space="preserve">
     <value>Adresse du site</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Terminé</value>
   </data>
   <data name="EmptyBody" xml:space="preserve">
     <value>Donnez une adresse de site à Mica : vous obtenez une app Windows avec son vrai nom, sa vraie icône et son propre raccourci.</value>
@@ -120,6 +129,18 @@
   </data>
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>Suppression impossible</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>Garder ouverte à la fermeture</value>
+  </data>
+  <data name="SettingsBackgroundHint" xml:space="preserve">
+    <value>L&apos;app attend dans la zone de notification au lieu de quitter, pour que ses notifications continuent d&apos;arriver. Elle garde son moteur de rendu en mémoire pendant ce temps.</value>
+  </data>
+  <data name="SettingsStartup" xml:space="preserve">
+    <value>Lancer au démarrage de Windows</value>
+  </data>
+  <data name="SettingsStartupHint" xml:space="preserve">
+    <value>Combiné au réglage ci-dessus, l&apos;app démarre directement dans la zone de notification. Windows la liste dans Paramètres › Applications › Démarrage, où vous pouvez aussi la désactiver.</value>
   </data>
   <data name="YourApps" xml:space="preserve">
     <value>Vos apps</value>

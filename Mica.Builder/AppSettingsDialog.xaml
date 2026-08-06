@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentDialog
+    x:Class="Mica.Builder.AppSettingsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DefaultButton="Primary"
+    mc:Ignorable="d">
+
+    <!--  Every label is assigned in ApplyStrings(); see MainWindow.xaml.  -->
+
+    <StackPanel Width="400" Spacing="20">
+        <StackPanel Spacing="4">
+            <ToggleSwitch x:Name="BackgroundToggle" Toggled="OnBackgroundToggled" />
+            <TextBlock
+                x:Name="BackgroundHint"
+                Opacity="0.7"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+
+        <StackPanel Spacing="4">
+            <ToggleSwitch x:Name="StartupToggle" Toggled="OnStartupToggled" />
+            <TextBlock
+                x:Name="StartupHint"
+                Opacity="0.7"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+    </StackPanel>
+</ContentDialog>

@@ -1,5 +1,7 @@
 using Microsoft.UI.Xaml;
+using Microsoft.Windows.AppLifecycle;
 using Mica.Core;
+using Mica.Core.Apps;
 using Mica.Core.Integration;
 using Mica.Core.Localization;
 
@@ -47,6 +49,10 @@ public partial class App : Application
             StartupLog.Initialize(MicaPaths.LogFile(Config.Slug));
         }
 
+        // Before the first string is read: this launcher's resource index is a copy
+        // taken when the app was created, and an updated Mica ships newer strings.
+        AppLauncherFactory.RefreshResourceIndex(Config.Slug);
+
         StartupLog.Write($"Launching {Config.Name} ({Config.StartUrl})");
 
         var appUserModelId = MicaPaths.AppUserModelId(Config.Slug);
@@ -68,7 +74,8 @@ public partial class App : Application
             return;
         }
 
-        Window = new MainWindow();
+        var window = new MainWindow();
+        Window = window;
 
         // The taskbar reads the id from the window, and creates the button the
         // moment it is shown — so this has to land between construction and
@@ -76,6 +83,20 @@ public partial class App : Application
         AppIdentity.ApplyToWindow(WindowHandle, appUserModelId);
 
         Window.Activate();
+
+        // Started by Windows at sign-in: wait in the notification area rather than
+        // throwing a window at someone who just logged in.
+        if (argv.Contains("--tray") && Config.RunInBackground)
+        {
+            window.AppWindow.Hide();
+            StartupLog.Write("Started hidden in the notification area");
+        }
+
+        // A second launch of the same app redirects its activation here; without this
+        // the click would do nothing, which matters once the window can be hidden.
+        AppInstance.GetCurrent().Activated += (_, _) =>
+            window.DispatcherQueue.TryEnqueue(window.Restore);
+
         StartupLog.Write("Window activated");
     }
 

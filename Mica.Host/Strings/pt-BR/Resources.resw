@@ -19,6 +19,18 @@
   <data name="ShellBack" xml:space="preserve">
     <value>Voltar (Alt+←)</value>
   </data>
+  <data name="ShellBackground" xml:space="preserve">
+    <value>Segundo plano</value>
+  </data>
+  <data name="ShellBackgroundHint" xml:space="preserve">
+    <value>Fechar a janela deixa o app na área de notificação em vez de sair, para que as notificações continuem chegando. Enquanto espera, ele continua ocupando memória.</value>
+  </data>
+  <data name="ShellBackgroundOff" xml:space="preserve">
+    <value>Desativado</value>
+  </data>
+  <data name="ShellBackgroundOn" xml:space="preserve">
+    <value>Ativado</value>
+  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>“Usar no Chrome” não funciona dentro de um app. O Mica pode instalá-la em {0}.</value>
   </data>
@@ -101,5 +113,17 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>Redefinir</value>
+  </data>
+  <data name="TrayOpen" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="TrayQuit" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="TrayStartWithWindows" xml:space="preserve">
+    <value>Iniciar com o Windows</value>
+  </data>
+  <data name="TrayStillRunning" xml:space="preserve">
+    <value>{0} continua aqui. As notificações continuam chegando; saia pelo menu deste ícone.</value>
   </data>
 </root>

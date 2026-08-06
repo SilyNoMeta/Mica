@@ -19,6 +19,18 @@
   <data name="ShellBack" xml:space="preserve">
     <value>Back (Alt+Left)</value>
   </data>
+  <data name="ShellBackground" xml:space="preserve">
+    <value>Background</value>
+  </data>
+  <data name="ShellBackgroundHint" xml:space="preserve">
+    <value>Closing the window leaves the app in the notification area instead of quitting, so notifications keep arriving. It keeps using memory while it waits.</value>
+  </data>
+  <data name="ShellBackgroundOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="ShellBackgroundOn" xml:space="preserve">
+    <value>On</value>
+  </data>
   <data name="ShellDetectedBody" xml:space="preserve">
     <value>“Add to Chrome” does not work inside an app. Mica can install it in {0}.</value>
   </data>
@@ -101,5 +113,17 @@
   </data>
   <data name="ShellZoomReset" xml:space="preserve">
     <value>Reset</value>
+  </data>
+  <data name="TrayOpen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="TrayQuit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="TrayStartWithWindows" xml:space="preserve">
+    <value>Start with Windows</value>
+  </data>
+  <data name="TrayStillRunning" xml:space="preserve">
+    <value>{0} is still running here. Notifications keep arriving; quit from this icon&apos;s menu.</value>
   </data>
 </root>

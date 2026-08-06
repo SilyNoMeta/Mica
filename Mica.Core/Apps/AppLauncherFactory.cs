@@ -69,6 +69,50 @@ public static class AppLauncherFactory
         }
     }
 
+    /// <summary>
+    /// Brings this app's copy of the resource index back in line with the host's.
+    /// <para>
+    /// A launcher carries a snapshot of <c>Mica.Host.pri</c>, taken when the app was
+    /// created. Update Mica and that snapshot goes stale: strings added since then
+    /// resolve to nothing and the interface falls back to showing raw resource keys.
+    /// Copying it at every launch is a kilobyte, and it makes the app self-healing
+    /// rather than dependent on the user opening Mica after an update.
+    /// </para>
+    /// </summary>
+    public static void RefreshResourceIndex(string slug)
+    {
+        if (string.IsNullOrEmpty(slug))
+        {
+            return;
+        }
+
+        try
+        {
+            var source = Path.ChangeExtension(AppRegistry.HostExecutable, ".pri");
+            var target = ResourceIndexPath(slug);
+
+            if (!File.Exists(source) || string.Equals(source, target, StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            if (File.Exists(target)
+                && new FileInfo(target).Length == new FileInfo(source).Length
+                && File.GetLastWriteTimeUtc(target) >= File.GetLastWriteTimeUtc(source))
+            {
+                return;
+            }
+
+            File.Copy(source, target, overwrite: true);
+            StartupLog.Write($"Refreshed {slug}.pri from the host");
+        }
+        catch (Exception ex)
+        {
+            // Worst case the app keeps the older strings it already had.
+            StartupLog.WriteException($"Launcher.Refresh.{slug}", ex);
+        }
+    }
+
     public static void Delete(string slug)
     {
         foreach (var path in new[] { LauncherPath(slug), ResourceIndexPath(slug) })

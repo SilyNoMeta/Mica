@@ -25,6 +25,12 @@
   <data name="AppsCountOne" xml:space="preserve">
     <value>1 ứng dụng · lối tắt trong Start › Mica</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="AppSettingsTitle" xml:space="preserve">
+    <value>Cài đặt {0}</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
@@ -63,6 +69,9 @@
   </data>
   <data name="DialogUrlHeader" xml:space="preserve">
     <value>Địa chỉ trang web</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Xong</value>
   </data>
   <data name="EmptyBody" xml:space="preserve">
     <value>Đưa cho Mica một địa chỉ trang web, bạn nhận được một ứng dụng Windows mang đúng tên, đúng biểu tượng của trang và có lối tắt riêng.</value>
@@ -120,6 +129,18 @@
   </data>
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>Không gỡ được</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>Vẫn chạy khi đóng</value>
+  </data>
+  <data name="SettingsBackgroundHint" xml:space="preserve">
+    <value>Ứng dụng chờ ở khay thông báo thay vì thoát, nhờ đó thông báo của nó vẫn tiếp tục đến. Trong lúc chờ, nó giữ bộ máy trình duyệt trong bộ nhớ.</value>
+  </data>
+  <data name="SettingsStartup" xml:space="preserve">
+    <value>Khởi động cùng Windows</value>
+  </data>
+  <data name="SettingsStartupHint" xml:space="preserve">
+    <value>Kết hợp với tùy chọn ở trên, ứng dụng khởi động thẳng vào khay thông báo. Windows liệt kê nó trong Cài đặt › Ứng dụng › Khởi động, nơi bạn cũng có thể tắt.</value>
   </data>
   <data name="YourApps" xml:space="preserve">
     <value>Ứng dụng của bạn</value>

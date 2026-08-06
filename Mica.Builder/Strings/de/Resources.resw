@@ -25,6 +25,12 @@
   <data name="AppsCountOne" xml:space="preserve">
     <value>1 App · Verknüpfungen unter Start › Mica</value>
   </data>
+  <data name="AppSettings" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
+  <data name="AppSettingsTitle" xml:space="preserve">
+    <value>Einstellungen für {0}</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
@@ -63,6 +69,9 @@
   </data>
   <data name="DialogUrlHeader" xml:space="preserve">
     <value>Adresse der Website</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Fertig</value>
   </data>
   <data name="EmptyBody" xml:space="preserve">
     <value>Geben Sie Mica eine Website-Adresse, und Sie erhalten eine Windows-App mit dem echten Namen, dem echten Symbol und einer eigenen Verknüpfung.</value>
@@ -120,6 +129,18 @@
   </data>
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>Entfernen fehlgeschlagen</value>
+  </data>
+  <data name="SettingsBackground" xml:space="preserve">
+    <value>Beim Schließen weiterlaufen lassen</value>
+  </data>
+  <data name="SettingsBackgroundHint" xml:space="preserve">
+    <value>Die App wartet im Infobereich, statt sich zu beenden, damit ihre Benachrichtigungen weiter ankommen. Solange bleibt ihre Browser-Engine im Arbeitsspeicher.</value>
+  </data>
+  <data name="SettingsStartup" xml:space="preserve">
+    <value>Mit Windows starten</value>
+  </data>
+  <data name="SettingsStartupHint" xml:space="preserve">
+    <value>Zusammen mit der Einstellung darüber startet die App direkt in den Infobereich. Windows führt sie unter Einstellungen › Apps › Autostart, wo Sie sie ebenfalls deaktivieren können.</value>
   </data>
   <data name="YourApps" xml:space="preserve">
     <value>Ihre Apps</value>

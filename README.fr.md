@@ -208,7 +208,13 @@ winget install Microsoft.WindowsAppRuntime.2
 
 ## Limites connues
 
-- **Notifications uniquement app ouverte.** Pas de push en arrière-plan sans service dédié.
+- **Les notifications exigent que l'app tourne.** « Garder ouverte à la fermeture » répond au
+  besoin en laissant la page chargée en arrière-plan ; il n'y a toujours pas de push quand l'app
+  est vraiment quittée, ce qui demanderait un service. Chaque app en arrière-plan garde son propre
+  moteur de rendu, environ 150–300 Mo.
+- **Un lanceur embarque une copie de l'index de ressources de l'hôte** : après une mise à jour de
+  Mica, une app plus ancienne afficherait des clés brutes. Chaque app rafraîchit cette copie au
+  lancement — la réparation intervient donc au démarrage suivant, pas instantanément.
 - **Le zoom est appliqué par la coquille, pas par le navigateur.** Le contrôle WebView2 de WinUI
   n'expose pas `ZoomFactor` : Mica met le document à l'échelle avec le `zoom` CSS de Chromium,
   qui refait la mise en page comme le zoom navigateur. <kbd>Ctrl</kbd> +/−/0 et
