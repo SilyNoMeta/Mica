@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Mica.Core;
 using Mica.Core.Integration;
+using Mica.Core.Localization;
 
 namespace Mica.Host;
 
@@ -25,9 +26,12 @@ public partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
+        var argv = Environment.GetCommandLineArgs();
+        Strings.ApplyLanguageOverride(argv);
+
         try
         {
-            Config = ResolveConfig(Environment.GetCommandLineArgs());
+            Config = ResolveConfig(argv);
         }
         catch (Exception ex)
         {

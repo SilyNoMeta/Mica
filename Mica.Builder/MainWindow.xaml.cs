@@ -3,6 +3,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Mica.Core;
 using Mica.Core.Apps;
+using Mica.Core.Localization;
 using Windows.Graphics;
 
 namespace Mica.Builder;
@@ -28,7 +29,19 @@ public sealed partial class MainWindow : Window
 
         AppWindow.Resize(new SizeInt32(880, 720));
 
+        Root.FlowDirection = Strings.FlowDirection;
+        ApplyStrings();
+
         _ = RefreshAsync();
+    }
+
+    private void ApplyStrings()
+    {
+        HeadingText.Text = Strings.Get("YourApps");
+        AddAppText.Text = Strings.Get("AddApp");
+        EmptyTitleText.Text = Strings.Get("NoAppsYetTitle");
+        EmptyBodyText.Text = Strings.Get("EmptyBody");
+        EmptyAddButton.Content = Strings.Get("AddAppButton");
     }
 
     // ---- App list ------------------------------------------------------------
@@ -38,6 +51,11 @@ public sealed partial class MainWindow : Window
         var apps = AppRegistry.List();
         var items = new List<AppListItem>(apps.Count);
 
+        var moreActions = Strings.Get("MoreActions");
+        var open = Strings.Get("Open");
+        var refresh = Strings.Get("RefreshIcon");
+        var remove = Strings.Get("Remove");
+
         foreach (var app in apps)
         {
             items.Add(new AppListItem(
@@ -45,7 +63,11 @@ public sealed partial class MainWindow : Window
                 app.Name,
                 app.StartUri.Host,
                 app.StartUrl,
-                await ImageLoader.LoadAsync(MicaPaths.IconFile(app.Slug))));
+                await ImageLoader.LoadAsync(MicaPaths.IconFile(app.Slug)),
+                moreActions,
+                open,
+                refresh,
+                remove));
         }
 
         AppList.ItemsSource = items;
@@ -55,9 +77,9 @@ public sealed partial class MainWindow : Window
         EmptyState.Visibility = hasApps ? Visibility.Collapsed : Visibility.Visible;
         SubtitleText.Text = items.Count switch
         {
-            0 => "Aucune app pour l'instant",
-            1 => "1 app · raccourcis dans Démarrer › Mica",
-            _ => $"{items.Count} apps · raccourcis dans Démarrer › Mica",
+            0 => Strings.Get("NoAppsYet"),
+            1 => Strings.Get("AppsCountOne"),
+            _ => Strings.Format("AppsCountMany", items.Count),
         };
     }
 
@@ -65,7 +87,11 @@ public sealed partial class MainWindow : Window
 
     private async void OnAddClick(object sender, RoutedEventArgs e)
     {
-        var dialog = new AddAppDialog { XamlRoot = Content.XamlRoot };
+        var dialog = new AddAppDialog
+        {
+            XamlRoot = Content.XamlRoot,
+            FlowDirection = Strings.FlowDirection,
+        };
         await dialog.ShowAsync();
 
         if (dialog.Created is not { } created)
@@ -76,8 +102,8 @@ public sealed partial class MainWindow : Window
         await RefreshAsync();
         ShowStatus(
             InfoBarSeverity.Success,
-            $"{created.Name} est prête",
-            $"Raccourci ajouté dans le menu Démarrer, dossier « {MicaPaths.ProductName} ».");
+            Strings.Format("ReadyTitle", created.Name),
+            Strings.Format("ReadyBody", MicaPaths.ProductName));
     }
 
     private void OnAppClick(object sender, ItemClickEventArgs e)
@@ -110,7 +136,7 @@ public sealed partial class MainWindow : Window
         }
         catch (Exception ex)
         {
-            ShowStatus(InfoBarSeverity.Error, "Ouverture impossible", ex.Message);
+            ShowStatus(InfoBarSeverity.Error, Strings.Get("OpenFailedTitle"), ex.Message);
         }
     }
 
@@ -121,17 +147,20 @@ public sealed partial class MainWindow : Window
             return;
         }
 
-        SetBusy(true, $"Récupération de l'icône de {config.Name}…");
+        SetBusy(true, Strings.Format("FetchingIcon", config.Name));
 
         try
         {
             await AppRegistry.RefreshAsync(config);
             await RefreshAsync();
-            ShowStatus(InfoBarSeverity.Success, "Icône actualisée", $"{config.Name} utilise l'icône actuelle du site.");
+            ShowStatus(
+                InfoBarSeverity.Success,
+                Strings.Get("IconRefreshedTitle"),
+                Strings.Format("IconRefreshedBody", config.Name));
         }
         catch (Exception ex)
         {
-            ShowStatus(InfoBarSeverity.Error, "Actualisation impossible", ex.Message);
+            ShowStatus(InfoBarSeverity.Error, Strings.Get("RefreshFailedTitle"), ex.Message);
         }
         finally
         {
@@ -149,11 +178,11 @@ public sealed partial class MainWindow : Window
         var confirm = new ContentDialog
         {
             XamlRoot = Content.XamlRoot,
-            Title = $"Retirer {config.Name} ?",
-            Content = "Le raccourci, les réglages et la session connectée de cette app seront supprimés. "
-                + "Le site lui-même n'est pas affecté.",
-            PrimaryButtonText = "Retirer",
-            CloseButtonText = "Annuler",
+            FlowDirection = Strings.FlowDirection,
+            Title = Strings.Format("RemoveConfirmTitle", config.Name),
+            Content = Strings.Get("RemoveConfirmBody"),
+            PrimaryButtonText = Strings.Get("Remove"),
+            CloseButtonText = Strings.Get("Cancel"),
             DefaultButton = ContentDialogButton.Close,
         };
 
@@ -166,11 +195,11 @@ public sealed partial class MainWindow : Window
         {
             AppRegistry.Remove(config);
             await RefreshAsync();
-            ShowStatus(InfoBarSeverity.Informational, $"{config.Name} a été retirée", string.Empty);
+            ShowStatus(InfoBarSeverity.Informational, Strings.Format("RemovedTitle", config.Name), string.Empty);
         }
         catch (Exception ex)
         {
-            ShowStatus(InfoBarSeverity.Error, "Suppression impossible", ex.Message);
+            ShowStatus(InfoBarSeverity.Error, Strings.Get("RemoveFailedTitle"), ex.Message);
         }
     }
 
@@ -193,11 +222,18 @@ public sealed partial class MainWindow : Window
         StatusBar.IsOpen = true;
     }
 
-    /// <summary>One row of the app list.</summary>
+    /// <summary>
+    /// One row of the app list. Its labels travel with it because a DataTemplate
+    /// binds against the row, not against the window.
+    /// </summary>
     public sealed record AppListItem(
         string Slug,
         string Name,
         string Host,
         string Url,
-        BitmapImage? Icon);
+        BitmapImage? Icon,
+        string MoreActionsLabel,
+        string OpenLabel,
+        string RefreshLabel,
+        string RemoveLabel);
 }

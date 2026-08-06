@@ -129,6 +129,41 @@ avant de se décider.
 > ou supprimer le dossier, les laisse orphelins ; recréez l'app, ou retirez-la depuis
 > Paramètres › Applications installées.
 
+## Langues
+
+Mica est livré en 12 langues et suit celle de Windows : anglais, français, espagnol, portugais
+(Brésil), allemand, italien, russe, chinois simplifié, japonais, coréen, vietnamien et arabe.
+L'anglais sert de repli quand Windows tourne dans une autre langue. `--lang <tag>` en force une,
+pour qui ne veut pas lire l'app dans la langue de son système.
+
+L'arabe met l'interface en miroir : la mise en page bascule via `FlowDirection`, piloté par une
+entrée `FlowDirection` du catalogue plutôt que par une liste de langues codée en dur, et les
+flèches précédent/suivant s'inversent avec `MirroredWhenRightToLeft`. **Le contenu web n'est
+jamais mis en miroir** : la page décide de sa propre direction, et la forcer retournerait des
+mises en page déjà correctes.
+
+Toutes les chaînes vivent dans [`tools/strings.host.json`](tools/strings.host.json) et
+[`tools/strings.builder.json`](tools/strings.builder.json), une entrée par clé avec toutes les
+langues à côté. Ajouter une langue, c'est un tag par entrée, pas un fichier à écrire à la main :
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\Generate-Resources.ps1
+```
+
+Le générateur refuse de produire quoi que ce soit s'il manque une traduction : le trou apparaît
+au build au lieu de partir en production sous forme de libellé resté en anglais. `-Check` valide
+sans rien écrire.
+
+Deux choses à savoir avant d'y toucher, parce que les deux échouent en silence :
+
+- **Le `.resw` d'une bibliothèque est inatteignable à l'exécution en non packagé** — ni via
+  `x:Uid`, ni via aucune resource map. En revanche le code d'une bibliothèque lit sans problème
+  les ressources de l'**exécutable** : toutes les chaînes vivent donc dans `Mica.Host` et
+  `Mica.Builder`, et la coquille demande ses mots à son hôte. C'est pourquoi rien n'est localisé
+  par `x:Uid`.
+- **Un point dans une clé `.resw` signifie « élément point propriété »** — `Meta.FlowDirection`
+  est compilé en `Meta/FlowDirection` et ne se résout jamais à plat. Les clés ici sont sans point.
+
 ## Installateur
 
 ```powershell
@@ -184,7 +219,9 @@ winget install Microsoft.WindowsAppRuntime.2
   d'une app n'échoue jamais à cause d'une icône.
 - **Les extensions suivent les règles de WebView2.** Les versions de manifeste acceptées par
   votre runtime WebView2 sont celles que Mica accepte.
-- **Pas encore d'interface en anglais** — l'app est en français. La documentation est bilingue.
+- **Les pluriels n'ont que deux formes** — un compteur affiche soit « 1 app », soit la forme
+  plurielle. Les langues à duel ou paucal (arabe, russe, polonais) reçoivent la forme plurielle
+  pour tout compte supérieur à un.
 
 ## Mentions légales
 

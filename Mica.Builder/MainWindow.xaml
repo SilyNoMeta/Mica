@@ -12,7 +12,14 @@
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Grid>
+    <!--
+        Labels are assigned in ApplyStrings(), the same way the shell does it, so
+        both projects localise through one mechanism. Strings inside the item
+        template travel on the row: a DataTemplate has the row as its data context,
+        not the window.
+    -->
+
+    <Grid x:Name="Root">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -32,12 +39,11 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Vos apps" />
+                <TextBlock x:Name="HeadingText" Style="{StaticResource SubtitleTextBlockStyle}" />
                 <TextBlock
                     x:Name="SubtitleText"
                     Opacity="0.7"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Aucune app pour l'instant" />
+                    Style="{StaticResource CaptionTextBlockStyle}" />
             </StackPanel>
 
             <Button
@@ -47,7 +53,7 @@
                 Style="{StaticResource AccentButtonStyle}">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <FontIcon FontSize="14" Glyph="&#xE710;" />
-                    <TextBlock Text="Ajouter une app" />
+                    <TextBlock x:Name="AddAppText" />
                 </StackPanel>
             </Button>
         </Grid>
@@ -90,14 +96,14 @@
                                 Background="Transparent"
                                 BorderThickness="0"
                                 Tag="{Binding Slug}"
-                                ToolTipService.ToolTip="Plus d'actions">
+                                ToolTipService.ToolTip="{Binding MoreActionsLabel}">
                                 <FontIcon FontSize="14" Glyph="&#xE712;" />
                                 <Button.Flyout>
                                     <MenuFlyout>
                                         <MenuFlyoutItem
                                             Click="OnOpenAppClick"
                                             Tag="{Binding Slug}"
-                                            Text="Ouvrir">
+                                            Text="{Binding OpenLabel}">
                                             <MenuFlyoutItem.Icon>
                                                 <FontIcon Glyph="&#xE8A7;" />
                                             </MenuFlyoutItem.Icon>
@@ -105,7 +111,7 @@
                                         <MenuFlyoutItem
                                             Click="OnRefreshIconClick"
                                             Tag="{Binding Slug}"
-                                            Text="Actualiser l'icône du site">
+                                            Text="{Binding RefreshLabel}">
                                             <MenuFlyoutItem.Icon>
                                                 <FontIcon Glyph="&#xE72C;" />
                                             </MenuFlyoutItem.Icon>
@@ -114,7 +120,7 @@
                                         <MenuFlyoutItem
                                             Click="OnRemoveAppClick"
                                             Tag="{Binding Slug}"
-                                            Text="Retirer">
+                                            Text="{Binding RemoveLabel}">
                                             <MenuFlyoutItem.Icon>
                                                 <FontIcon Glyph="&#xE74D;" />
                                             </MenuFlyoutItem.Icon>
@@ -138,19 +144,19 @@
                     Foreground="{ThemeResource TextFillColorTertiaryBrush}"
                     Glyph="&#xECAA;" />
                 <TextBlock
+                    x:Name="EmptyTitleText"
                     HorizontalAlignment="Center"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="Aucune app pour l'instant" />
+                    Style="{StaticResource SubtitleTextBlockStyle}" />
                 <TextBlock
+                    x:Name="EmptyBodyText"
                     HorizontalAlignment="Center"
                     Opacity="0.7"
-                    Text="Donnez une adresse de site à Mica : vous obtenez une app Windows avec son vrai nom, sa vraie icône et son propre raccourci."
                     TextAlignment="Center"
                     TextWrapping="Wrap" />
                 <Button
+                    x:Name="EmptyAddButton"
                     HorizontalAlignment="Center"
                     Click="OnAddClick"
-                    Content="Ajouter une app"
                     Style="{StaticResource AccentButtonStyle}" />
             </StackPanel>
 

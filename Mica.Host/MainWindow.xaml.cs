@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Mica.Core;
 using Mica.Core.Integration;
+using Mica.Core.Localization;
 using Windows.Graphics;
 
 namespace Mica.Host;
@@ -33,6 +34,10 @@ public sealed partial class MainWindow : Window
         }
 
         AppWindow.Resize(new SizeInt32(_config.WindowWidth, _config.WindowHeight));
+
+        // Mirrors the title bar for right-to-left languages; the shell mirrors its
+        // own toolbar and deliberately leaves the web content alone.
+        Root.FlowDirection = Strings.FlowDirection;
 
         // The title stays the app's name rather than following the page: this is an
         // app, not a browser tab, and the name is what the taskbar and docks show.

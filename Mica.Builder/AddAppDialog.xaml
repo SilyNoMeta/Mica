@@ -5,35 +5,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Ajouter une app"
-    CloseButtonText="Annuler"
     DefaultButton="Primary"
-    PrimaryButtonText="Créer l'app"
     mc:Ignorable="d">
 
+    <!--  Every label is assigned in ApplyStrings(); see MainWindow.xaml.  -->
+
     <StackPanel Width="380" Spacing="14">
-        <TextBox
-            x:Name="UrlBox"
-            Header="Adresse du site"
-            PlaceholderText="gemini.google.com" />
+        <TextBox x:Name="UrlBox" PlaceholderText="gemini.google.com" />
 
         <TextBlock
+            x:Name="HintText"
             Opacity="0.7"
             Style="{StaticResource CaptionTextBlockStyle}"
-            Text="Mica reprend le nom et l'icône publiés par le site, puis ajoute un raccourci dans le menu Démarrer."
             TextWrapping="Wrap" />
 
-        <Expander HorizontalAlignment="Stretch" Header="Options">
+        <Expander x:Name="OptionsExpander" HorizontalAlignment="Stretch">
             <StackPanel Spacing="14">
-                <TextBox x:Name="NameBox" Header="Nom de l'app" PlaceholderText="Celui du site" />
-                <TextBox
-                    x:Name="HostsBox"
-                    Header="Domaines à garder dans l'app"
-                    PlaceholderText="exemple.com, autre.com" />
+                <TextBox x:Name="NameBox" />
+                <TextBox x:Name="HostsBox" PlaceholderText="example.com, other.com" />
                 <TextBlock
+                    x:Name="HostsHintText"
                     Opacity="0.7"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="Le domaine du site et ses pages de connexion sont déjà inclus. Ajoutez ici les domaines supplémentaires que vous voulez ouvrir dans l'app plutôt que dans le navigateur."
                     TextWrapping="Wrap" />
             </StackPanel>
         </Expander>
@@ -53,10 +46,7 @@
                 Width="18"
                 Height="18"
                 IsActive="True" />
-            <TextBlock
-                x:Name="BusyText"
-                VerticalAlignment="Center"
-                Text="Lecture du site et de son icône…" />
+            <TextBlock x:Name="BusyText" VerticalAlignment="Center" />
         </StackPanel>
     </StackPanel>
 </ContentDialog>

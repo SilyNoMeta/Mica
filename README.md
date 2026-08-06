@@ -120,6 +120,38 @@ look before committing to one.
 > Shortcuts created by a development build point into `bin\`. Rebuilding elsewhere, or deleting
 > the folder, leaves them dangling; recreate the app, or remove it from Settings › Installed apps.
 
+## Languages
+
+Mica ships in 12 languages and follows Windows: English, French, Spanish, Portuguese (Brazil),
+German, Italian, Russian, Simplified Chinese, Japanese, Korean, Vietnamese and Arabic. English is
+the fallback when Windows runs in anything else. `--lang <tag>` forces one, for anybody whose
+system language is not the language they want to read.
+
+Arabic mirrors the interface: the layout flips through `FlowDirection`, driven by a
+`FlowDirection` entry in the catalogue rather than a hard-coded language list, and the
+back/forward glyphs flip with `MirroredWhenRightToLeft`. The **web content never mirrors** — the
+page decides its own direction, and forcing it would flip layouts that are already correct.
+
+Every string lives in [`tools/strings.host.json`](tools/strings.host.json) and
+[`tools/strings.builder.json`](tools/strings.builder.json), one entry per key with every
+language beside it. Adding a language is a tag per entry, not a new file to hand-write:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\Generate-Resources.ps1
+```
+
+The generator refuses to emit anything if a translation is missing, so a gap surfaces at build
+time instead of shipping as a silently English label. `-Check` validates without writing.
+
+Two things about resources are worth knowing before touching this, because both fail silently:
+
+- **A class library's own `.resw` is unreachable at runtime in an unpackaged app** — not through
+  `x:Uid`, not through any resource map. Library code reads the *executable's* resources without
+  trouble, so all strings live in `Mica.Host` and `Mica.Builder`, and the shell asks its host for
+  its words. This is why nothing is localized through `x:Uid`.
+- **A dot in a `.resw` key means "element dot property"** — `Meta.FlowDirection` compiles to
+  `Meta/FlowDirection` and never resolves as a flat lookup. Keys here contain no dots.
+
 ## Installer
 
 ```powershell
@@ -170,7 +202,8 @@ winget install Microsoft.WindowsAppRuntime.2
   site offers, then to a lettermark — creating an app never fails over an icon.
 - **Extensions follow WebView2's rules.** Whatever manifest versions your WebView2 runtime
   accepts, Mica accepts.
-- **No English UI yet** — the app's interface is French. The documentation is bilingual.
+- **Plural forms are two-way** — a count is either "1 app" or the many form. Languages with
+  dual or paucal categories (Arabic, Russian, Polish) get the many form for every count above one.
 
 ## Legal
 

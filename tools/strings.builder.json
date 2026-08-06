@@ -1,0 +1,274 @@
+{
+  "_comment": "Strings shown by the Mica window itself. Compiled into Mica.Builder by tools/Generate-Resources.ps1. Every string is assigned from code, so keys carry no XAML property suffix.",
+  "_languages": ["en", "fr", "es", "pt-BR", "de", "it", "ru", "zh-Hans", "ja", "ko", "vi", "ar"],
+
+  "FlowDirection": {
+    "_note": "LeftToRight or RightToLeft. Applied to the window's root element at startup.",
+    "en": "LeftToRight", "fr": "LeftToRight", "es": "LeftToRight", "pt-BR": "LeftToRight",
+    "de": "LeftToRight", "it": "LeftToRight", "ru": "LeftToRight", "zh-Hans": "LeftToRight",
+    "ja": "LeftToRight", "ko": "LeftToRight", "vi": "LeftToRight", "ar": "RightToLeft"
+  },
+
+  "YourApps": {
+    "en": "Your apps", "fr": "Vos apps", "es": "Tus apps", "pt-BR": "Seus apps",
+    "de": "Ihre Apps", "it": "Le tue app", "ru": "Ваши приложения", "zh-Hans": "你的应用",
+    "ja": "あなたのアプリ", "ko": "내 앱", "vi": "Ứng dụng của bạn", "ar": "تطبيقاتك"
+  },
+  "NoAppsYet": {
+    "en": "No apps yet", "fr": "Aucune app pour l'instant", "es": "Todavía no hay apps",
+    "pt-BR": "Nenhum app ainda", "de": "Noch keine Apps", "it": "Nessuna app per ora",
+    "ru": "Пока нет приложений", "zh-Hans": "还没有应用", "ja": "まだアプリがありません",
+    "ko": "아직 앱이 없습니다", "vi": "Chưa có ứng dụng nào", "ar": "لا توجد تطبيقات بعد"
+  },
+  "NoAppsYetTitle": {
+    "en": "No apps yet", "fr": "Aucune app pour l'instant", "es": "Todavía no hay apps",
+    "pt-BR": "Nenhum app ainda", "de": "Noch keine Apps", "it": "Nessuna app per ora",
+    "ru": "Пока нет приложений", "zh-Hans": "还没有应用", "ja": "まだアプリがありません",
+    "ko": "아직 앱이 없습니다", "vi": "Chưa có ứng dụng nào", "ar": "لا توجد تطبيقات بعد"
+  },
+  "AppsCountOne": {
+    "en": "1 app · shortcuts in Start › Mica", "fr": "1 app · raccourcis dans Démarrer › Mica",
+    "es": "1 app · accesos directos en Inicio › Mica", "pt-BR": "1 app · atalhos em Iniciar › Mica",
+    "de": "1 App · Verknüpfungen unter Start › Mica", "it": "1 app · collegamenti in Start › Mica",
+    "ru": "1 приложение · ярлыки в «Пуск › Mica»", "zh-Hans": "1 个应用 · 快捷方式位于“开始 › Mica”",
+    "ja": "1 個のアプリ · ショートカットは [スタート] › Mica", "ko": "앱 1개 · 바로 가기는 시작 › Mica",
+    "vi": "1 ứng dụng · lối tắt trong Start › Mica", "ar": "تطبيق واحد · الاختصارات في «ابدأ › Mica»"
+  },
+  "AppsCountMany": {
+    "en": "{0} apps · shortcuts in Start › Mica", "fr": "{0} apps · raccourcis dans Démarrer › Mica",
+    "es": "{0} apps · accesos directos en Inicio › Mica", "pt-BR": "{0} apps · atalhos em Iniciar › Mica",
+    "de": "{0} Apps · Verknüpfungen unter Start › Mica", "it": "{0} app · collegamenti in Start › Mica",
+    "ru": "Приложений: {0} · ярлыки в «Пуск › Mica»", "zh-Hans": "{0} 个应用 · 快捷方式位于“开始 › Mica”",
+    "ja": "{0} 個のアプリ · ショートカットは [スタート] › Mica", "ko": "앱 {0}개 · 바로 가기는 시작 › Mica",
+    "vi": "{0} ứng dụng · lối tắt trong Start › Mica", "ar": "{0} تطبيقات · الاختصارات في «ابدأ › Mica»"
+  },
+  "AddApp": {
+    "en": "Add an app", "fr": "Ajouter une app", "es": "Añadir una app", "pt-BR": "Adicionar um app",
+    "de": "App hinzufügen", "it": "Aggiungi un'app", "ru": "Добавить приложение", "zh-Hans": "添加应用",
+    "ja": "アプリを追加", "ko": "앱 추가", "vi": "Thêm ứng dụng", "ar": "إضافة تطبيق"
+  },
+  "AddAppButton": {
+    "en": "Add an app", "fr": "Ajouter une app", "es": "Añadir una app", "pt-BR": "Adicionar um app",
+    "de": "App hinzufügen", "it": "Aggiungi un'app", "ru": "Добавить приложение", "zh-Hans": "添加应用",
+    "ja": "アプリを追加", "ko": "앱 추가", "vi": "Thêm ứng dụng", "ar": "إضافة تطبيق"
+  },
+  "MoreActions": {
+    "en": "More actions", "fr": "Plus d'actions", "es": "Más acciones", "pt-BR": "Mais ações",
+    "de": "Weitere Aktionen", "it": "Altre azioni", "ru": "Другие действия", "zh-Hans": "更多操作",
+    "ja": "その他の操作", "ko": "추가 작업", "vi": "Thao tác khác", "ar": "إجراءات أخرى"
+  },
+  "Open": {
+    "en": "Open", "fr": "Ouvrir", "es": "Abrir", "pt-BR": "Abrir",
+    "de": "Öffnen", "it": "Apri", "ru": "Открыть", "zh-Hans": "打开",
+    "ja": "開く", "ko": "열기", "vi": "Mở", "ar": "فتح"
+  },
+  "RefreshIcon": {
+    "en": "Refresh the site's icon", "fr": "Actualiser l'icône du site", "es": "Actualizar el icono del sitio",
+    "pt-BR": "Atualizar o ícone do site", "de": "Symbol der Website aktualisieren", "it": "Aggiorna l'icona del sito",
+    "ru": "Обновить значок сайта", "zh-Hans": "刷新网站图标", "ja": "サイトのアイコンを更新",
+    "ko": "사이트 아이콘 새로 고침", "vi": "Cập nhật biểu tượng của trang", "ar": "تحديث أيقونة الموقع"
+  },
+  "Remove": {
+    "en": "Remove", "fr": "Retirer", "es": "Quitar", "pt-BR": "Remover",
+    "de": "Entfernen", "it": "Rimuovi", "ru": "Удалить", "zh-Hans": "移除",
+    "ja": "削除", "ko": "제거", "vi": "Gỡ bỏ", "ar": "إزالة"
+  },
+  "EmptyBody": {
+    "en": "Give Mica a site address and you get a Windows app with the site's real name, its real icon and a shortcut of its own.",
+    "fr": "Donnez une adresse de site à Mica : vous obtenez une app Windows avec son vrai nom, sa vraie icône et son propre raccourci.",
+    "es": "Dale a Mica la dirección de un sitio y obtendrás una app de Windows con su nombre real, su icono real y su propio acceso directo.",
+    "pt-BR": "Informe ao Mica o endereço de um site e você recebe um app do Windows com o nome real, o ícone real e um atalho próprio.",
+    "de": "Geben Sie Mica eine Website-Adresse, und Sie erhalten eine Windows-App mit dem echten Namen, dem echten Symbol und einer eigenen Verknüpfung.",
+    "it": "Dai a Mica l'indirizzo di un sito e ottieni un'app Windows con il suo vero nome, la sua vera icona e un collegamento tutto suo.",
+    "ru": "Укажите Mica адрес сайта — и получите приложение Windows с его настоящим именем, настоящим значком и собственным ярлыком.",
+    "zh-Hans": "给 Mica 一个网站地址，你就得到一个 Windows 应用，带着网站真实的名称、真实的图标和自己的快捷方式。",
+    "ja": "サイトのアドレスを Mica に渡すと、そのサイト本来の名前とアイコン、そして専用のショートカットを備えた Windows アプリになります。",
+    "ko": "Mica에 사이트 주소를 알려주면 그 사이트의 진짜 이름과 진짜 아이콘, 그리고 전용 바로 가기를 갖춘 Windows 앱이 만들어집니다.",
+    "vi": "Đưa cho Mica một địa chỉ trang web, bạn nhận được một ứng dụng Windows mang đúng tên, đúng biểu tượng của trang và có lối tắt riêng.",
+    "ar": "أعطِ Mica عنوان موقع، فتحصل على تطبيق Windows يحمل اسم الموقع الحقيقي وأيقونته الحقيقية واختصارًا خاصًا به."
+  },
+  "ReadyTitle": {
+    "en": "{0} is ready", "fr": "{0} est prête", "es": "{0} está lista", "pt-BR": "{0} está pronto",
+    "de": "{0} ist bereit", "it": "{0} è pronta", "ru": "{0} готово", "zh-Hans": "{0} 已就绪",
+    "ja": "{0} の準備ができました", "ko": "{0} 준비 완료", "vi": "{0} đã sẵn sàng", "ar": "{0} جاهز"
+  },
+  "ReadyBody": {
+    "en": "Shortcut added to the Start menu, in the {0} folder.",
+    "fr": "Raccourci ajouté dans le menu Démarrer, dossier « {0} ».",
+    "es": "Acceso directo añadido al menú Inicio, en la carpeta «{0}».",
+    "pt-BR": "Atalho adicionado ao menu Iniciar, na pasta “{0}”.",
+    "de": "Verknüpfung im Startmenü hinzugefügt, im Ordner „{0}“.",
+    "it": "Collegamento aggiunto al menu Start, nella cartella «{0}».",
+    "ru": "Ярлык добавлен в меню «Пуск», в папку «{0}».",
+    "zh-Hans": "已在“开始”菜单的 {0} 文件夹中添加快捷方式。",
+    "ja": "[スタート] メニューの「{0}」フォルダーにショートカットを追加しました。",
+    "ko": "시작 메뉴의 “{0}” 폴더에 바로 가기를 추가했습니다.",
+    "vi": "Đã thêm lối tắt vào menu Start, trong thư mục “{0}”.",
+    "ar": "تمت إضافة اختصار إلى قائمة «ابدأ»، في مجلد «{0}»."
+  },
+  "OpenFailedTitle": {
+    "en": "Could not open", "fr": "Ouverture impossible", "es": "No se pudo abrir",
+    "pt-BR": "Não foi possível abrir", "de": "Öffnen fehlgeschlagen", "it": "Impossibile aprire",
+    "ru": "Не удалось открыть", "zh-Hans": "无法打开", "ja": "開けませんでした",
+    "ko": "열지 못했습니다", "vi": "Không mở được", "ar": "تعذّر الفتح"
+  },
+  "FetchingIcon": {
+    "en": "Fetching {0}'s icon…", "fr": "Récupération de l'icône de {0}…", "es": "Obteniendo el icono de {0}…",
+    "pt-BR": "Obtendo o ícone de {0}…", "de": "Symbol von {0} wird abgerufen…", "it": "Recupero dell'icona di {0}…",
+    "ru": "Получение значка {0}…", "zh-Hans": "正在获取 {0} 的图标…", "ja": "{0} のアイコンを取得しています…",
+    "ko": "{0}의 아이콘을 가져오는 중…", "vi": "Đang lấy biểu tượng của {0}…", "ar": "جارٍ جلب أيقونة {0}…"
+  },
+  "IconRefreshedTitle": {
+    "en": "Icon refreshed", "fr": "Icône actualisée", "es": "Icono actualizado",
+    "pt-BR": "Ícone atualizado", "de": "Symbol aktualisiert", "it": "Icona aggiornata",
+    "ru": "Значок обновлён", "zh-Hans": "图标已刷新", "ja": "アイコンを更新しました",
+    "ko": "아이콘을 새로 고쳤습니다", "vi": "Đã cập nhật biểu tượng", "ar": "تم تحديث الأيقونة"
+  },
+  "IconRefreshedBody": {
+    "en": "{0} now uses the site's current icon.", "fr": "{0} utilise l'icône actuelle du site.",
+    "es": "{0} usa ahora el icono actual del sitio.", "pt-BR": "{0} agora usa o ícone atual do site.",
+    "de": "{0} verwendet jetzt das aktuelle Symbol der Website.", "it": "{0} ora usa l'icona attuale del sito.",
+    "ru": "{0} использует текущий значок сайта.", "zh-Hans": "{0} 现在使用网站当前的图标。",
+    "ja": "{0} はサイトの現在のアイコンを使用します。", "ko": "{0}이(가) 사이트의 현재 아이콘을 사용합니다.",
+    "vi": "{0} hiện dùng biểu tượng mới nhất của trang.", "ar": "يستخدم {0} الآن أيقونة الموقع الحالية."
+  },
+  "RefreshFailedTitle": {
+    "en": "Could not refresh", "fr": "Actualisation impossible", "es": "No se pudo actualizar",
+    "pt-BR": "Não foi possível atualizar", "de": "Aktualisieren fehlgeschlagen", "it": "Aggiornamento non riuscito",
+    "ru": "Не удалось обновить", "zh-Hans": "刷新失败", "ja": "更新できませんでした",
+    "ko": "새로 고치지 못했습니다", "vi": "Không cập nhật được", "ar": "تعذّر التحديث"
+  },
+  "RemoveConfirmTitle": {
+    "en": "Remove {0}?", "fr": "Retirer {0} ?", "es": "¿Quitar {0}?", "pt-BR": "Remover {0}?",
+    "de": "{0} entfernen?", "it": "Rimuovere {0}?", "ru": "Удалить {0}?", "zh-Hans": "移除 {0}？",
+    "ja": "{0} を削除しますか？", "ko": "{0}을(를) 제거할까요?", "vi": "Gỡ {0}?", "ar": "إزالة {0}؟"
+  },
+  "RemoveConfirmBody": {
+    "en": "This app's shortcut, settings and signed-in session will be deleted. The site itself is not affected.",
+    "fr": "Le raccourci, les réglages et la session connectée de cette app seront supprimés. Le site lui-même n'est pas affecté.",
+    "es": "Se eliminarán el acceso directo, los ajustes y la sesión iniciada de esta app. El sitio en sí no se ve afectado.",
+    "pt-BR": "O atalho, as configurações e a sessão conectada deste app serão excluídos. O site em si não é afetado.",
+    "de": "Verknüpfung, Einstellungen und angemeldete Sitzung dieser App werden gelöscht. Die Website selbst bleibt unberührt.",
+    "it": "Il collegamento, le impostazioni e la sessione connessa di questa app verranno eliminati. Il sito non viene toccato.",
+    "ru": "Ярлык, настройки и вход в аккаунт для этого приложения будут удалены. Сам сайт не затрагивается.",
+    "zh-Hans": "该应用的快捷方式、设置和登录状态将被删除。网站本身不受影响。",
+    "ja": "このアプリのショートカット、設定、ログイン状態が削除されます。サイト自体には影響しません。",
+    "ko": "이 앱의 바로 가기, 설정, 로그인 세션이 삭제됩니다. 사이트 자체는 영향을 받지 않습니다.",
+    "vi": "Lối tắt, cài đặt và phiên đăng nhập của ứng dụng này sẽ bị xóa. Bản thân trang web không bị ảnh hưởng.",
+    "ar": "سيتم حذف اختصار هذا التطبيق وإعداداته وجلسة تسجيل الدخول الخاصة به. الموقع نفسه لن يتأثر."
+  },
+  "Cancel": {
+    "en": "Cancel", "fr": "Annuler", "es": "Cancelar", "pt-BR": "Cancelar",
+    "de": "Abbrechen", "it": "Annulla", "ru": "Отмена", "zh-Hans": "取消",
+    "ja": "キャンセル", "ko": "취소", "vi": "Hủy", "ar": "إلغاء"
+  },
+  "RemovedTitle": {
+    "en": "{0} was removed", "fr": "{0} a été retirée", "es": "Se quitó {0}",
+    "pt-BR": "{0} foi removido", "de": "{0} wurde entfernt", "it": "{0} è stata rimossa",
+    "ru": "{0} удалено", "zh-Hans": "已移除 {0}", "ja": "{0} を削除しました",
+    "ko": "{0}을(를) 제거했습니다", "vi": "Đã gỡ {0}", "ar": "تمت إزالة {0}"
+  },
+  "RemoveFailedTitle": {
+    "en": "Could not remove", "fr": "Suppression impossible", "es": "No se pudo quitar",
+    "pt-BR": "Não foi possível remover", "de": "Entfernen fehlgeschlagen", "it": "Rimozione non riuscita",
+    "ru": "Не удалось удалить", "zh-Hans": "移除失败", "ja": "削除できませんでした",
+    "ko": "제거하지 못했습니다", "vi": "Không gỡ được", "ar": "تعذّرت الإزالة"
+  },
+
+  "DialogTitle": {
+    "en": "Add an app", "fr": "Ajouter une app", "es": "Añadir una app", "pt-BR": "Adicionar um app",
+    "de": "App hinzufügen", "it": "Aggiungi un'app", "ru": "Добавить приложение", "zh-Hans": "添加应用",
+    "ja": "アプリを追加", "ko": "앱 추가", "vi": "Thêm ứng dụng", "ar": "إضافة تطبيق"
+  },
+  "DialogCreate": {
+    "en": "Create the app", "fr": "Créer l'app", "es": "Crear la app", "pt-BR": "Criar o app",
+    "de": "App erstellen", "it": "Crea l'app", "ru": "Создать приложение", "zh-Hans": "创建应用",
+    "ja": "アプリを作成", "ko": "앱 만들기", "vi": "Tạo ứng dụng", "ar": "إنشاء التطبيق"
+  },
+  "DialogUrlHeader": {
+    "en": "Site address", "fr": "Adresse du site", "es": "Dirección del sitio", "pt-BR": "Endereço do site",
+    "de": "Adresse der Website", "it": "Indirizzo del sito", "ru": "Адрес сайта", "zh-Hans": "网站地址",
+    "ja": "サイトのアドレス", "ko": "사이트 주소", "vi": "Địa chỉ trang web", "ar": "عنوان الموقع"
+  },
+  "DialogHint": {
+    "en": "Mica takes the name and icon the site publishes, then adds a shortcut to the Start menu.",
+    "fr": "Mica reprend le nom et l'icône publiés par le site, puis ajoute un raccourci dans le menu Démarrer.",
+    "es": "Mica toma el nombre y el icono que publica el sitio y añade un acceso directo al menú Inicio.",
+    "pt-BR": "O Mica usa o nome e o ícone publicados pelo site e adiciona um atalho ao menu Iniciar.",
+    "de": "Mica übernimmt Namen und Symbol, die die Website veröffentlicht, und legt eine Verknüpfung im Startmenü an.",
+    "it": "Mica riprende il nome e l'icona pubblicati dal sito, poi aggiunge un collegamento al menu Start.",
+    "ru": "Mica берёт имя и значок, которые публикует сайт, и добавляет ярлык в меню «Пуск».",
+    "zh-Hans": "Mica 采用网站发布的名称和图标，并在“开始”菜单中添加快捷方式。",
+    "ja": "Mica はサイトが公開している名前とアイコンをそのまま使い、[スタート] メニューにショートカットを追加します。",
+    "ko": "Mica는 사이트가 게시한 이름과 아이콘을 그대로 가져오고, 시작 메뉴에 바로 가기를 추가합니다.",
+    "vi": "Mica lấy tên và biểu tượng do trang web công bố, rồi thêm lối tắt vào menu Start.",
+    "ar": "يأخذ Mica الاسم والأيقونة اللذين ينشرهما الموقع، ثم يضيف اختصارًا إلى قائمة «ابدأ»."
+  },
+  "DialogOptions": {
+    "en": "Options", "fr": "Options", "es": "Opciones", "pt-BR": "Opções",
+    "de": "Optionen", "it": "Opzioni", "ru": "Параметры", "zh-Hans": "选项",
+    "ja": "オプション", "ko": "옵션", "vi": "Tùy chọn", "ar": "خيارات"
+  },
+  "DialogNameHeader": {
+    "en": "App name", "fr": "Nom de l'app", "es": "Nombre de la app", "pt-BR": "Nome do app",
+    "de": "Name der App", "it": "Nome dell'app", "ru": "Имя приложения", "zh-Hans": "应用名称",
+    "ja": "アプリ名", "ko": "앱 이름", "vi": "Tên ứng dụng", "ar": "اسم التطبيق"
+  },
+  "DialogNamePlaceholder": {
+    "en": "The site's own", "fr": "Celui du site", "es": "El del sitio", "pt-BR": "O do site",
+    "de": "Der Name der Website", "it": "Quello del sito", "ru": "Как у сайта", "zh-Hans": "沿用网站的名称",
+    "ja": "サイトの名前", "ko": "사이트 이름 그대로", "vi": "Tên của trang web", "ar": "اسم الموقع نفسه"
+  },
+  "DialogHostsHeader": {
+    "en": "Domains to keep inside the app", "fr": "Domaines à garder dans l'app",
+    "es": "Dominios que se abren dentro de la app", "pt-BR": "Domínios que abrem dentro do app",
+    "de": "Domains, die in der App bleiben", "it": "Domini da tenere nell'app",
+    "ru": "Домены, открываемые в приложении", "zh-Hans": "保留在应用内的域名",
+    "ja": "アプリ内で開くドメイン", "ko": "앱 안에서 열 도메인",
+    "vi": "Miền cần giữ trong ứng dụng", "ar": "النطاقات التي تُفتح داخل التطبيق"
+  },
+  "DialogHostsHint": {
+    "en": "The site's domain and its sign-in pages are already included. Add here any extra domains you want to open in the app rather than in your browser.",
+    "fr": "Le domaine du site et ses pages de connexion sont déjà inclus. Ajoutez ici les domaines supplémentaires que vous voulez ouvrir dans l'app plutôt que dans le navigateur.",
+    "es": "El dominio del sitio y sus páginas de inicio de sesión ya están incluidos. Añade aquí los dominios adicionales que quieras abrir en la app en lugar del navegador.",
+    "pt-BR": "O domínio do site e suas páginas de login já estão incluídos. Adicione aqui os domínios extras que você quer abrir no app em vez do navegador.",
+    "de": "Die Domain der Website und ihre Anmeldeseiten sind bereits enthalten. Ergänzen Sie hier weitere Domains, die in der App statt im Browser geöffnet werden sollen.",
+    "it": "Il dominio del sito e le sue pagine di accesso sono già inclusi. Aggiungi qui gli altri domini che vuoi aprire nell'app anziché nel browser.",
+    "ru": "Домен сайта и его страницы входа уже включены. Добавьте сюда дополнительные домены, которые должны открываться в приложении, а не в браузере.",
+    "zh-Hans": "网站的域名及其登录页面已包含在内。在这里添加你希望在应用内而不是浏览器中打开的其他域名。",
+    "ja": "サイトのドメインとログインページはすでに含まれています。ブラウザーではなくアプリ内で開きたいドメインを、ここに追加してください。",
+    "ko": "사이트의 도메인과 로그인 페이지는 이미 포함되어 있습니다. 브라우저가 아니라 앱에서 열고 싶은 도메인을 여기에 추가하세요.",
+    "vi": "Miền của trang và các trang đăng nhập của nó đã được bao gồm. Thêm vào đây những miền khác mà bạn muốn mở trong ứng dụng thay vì trình duyệt.",
+    "ar": "نطاق الموقع وصفحات تسجيل الدخول الخاصة به مضمَّنة بالفعل. أضِف هنا أي نطاقات إضافية تريد فتحها داخل التطبيق بدلاً من المتصفح."
+  },
+  "DialogBusy": {
+    "en": "Reading the site and its icon…", "fr": "Lecture du site et de son icône…",
+    "es": "Leyendo el sitio y su icono…", "pt-BR": "Lendo o site e seu ícone…",
+    "de": "Website und Symbol werden gelesen…", "it": "Lettura del sito e della sua icona…",
+    "ru": "Чтение сайта и его значка…", "zh-Hans": "正在读取网站及其图标…",
+    "ja": "サイトとアイコンを読み取っています…", "ko": "사이트와 아이콘을 읽는 중…",
+    "vi": "Đang đọc trang web và biểu tượng…", "ar": "جارٍ قراءة الموقع وأيقونته…"
+  },
+  "DialogInvalidUrl": {
+    "en": "That address is not valid. Example: gemini.google.com",
+    "fr": "Cette adresse n'est pas valide. Exemple : gemini.google.com",
+    "es": "Esa dirección no es válida. Ejemplo: gemini.google.com",
+    "pt-BR": "Esse endereço não é válido. Exemplo: gemini.google.com",
+    "de": "Diese Adresse ist ungültig. Beispiel: gemini.google.com",
+    "it": "Questo indirizzo non è valido. Esempio: gemini.google.com",
+    "ru": "Этот адрес недействителен. Пример: gemini.google.com",
+    "zh-Hans": "该地址无效。例如：gemini.google.com",
+    "ja": "このアドレスは正しくありません。例: gemini.google.com",
+    "ko": "주소가 올바르지 않습니다. 예: gemini.google.com",
+    "vi": "Địa chỉ này không hợp lệ. Ví dụ: gemini.google.com",
+    "ar": "هذا العنوان غير صالح. مثال: gemini.google.com"
+  },
+  "DialogCreateFailed": {
+    "en": "The app could not be created: {0}", "fr": "L'app n'a pas pu être créée : {0}",
+    "es": "No se pudo crear la app: {0}", "pt-BR": "Não foi possível criar o app: {0}",
+    "de": "Die App konnte nicht erstellt werden: {0}", "it": "Impossibile creare l'app: {0}",
+    "ru": "Не удалось создать приложение: {0}", "zh-Hans": "无法创建应用：{0}",
+    "ja": "アプリを作成できませんでした: {0}", "ko": "앱을 만들지 못했습니다: {0}",
+    "vi": "Không thể tạo ứng dụng: {0}", "ar": "تعذّر إنشاء التطبيق: {0}"
+  }
+}

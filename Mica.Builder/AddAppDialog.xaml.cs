@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Mica.Core;
 using Mica.Core.Apps;
+using Mica.Core.Localization;
 
 namespace Mica.Builder;
 
@@ -18,8 +19,25 @@ public sealed partial class AddAppDialog : ContentDialog
     public AddAppDialog()
     {
         InitializeComponent();
+        ApplyStrings();
         PrimaryButtonClick += OnCreateClick;
         Loaded += (_, _) => UrlBox.Focus(FocusState.Programmatic);
+    }
+
+    private void ApplyStrings()
+    {
+        Title = Strings.Get("DialogTitle");
+        PrimaryButtonText = Strings.Get("DialogCreate");
+        CloseButtonText = Strings.Get("Cancel");
+
+        UrlBox.Header = Strings.Get("DialogUrlHeader");
+        HintText.Text = Strings.Get("DialogHint");
+        OptionsExpander.Header = Strings.Get("DialogOptions");
+        NameBox.Header = Strings.Get("DialogNameHeader");
+        NameBox.PlaceholderText = Strings.Get("DialogNamePlaceholder");
+        HostsBox.Header = Strings.Get("DialogHostsHeader");
+        HostsHintText.Text = Strings.Get("DialogHostsHint");
+        BusyText.Text = Strings.Get("DialogBusy");
     }
 
     private async void OnCreateClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -33,7 +51,7 @@ public sealed partial class AddAppDialog : ContentDialog
         {
             if (!TryParseUrl(UrlBox.Text, out var url))
             {
-                ShowError("Cette adresse n'est pas valide. Exemple : gemini.google.com");
+                ShowError(Strings.Get("DialogInvalidUrl"));
                 return;
             }
 
@@ -49,7 +67,7 @@ public sealed partial class AddAppDialog : ContentDialog
         }
         catch (Exception ex)
         {
-            ShowError($"L'app n'a pas pu être créée : {ex.Message}");
+            ShowError(Strings.Format("DialogCreateFailed", ex.Message));
         }
         finally
         {

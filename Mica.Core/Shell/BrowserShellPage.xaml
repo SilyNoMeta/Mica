@@ -7,6 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <!--
+        No text is written here. In an unpackaged app a class library's own .resw is
+        unreachable at runtime, so x:Uid cannot be used: every label and tooltip below
+        is assigned in ApplyStrings() from the host executable's resources.
+    -->
+
     <UserControl.Resources>
         <Style x:Key="ShellCommandStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
@@ -40,28 +46,33 @@
                         x:Name="BackButton"
                         Click="OnBackClick"
                         IsEnabled="False"
-                        Style="{StaticResource ShellCommandStyle}"
-                        ToolTipService.ToolTip="Précédent (Alt+←)">
-                        <FontIcon FontSize="14" Glyph="&#xE72B;" />
+                        Style="{StaticResource ShellCommandStyle}">
+                        <!--  Arrows point the other way when the UI is mirrored.  -->
+                        <FontIcon
+                            FontSize="14"
+                            Glyph="&#xE72B;"
+                            MirroredWhenRightToLeft="True" />
                     </Button>
                     <Button
                         x:Name="ForwardButton"
                         Click="OnForwardClick"
                         IsEnabled="False"
-                        Style="{StaticResource ShellCommandStyle}"
-                        ToolTipService.ToolTip="Suivant (Alt+→)">
-                        <FontIcon FontSize="14" Glyph="&#xE72A;" />
+                        Style="{StaticResource ShellCommandStyle}">
+                        <FontIcon
+                            FontSize="14"
+                            Glyph="&#xE72A;"
+                            MirroredWhenRightToLeft="True" />
                     </Button>
                     <Button
+                        x:Name="ReloadButton"
                         Click="OnReloadClick"
-                        Style="{StaticResource ShellCommandStyle}"
-                        ToolTipService.ToolTip="Recharger (F5)">
+                        Style="{StaticResource ShellCommandStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE72C;" />
                     </Button>
                     <Button
+                        x:Name="HomeButton"
                         Click="OnHomeClick"
-                        Style="{StaticResource ShellCommandStyle}"
-                        ToolTipService.ToolTip="Accueil">
+                        Style="{StaticResource ShellCommandStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE80F;" />
                     </Button>
                 </StackPanel>
@@ -72,17 +83,14 @@
                     Spacing="2">
                     <ToggleButton
                         x:Name="PinButton"
+                        Padding="9,6"
                         Background="Transparent"
                         BorderThickness="0"
-                        Click="OnPinClick"
-                        Padding="9,6"
-                        ToolTipService.ToolTip="Garder la barre affichée">
+                        Click="OnPinClick">
                         <FontIcon FontSize="14" Glyph="&#xE718;" />
                     </ToggleButton>
 
-                    <Button
-                        Style="{StaticResource ShellCommandStyle}"
-                        ToolTipService.ToolTip="Réglages">
+                    <Button x:Name="SettingsButton" Style="{StaticResource ShellCommandStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE713;" />
                         <Button.Flyout>
                             <Flyout Placement="BottomEdgeAlignedRight">
@@ -90,7 +98,7 @@
 
                                     <!--  Zoom  -->
                                     <StackPanel Spacing="8">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Zoom" />
+                                        <TextBlock x:Name="ZoomHeading" Style="{StaticResource BodyStrongTextBlockStyle}" />
                                         <Grid ColumnSpacing="8">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
@@ -98,9 +106,7 @@
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
-                                            <Button
-                                                Click="OnZoomOutClick"
-                                                ToolTipService.ToolTip="Réduire">
+                                            <Button x:Name="ZoomOutButton" Click="OnZoomOutClick">
                                                 <FontIcon FontSize="14" Glyph="&#xE738;" />
                                             </Button>
                                             <TextBlock
@@ -108,48 +114,42 @@
                                                 Grid.Column="1"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                                Text="100 %" />
+                                                Style="{StaticResource BodyStrongTextBlockStyle}" />
                                             <Button
+                                                x:Name="ZoomInButton"
                                                 Grid.Column="2"
-                                                Click="OnZoomInClick"
-                                                ToolTipService.ToolTip="Agrandir">
+                                                Click="OnZoomInClick">
                                                 <FontIcon FontSize="14" Glyph="&#xE710;" />
                                             </Button>
                                             <Button
+                                                x:Name="ZoomResetButton"
                                                 Grid.Column="3"
-                                                Click="OnZoomResetClick"
-                                                Content="100 %"
-                                                ToolTipService.ToolTip="Rétablir" />
+                                                Click="OnZoomResetClick" />
                                         </Grid>
                                     </StackPanel>
 
                                     <!--  Extensions  -->
                                     <StackPanel Spacing="8">
-                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Extensions" />
+                                        <TextBlock x:Name="ExtensionsHeading" Style="{StaticResource BodyStrongTextBlockStyle}" />
                                         <TextBlock
+                                            x:Name="ExtensionsHint"
                                             Opacity="0.7"
                                             Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Ouvrez le Chrome Web Store, copiez le lien de l'extension puis collez-le ici. Le bouton « Ajouter à Chrome » du store ne fonctionne pas dans une app : Mica télécharge et installe l'extension à sa place."
                                             TextWrapping="Wrap" />
                                         <Button
-                                            Click="OnOpenStoreClick"
-                                            Content="Ouvrir le Chrome Web Store"
-                                            HorizontalAlignment="Stretch" />
+                                            x:Name="OpenStoreButton"
+                                            HorizontalAlignment="Stretch"
+                                            Click="OnOpenStoreClick" />
                                         <Grid ColumnSpacing="8">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
-                                            <TextBox
-                                                x:Name="ExtensionInput"
-                                                PlaceholderText="Lien de l'extension"
-                                                Text="" />
+                                            <TextBox x:Name="ExtensionInput" Text="" />
                                             <Button
                                                 x:Name="InstallExtensionButton"
                                                 Grid.Column="1"
-                                                Click="OnInstallExtensionClick"
-                                                Content="Installer" />
+                                                Click="OnInstallExtensionClick" />
                                         </Grid>
                                         <TextBlock
                                             x:Name="ExtensionStatus"
@@ -171,12 +171,12 @@
                                                             TextTrimming="CharacterEllipsis" />
                                                         <Button
                                                             Grid.Column="1"
+                                                            Padding="6,3"
                                                             Background="Transparent"
                                                             BorderThickness="0"
                                                             Click="OnRemoveExtensionClick"
-                                                            Padding="6,3"
                                                             Tag="{Binding Id}"
-                                                            ToolTipService.ToolTip="Retirer">
+                                                            ToolTipService.ToolTip="{Binding RemoveLabel}">
                                                             <FontIcon FontSize="13" Glyph="&#xE74D;" />
                                                         </Button>
                                                     </Grid>
@@ -199,10 +199,7 @@
                 IsClosable="True"
                 IsOpen="False">
                 <InfoBar.ActionButton>
-                    <Button
-                        x:Name="PromptInstallButton"
-                        Click="OnInstallDetectedClick"
-                        Content="Installer dans l'app" />
+                    <Button x:Name="PromptInstallButton" Click="OnInstallDetectedClick" />
                 </InfoBar.ActionButton>
             </InfoBar>
 

@@ -1,0 +1,202 @@
+{
+  "_comment": "Strings shown by a generated app's window. Compiled into Mica.Host by tools/Generate-Resources.ps1. Add a language by adding its tag to every entry.",
+  "_languages": ["en", "fr", "es", "pt-BR", "de", "it", "ru", "zh-Hans", "ja", "ko", "vi", "ar"],
+
+  "FlowDirection": {
+    "_note": "LeftToRight or RightToLeft. Applied to the window's root element at startup.",
+    "en": "LeftToRight", "fr": "LeftToRight", "es": "LeftToRight", "pt-BR": "LeftToRight",
+    "de": "LeftToRight", "it": "LeftToRight", "ru": "LeftToRight", "zh-Hans": "LeftToRight",
+    "ja": "LeftToRight", "ko": "LeftToRight", "vi": "LeftToRight", "ar": "RightToLeft"
+  },
+
+  "ShellBack": {
+    "en": "Back (Alt+Left)", "fr": "Précédent (Alt+←)", "es": "Atrás (Alt+←)", "pt-BR": "Voltar (Alt+←)",
+    "de": "Zurück (Alt+←)", "it": "Indietro (Alt+←)", "ru": "Назад (Alt+←)", "zh-Hans": "后退 (Alt+←)",
+    "ja": "戻る (Alt+←)", "ko": "뒤로 (Alt+←)", "vi": "Quay lại (Alt+←)", "ar": "رجوع (Alt+→)"
+  },
+  "ShellForward": {
+    "en": "Forward (Alt+Right)", "fr": "Suivant (Alt+→)", "es": "Adelante (Alt+→)", "pt-BR": "Avançar (Alt+→)",
+    "de": "Vorwärts (Alt+→)", "it": "Avanti (Alt+→)", "ru": "Вперёд (Alt+→)", "zh-Hans": "前进 (Alt+→)",
+    "ja": "進む (Alt+→)", "ko": "앞으로 (Alt+→)", "vi": "Tiến tới (Alt+→)", "ar": "تقدم (Alt+←)"
+  },
+  "ShellReload": {
+    "en": "Reload (F5)", "fr": "Recharger (F5)", "es": "Recargar (F5)", "pt-BR": "Recarregar (F5)",
+    "de": "Neu laden (F5)", "it": "Ricarica (F5)", "ru": "Обновить (F5)", "zh-Hans": "重新加载 (F5)",
+    "ja": "再読み込み (F5)", "ko": "새로 고침 (F5)", "vi": "Tải lại (F5)", "ar": "إعادة التحميل (F5)"
+  },
+  "ShellHome": {
+    "en": "Home", "fr": "Accueil", "es": "Inicio", "pt-BR": "Início",
+    "de": "Startseite", "it": "Pagina iniziale", "ru": "Начальная страница", "zh-Hans": "主页",
+    "ja": "ホーム", "ko": "홈", "vi": "Trang chủ", "ar": "الصفحة الرئيسية"
+  },
+  "ShellPinToolbar": {
+    "en": "Keep the toolbar visible", "fr": "Garder la barre affichée", "es": "Mantener la barra visible",
+    "pt-BR": "Manter a barra visível", "de": "Symbolleiste eingeblendet lassen", "it": "Mantieni la barra visibile",
+    "ru": "Закрепить панель", "zh-Hans": "固定显示工具栏", "ja": "ツールバーを表示したままにする",
+    "ko": "도구 모음 고정", "vi": "Luôn hiện thanh công cụ", "ar": "إبقاء شريط الأدوات ظاهرًا"
+  },
+  "ShellSettings": {
+    "en": "Settings", "fr": "Réglages", "es": "Ajustes", "pt-BR": "Configurações",
+    "de": "Einstellungen", "it": "Impostazioni", "ru": "Настройки", "zh-Hans": "设置",
+    "ja": "設定", "ko": "설정", "vi": "Cài đặt", "ar": "الإعدادات"
+  },
+  "ShellZoom": {
+    "en": "Zoom", "fr": "Zoom", "es": "Zoom", "pt-BR": "Zoom",
+    "de": "Zoom", "it": "Zoom", "ru": "Масштаб", "zh-Hans": "缩放",
+    "ja": "ズーム", "ko": "확대/축소", "vi": "Thu phóng", "ar": "التكبير"
+  },
+  "ShellZoomOut": {
+    "en": "Zoom out", "fr": "Réduire", "es": "Reducir", "pt-BR": "Reduzir",
+    "de": "Verkleinern", "it": "Riduci", "ru": "Уменьшить", "zh-Hans": "缩小",
+    "ja": "縮小", "ko": "축소", "vi": "Thu nhỏ", "ar": "تصغير"
+  },
+  "ShellZoomIn": {
+    "en": "Zoom in", "fr": "Agrandir", "es": "Ampliar", "pt-BR": "Ampliar",
+    "de": "Vergrößern", "it": "Ingrandisci", "ru": "Увеличить", "zh-Hans": "放大",
+    "ja": "拡大", "ko": "확대", "vi": "Phóng to", "ar": "تكبير"
+  },
+  "ShellZoomReset": {
+    "en": "Reset", "fr": "Rétablir", "es": "Restablecer", "pt-BR": "Redefinir",
+    "de": "Zurücksetzen", "it": "Reimposta", "ru": "Сбросить", "zh-Hans": "重置",
+    "ja": "リセット", "ko": "재설정", "vi": "Đặt lại", "ar": "إعادة تعيين"
+  },
+  "ShellExtensions": {
+    "en": "Extensions", "fr": "Extensions", "es": "Extensiones", "pt-BR": "Extensões",
+    "de": "Erweiterungen", "it": "Estensioni", "ru": "Расширения", "zh-Hans": "扩展",
+    "ja": "拡張機能", "ko": "확장 프로그램", "vi": "Tiện ích mở rộng", "ar": "الإضافات"
+  },
+  "ShellExtensionsHint": {
+    "en": "Open the Chrome Web Store, copy the extension's link and paste it here. The store's “Add to Chrome” button does not work inside an app: Mica downloads and installs the extension instead.",
+    "fr": "Ouvrez le Chrome Web Store, copiez le lien de l'extension puis collez-le ici. Le bouton « Ajouter à Chrome » du store ne fonctionne pas dans une app : Mica télécharge et installe l'extension à sa place.",
+    "es": "Abre Chrome Web Store, copia el enlace de la extensión y pégalo aquí. El botón «Añadir a Chrome» de la tienda no funciona dentro de una app: Mica descarga e instala la extensión en su lugar.",
+    "pt-BR": "Abra a Chrome Web Store, copie o link da extensão e cole aqui. O botão “Usar no Chrome” da loja não funciona dentro de um app: o Mica baixa e instala a extensão no lugar dele.",
+    "de": "Öffnen Sie den Chrome Web Store, kopieren Sie den Link der Erweiterung und fügen Sie ihn hier ein. Die Schaltfläche „Hinzufügen“ des Stores funktioniert in einer App nicht: Mica lädt die Erweiterung stattdessen selbst herunter und installiert sie.",
+    "it": "Apri il Chrome Web Store, copia il link dell'estensione e incollalo qui. Il pulsante «Aggiungi» dello store non funziona in un'app: Mica scarica e installa l'estensione al suo posto.",
+    "ru": "Откройте Chrome Web Store, скопируйте ссылку на расширение и вставьте её сюда. Кнопка «Установить» в магазине не работает внутри приложения: Mica скачивает и устанавливает расширение сама.",
+    "zh-Hans": "打开 Chrome 网上应用店，复制扩展的链接并粘贴到这里。商店的“添加至 Chrome”按钮在应用内无效：Mica 会代为下载并安装扩展。",
+    "ja": "Chrome ウェブストアを開き、拡張機能のリンクをコピーしてここに貼り付けてください。ストアの「Chrome に追加」ボタンはアプリ内では動作しません。Mica が代わりにダウンロードしてインストールします。",
+    "ko": "Chrome 웹 스토어를 열고 확장 프로그램 링크를 복사해 여기에 붙여넣으세요. 스토어의 “Chrome에 추가” 버튼은 앱 안에서 작동하지 않습니다. Mica가 대신 내려받아 설치합니다.",
+    "vi": "Mở Chrome Web Store, sao chép liên kết của tiện ích rồi dán vào đây. Nút “Thêm vào Chrome” của cửa hàng không hoạt động bên trong ứng dụng: Mica sẽ tải xuống và cài đặt tiện ích thay cho bạn.",
+    "ar": "افتح متجر Chrome الإلكتروني، وانسخ رابط الإضافة ثم الصقه هنا. زر «إضافة إلى Chrome» في المتجر لا يعمل داخل التطبيق: يتولى Mica تنزيل الإضافة وتثبيتها بدلاً منه."
+  },
+  "ShellOpenWebStore": {
+    "en": "Open the Chrome Web Store", "fr": "Ouvrir le Chrome Web Store", "es": "Abrir Chrome Web Store",
+    "pt-BR": "Abrir a Chrome Web Store", "de": "Chrome Web Store öffnen", "it": "Apri il Chrome Web Store",
+    "ru": "Открыть Chrome Web Store", "zh-Hans": "打开 Chrome 网上应用店", "ja": "Chrome ウェブストアを開く",
+    "ko": "Chrome 웹 스토어 열기", "vi": "Mở Chrome Web Store", "ar": "فتح متجر Chrome الإلكتروني"
+  },
+  "ShellExtensionLink": {
+    "en": "Extension link", "fr": "Lien de l'extension", "es": "Enlace de la extensión",
+    "pt-BR": "Link da extensão", "de": "Link der Erweiterung", "it": "Link dell'estensione",
+    "ru": "Ссылка на расширение", "zh-Hans": "扩展链接", "ja": "拡張機能のリンク",
+    "ko": "확장 프로그램 링크", "vi": "Liên kết tiện ích", "ar": "رابط الإضافة"
+  },
+  "ShellInstall": {
+    "en": "Install", "fr": "Installer", "es": "Instalar", "pt-BR": "Instalar",
+    "de": "Installieren", "it": "Installa", "ru": "Установить", "zh-Hans": "安装",
+    "ja": "インストール", "ko": "설치", "vi": "Cài đặt", "ar": "تثبيت"
+  },
+  "ShellRemoveExtension": {
+    "en": "Remove", "fr": "Retirer", "es": "Quitar", "pt-BR": "Remover",
+    "de": "Entfernen", "it": "Rimuovi", "ru": "Удалить", "zh-Hans": "移除",
+    "ja": "削除", "ko": "제거", "vi": "Gỡ bỏ", "ar": "إزالة"
+  },
+  "ShellStartFailed": {
+    "en": "The embedded browser could not start.\n\n{0}",
+    "fr": "Impossible de démarrer le navigateur intégré.\n\n{0}",
+    "es": "No se pudo iniciar el navegador integrado.\n\n{0}",
+    "pt-BR": "Não foi possível iniciar o navegador integrado.\n\n{0}",
+    "de": "Der eingebettete Browser konnte nicht gestartet werden.\n\n{0}",
+    "it": "Impossibile avviare il browser integrato.\n\n{0}",
+    "ru": "Не удалось запустить встроенный браузер.\n\n{0}",
+    "zh-Hans": "无法启动内嵌浏览器。\n\n{0}",
+    "ja": "内蔵ブラウザーを起動できませんでした。\n\n{0}",
+    "ko": "내장 브라우저를 시작할 수 없습니다.\n\n{0}",
+    "vi": "Không thể khởi động trình duyệt tích hợp.\n\n{0}",
+    "ar": "تعذّر تشغيل المتصفح المدمج.\n\n{0}"
+  },
+  "ShellNotAnExtensionLink": {
+    "en": "That link is not a Chrome Web Store extension.",
+    "fr": "Ce lien ne correspond pas à une extension du Chrome Web Store.",
+    "es": "Ese enlace no corresponde a una extensión de Chrome Web Store.",
+    "pt-BR": "Esse link não corresponde a uma extensão da Chrome Web Store.",
+    "de": "Dieser Link gehört zu keiner Erweiterung aus dem Chrome Web Store.",
+    "it": "Questo link non corrisponde a un'estensione del Chrome Web Store.",
+    "ru": "Эта ссылка не ведёт на расширение из Chrome Web Store.",
+    "zh-Hans": "该链接不是 Chrome 网上应用店的扩展。",
+    "ja": "このリンクは Chrome ウェブストアの拡張機能ではありません。",
+    "ko": "이 링크는 Chrome 웹 스토어의 확장 프로그램이 아닙니다.",
+    "vi": "Liên kết này không phải là tiện ích trên Chrome Web Store.",
+    "ar": "هذا الرابط لا يشير إلى إضافة من متجر Chrome الإلكتروني."
+  },
+  "ShellDownloading": {
+    "en": "Downloading the extension…", "fr": "Téléchargement de l'extension…", "es": "Descargando la extensión…",
+    "pt-BR": "Baixando a extensão…", "de": "Erweiterung wird heruntergeladen…", "it": "Download dell'estensione…",
+    "ru": "Загрузка расширения…", "zh-Hans": "正在下载扩展…", "ja": "拡張機能をダウンロードしています…",
+    "ko": "확장 프로그램을 내려받는 중…", "vi": "Đang tải tiện ích…", "ar": "جارٍ تنزيل الإضافة…"
+  },
+  "ShellDetectedTitle": {
+    "en": "Extension detected", "fr": "Extension détectée", "es": "Extensión detectada",
+    "pt-BR": "Extensão detectada", "de": "Erweiterung erkannt", "it": "Estensione rilevata",
+    "ru": "Обнаружено расширение", "zh-Hans": "检测到扩展", "ja": "拡張機能を検出しました",
+    "ko": "확장 프로그램을 찾았습니다", "vi": "Đã phát hiện tiện ích", "ar": "تم اكتشاف إضافة"
+  },
+  "ShellDetectedBody": {
+    "en": "“Add to Chrome” does not work inside an app. Mica can install it in {0}.",
+    "fr": "« Ajouter à Chrome » ne fonctionne pas dans une app. Mica peut l'installer dans {0}.",
+    "es": "«Añadir a Chrome» no funciona dentro de una app. Mica puede instalarla en {0}.",
+    "pt-BR": "“Usar no Chrome” não funciona dentro de um app. O Mica pode instalá-la em {0}.",
+    "de": "„Hinzufügen“ funktioniert in einer App nicht. Mica kann sie in {0} installieren.",
+    "it": "«Aggiungi» non funziona in un'app. Mica può installarla in {0}.",
+    "ru": "Кнопка «Установить» не работает внутри приложения. Mica может установить расширение в {0}.",
+    "zh-Hans": "“添加至 Chrome”在应用内无效。Mica 可以把它安装到 {0}。",
+    "ja": "「Chrome に追加」はアプリ内では動作しません。Mica が {0} にインストールできます。",
+    "ko": "“Chrome에 추가”는 앱 안에서 작동하지 않습니다. Mica가 {0}에 설치할 수 있습니다.",
+    "vi": "“Thêm vào Chrome” không hoạt động bên trong ứng dụng. Mica có thể cài nó vào {0}.",
+    "ar": "زر «إضافة إلى Chrome» لا يعمل داخل التطبيق. يمكن لـ Mica تثبيتها في {0}."
+  },
+  "ShellInstallInApp": {
+    "en": "Install in the app", "fr": "Installer dans l'app", "es": "Instalar en la app",
+    "pt-BR": "Instalar no app", "de": "In der App installieren", "it": "Installa nell'app",
+    "ru": "Установить в приложение", "zh-Hans": "安装到应用", "ja": "アプリにインストール",
+    "ko": "앱에 설치", "vi": "Cài vào ứng dụng", "ar": "تثبيت في التطبيق"
+  },
+  "ShellInstallingTitle": {
+    "en": "Installing", "fr": "Installation en cours", "es": "Instalando",
+    "pt-BR": "Instalando", "de": "Wird installiert", "it": "Installazione in corso",
+    "ru": "Установка", "zh-Hans": "正在安装", "ja": "インストール中",
+    "ko": "설치 중", "vi": "Đang cài đặt", "ar": "جارٍ التثبيت"
+  },
+  "ShellInstalledTitle": {
+    "en": "“{0}” is installed", "fr": "« {0} » est installée", "es": "«{0}» está instalada",
+    "pt-BR": "“{0}” foi instalada", "de": "„{0}“ ist installiert", "it": "«{0}» è installata",
+    "ru": "«{0}» установлено", "zh-Hans": "“{0}”已安装", "ja": "「{0}」をインストールしました",
+    "ko": "“{0}” 설치됨", "vi": "Đã cài “{0}”", "ar": "تم تثبيت «{0}»"
+  },
+  "ShellReloadToActivate": {
+    "en": "Reload the page to activate it.", "fr": "Rechargez la page pour l'activer.",
+    "es": "Recarga la página para activarla.", "pt-BR": "Recarregue a página para ativá-la.",
+    "de": "Laden Sie die Seite neu, um sie zu aktivieren.", "it": "Ricarica la pagina per attivarla.",
+    "ru": "Обновите страницу, чтобы включить его.", "zh-Hans": "重新加载页面即可启用。",
+    "ja": "ページを再読み込みすると有効になります。", "ko": "페이지를 새로 고치면 활성화됩니다.",
+    "vi": "Tải lại trang để kích hoạt.", "ar": "أعد تحميل الصفحة لتفعيلها."
+  },
+  "ShellInstallFailedTitle": {
+    "en": "Installation failed", "fr": "Installation impossible", "es": "No se pudo instalar",
+    "pt-BR": "Não foi possível instalar", "de": "Installation fehlgeschlagen", "it": "Installazione non riuscita",
+    "ru": "Не удалось установить", "zh-Hans": "安装失败", "ja": "インストールできませんでした",
+    "ko": "설치하지 못했습니다", "vi": "Không cài đặt được", "ar": "فشل التثبيت"
+  },
+  "ShellExtensionRemoved": {
+    "en": "Extension removed.", "fr": "Extension retirée.", "es": "Extensión eliminada.",
+    "pt-BR": "Extensão removida.", "de": "Erweiterung entfernt.", "it": "Estensione rimossa.",
+    "ru": "Расширение удалено.", "zh-Hans": "扩展已移除。", "ja": "拡張機能を削除しました。",
+    "ko": "확장 프로그램을 제거했습니다.", "vi": "Đã gỡ tiện ích.", "ar": "تمت إزالة الإضافة."
+  },
+  "ShellRemoveFailedTitle": {
+    "en": "Could not remove", "fr": "Suppression impossible", "es": "No se pudo quitar",
+    "pt-BR": "Não foi possível remover", "de": "Entfernen fehlgeschlagen", "it": "Rimozione non riuscita",
+    "ru": "Не удалось удалить", "zh-Hans": "移除失败", "ja": "削除できませんでした",
+    "ko": "제거하지 못했습니다", "vi": "Không gỡ được", "ar": "تعذّرت الإزالة"
+  }
+}

@@ -2,6 +2,7 @@ using Microsoft.UI.Xaml;
 using Mica.Core;
 using Mica.Core.Apps;
 using Mica.Core.Integration;
+using Mica.Core.Localization;
 
 namespace Mica.Builder;
 
@@ -47,8 +48,12 @@ public partial class App : Application
             }
         }
 
+        Strings.ApplyLanguageOverride(argv);
+
         Directory.CreateDirectory(MicaPaths.Root);
         StartupLog.Initialize(Path.Combine(MicaPaths.Root, "builder.log"));
+
+        StartupLog.Write($"UI reading direction: {Strings.Get("FlowDirection")}");
 
         var appUserModelId = $"{MicaPaths.ProductName}.Builder";
         AppIdentity.ApplyToProcess(appUserModelId);

@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;
 using Mica.Core.Extensions;
 using Mica.Core.Integration;
+using Mica.Core.Localization;
 using Mica.Core.Sites;
 
 namespace Mica.Core.Shell;
@@ -43,7 +44,42 @@ public sealed partial class BrowserShellPage : UserControl
         _config = config;
         PinButton.IsChecked = config.ToolbarPinned;
         Toolbar.Visibility = config.ToolbarPinned ? Visibility.Visible : Visibility.Collapsed;
+
+        // The shell mirrors for right-to-left languages, but the site never does:
+        // the page decides its own direction, and forcing it would flip layouts that
+        // are already correct.
+        FlowDirection = Strings.FlowDirection;
+        Browser.FlowDirection = FlowDirection.LeftToRight;
+
+        ApplyStrings();
         UpdateZoomText();
+    }
+
+    /// <summary>
+    /// Fills in every label and tooltip. The shell lives in a class library, whose
+    /// own resources are unreachable at runtime in an unpackaged app, so the strings
+    /// come from the executable hosting it rather than from x:Uid.
+    /// </summary>
+    private void ApplyStrings()
+    {
+        ToolTipService.SetToolTip(BackButton, Strings.Get("ShellBack"));
+        ToolTipService.SetToolTip(ForwardButton, Strings.Get("ShellForward"));
+        ToolTipService.SetToolTip(ReloadButton, Strings.Get("ShellReload"));
+        ToolTipService.SetToolTip(HomeButton, Strings.Get("ShellHome"));
+        ToolTipService.SetToolTip(PinButton, Strings.Get("ShellPinToolbar"));
+        ToolTipService.SetToolTip(SettingsButton, Strings.Get("ShellSettings"));
+
+        ZoomHeading.Text = Strings.Get("ShellZoom");
+        ToolTipService.SetToolTip(ZoomOutButton, Strings.Get("ShellZoomOut"));
+        ToolTipService.SetToolTip(ZoomInButton, Strings.Get("ShellZoomIn"));
+        ZoomResetButton.Content = Strings.Get("ShellZoomReset");
+
+        ExtensionsHeading.Text = Strings.Get("ShellExtensions");
+        ExtensionsHint.Text = Strings.Get("ShellExtensionsHint");
+        OpenStoreButton.Content = Strings.Get("ShellOpenWebStore");
+        ExtensionInput.PlaceholderText = Strings.Get("ShellExtensionLink");
+        InstallExtensionButton.Content = Strings.Get("ShellInstall");
+        PromptInstallButton.Content = Strings.Get("ShellInstallInApp");
     }
 
     private async void OnLoaded(object sender, RoutedEventArgs e)
@@ -61,8 +97,8 @@ public sealed partial class BrowserShellPage : UserControl
         }
         catch (Exception ex)
         {
-            StartupLog.WriteException("Shell.Start", ex);
-            ErrorText.Text = $"Impossible de démarrer le navigateur intégré.\n\n{ex.Message}";
+            StartupLog.WriteException("ShellStart", ex);
+            ErrorText.Text = Strings.Format("ShellStartFailed", ex.Message);
             ErrorOverlay.Visibility = Visibility.Visible;
         }
     }
@@ -395,7 +431,7 @@ public sealed partial class BrowserShellPage : UserControl
 
         if (CrxInstaller.ExtractId(input ?? string.Empty) is not { } id)
         {
-            ShowExtensionStatus("Ce lien ne correspond pas à une extension du Chrome Web Store.");
+            ShowExtensionStatus(Strings.Get("ShellNotAnExtensionLink"));
             return;
         }
 
@@ -448,8 +484,8 @@ public sealed partial class BrowserShellPage : UserControl
 
         ShowPrompt(
             InfoBarSeverity.Informational,
-            "Extension détectée",
-            $"« Ajouter à Chrome » ne fonctionne pas dans une app. Mica peut l'installer dans {_config.Name}.",
+            Strings.Get("ShellDetectedTitle"),
+            Strings.Format("ShellDetectedBody", _config.Name),
             showAction: true);
     }
 
@@ -462,8 +498,12 @@ public sealed partial class BrowserShellPage : UserControl
 
         _installing = true;
         InstallExtensionButton.IsEnabled = false;
-        ShowPrompt(InfoBarSeverity.Informational, "Installation en cours", "Téléchargement de l'extension…", false);
-        ShowExtensionStatus("Téléchargement de l'extension…");
+        ShowPrompt(
+            InfoBarSeverity.Informational,
+            Strings.Get("ShellInstallingTitle"),
+            Strings.Get("ShellDownloading"),
+            showAction: false);
+        ShowExtensionStatus(Strings.Get("ShellDownloading"));
 
         try
         {
@@ -477,20 +517,19 @@ public sealed partial class BrowserShellPage : UserControl
             ExtensionInput.Text = string.Empty;
             _detectedExtensionId = null;
 
-            ShowPrompt(
-                InfoBarSeverity.Success,
-                $"« {extension.Name} » est installée",
-                "Rechargez la page pour l'activer.",
-                showAction: false);
-            ShowExtensionStatus($"« {extension.Name} » est installée. Rechargez la page pour l'activer.");
+            var installed = Strings.Format("ShellInstalledTitle", extension.Name);
+            var activate = Strings.Get("ShellReloadToActivate");
+
+            ShowPrompt(InfoBarSeverity.Success, installed, activate, showAction: false);
+            ShowExtensionStatus($"{installed} {activate}");
 
             await RefreshExtensionListAsync();
         }
         catch (Exception ex)
         {
             StartupLog.WriteException("Extensions.Install", ex);
-            ShowPrompt(InfoBarSeverity.Error, "Installation impossible", ex.Message, showAction: false);
-            ShowExtensionStatus($"Installation impossible : {ex.Message}");
+            ShowPrompt(InfoBarSeverity.Error, Strings.Get("ShellInstallFailedTitle"), ex.Message, showAction: false);
+            ShowExtensionStatus($"{Strings.Get("ShellInstallFailedTitle")} : {ex.Message}");
         }
         finally
         {
@@ -531,13 +570,13 @@ public sealed partial class BrowserShellPage : UserControl
                 Directory.Delete(folder, recursive: true);
             }
 
-            ShowExtensionStatus("Extension retirée.");
+            ShowExtensionStatus(Strings.Get("ShellExtensionRemoved"));
             await RefreshExtensionListAsync();
         }
         catch (Exception ex)
         {
             StartupLog.WriteException("Extensions.Remove", ex);
-            ShowExtensionStatus($"Suppression impossible : {ex.Message}");
+            ShowExtensionStatus($"{Strings.Get("ShellRemoveFailedTitle")} : {ex.Message}");
         }
     }
 
@@ -592,9 +631,11 @@ public sealed partial class BrowserShellPage : UserControl
         // Only list what the user installed. WebView2 also reports its own built-in
         // extensions (the PDF viewer, the clipboard helper), which cannot be removed
         // and would just look like clutter the user is responsible for.
+        var removeLabel = Strings.Get("ShellRemoveExtension");
+
         ExtensionList.ItemsSource = extensions
             .Where(extension => Directory.Exists(Path.Combine(root, extension.Id)))
-            .Select(extension => new ExtensionEntry(extension.Id, extension.Name))
+            .Select(extension => new ExtensionEntry(extension.Id, extension.Name, removeLabel))
             .ToList();
     }
 
@@ -621,6 +662,9 @@ public sealed partial class BrowserShellPage : UserControl
         }
     }
 
-    /// <summary>One row of the installed-extension list.</summary>
-    public sealed record ExtensionEntry(string Id, string Name);
+    /// <summary>
+    /// One row of the installed-extension list. The remove tooltip travels with the
+    /// row because a DataTemplate inside a class library cannot reach the resources.
+    /// </summary>
+    public sealed record ExtensionEntry(string Id, string Name, string RemoveLabel);
 }
