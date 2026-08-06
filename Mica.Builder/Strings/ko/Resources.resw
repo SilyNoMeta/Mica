@@ -19,6 +19,9 @@
   <data name="AddAppButton" xml:space="preserve">
     <value>앱 추가</value>
   </data>
+  <data name="AlreadyInstalled" xml:space="preserve">
+    <value>이 PC에 이미 설치됨</value>
+  </data>
   <data name="AppsCountMany" xml:space="preserve">
     <value>앱 {0}개 · 바로 가기는 시작 › Mica</value>
   </data>
@@ -76,6 +79,33 @@
   <data name="EmptyBody" xml:space="preserve">
     <value>Mica에 사이트 주소를 알려주면 그 사이트의 진짜 이름과 진짜 아이콘, 그리고 전용 바로 가기를 갖춘 Windows 앱이 만들어집니다.</value>
   </data>
+  <data name="ExportAction" xml:space="preserve">
+    <value>내보내기</value>
+  </data>
+  <data name="ExportApps" xml:space="preserve">
+    <value>앱 내보내기…</value>
+  </data>
+  <data name="ExportBody" xml:space="preserve">
+    <value>하나의 파일에 저장할 앱을 고르세요. 주소, 설정, 확장 프로그램 목록이 함께 이동합니다.</value>
+  </data>
+  <data name="ExportedMany" xml:space="preserve">
+    <value>앱 {0}개를 내보냈습니다</value>
+  </data>
+  <data name="ExportedOne" xml:space="preserve">
+    <value>앱 1개를 내보냈습니다</value>
+  </data>
+  <data name="ExportFailedTitle" xml:space="preserve">
+    <value>내보내지 못했습니다</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>앱 내보내기</value>
+  </data>
+  <data name="ExtensionsCountMany" xml:space="preserve">
+    <value>확장 프로그램 {0}개</value>
+  </data>
+  <data name="ExtensionsCountOne" xml:space="preserve">
+    <value>확장 프로그램 1개</value>
+  </data>
   <data name="FetchingIcon" xml:space="preserve">
     <value>{0}의 아이콘을 가져오는 중…</value>
   </data>
@@ -88,6 +118,39 @@
   <data name="IconRefreshedTitle" xml:space="preserve">
     <value>아이콘을 새로 고쳤습니다</value>
   </data>
+  <data name="ImportAction" xml:space="preserve">
+    <value>가져오기</value>
+  </data>
+  <data name="ImportApps" xml:space="preserve">
+    <value>앱 가져오기…</value>
+  </data>
+  <data name="ImportBody" xml:space="preserve">
+    <value>이 컴퓨터에 만들 앱을 고르세요. 각 앱은 사이트의 현재 아이콘과 확장 프로그램의 현재 버전으로 만들어집니다.</value>
+  </data>
+  <data name="ImportedBody" xml:space="preserve">
+    <value>시작 › Mica에 있습니다. 각 앱은 처음 열 때 로그인을 요청합니다.</value>
+  </data>
+  <data name="ImportedMany" xml:space="preserve">
+    <value>앱 {0}개를 설치했습니다</value>
+  </data>
+  <data name="ImportedMissingExtensions" xml:space="preserve">
+    <value>확장 프로그램 {0}개를 내려받지 못했습니다. 앱은 없이도 작동하며 스토어에서 다시 설치할 수 있습니다.</value>
+  </data>
+  <data name="ImportedOne" xml:space="preserve">
+    <value>앱 1개를 설치했습니다</value>
+  </data>
+  <data name="ImportFailedTitle" xml:space="preserve">
+    <value>가져오지 못했습니다</value>
+  </data>
+  <data name="ImportingApp" xml:space="preserve">
+    <value>{0} 만드는 중…</value>
+  </data>
+  <data name="ImportingExtensions" xml:space="preserve">
+    <value>{0}의 확장 프로그램을 내려받는 중…</value>
+  </data>
+  <data name="ImportTitle" xml:space="preserve">
+    <value>앱 가져오기</value>
+  </data>
   <data name="MoreActions" xml:space="preserve">
     <value>추가 작업</value>
   </data>
@@ -97,11 +160,17 @@
   <data name="NoAppsYetTitle" xml:space="preserve">
     <value>아직 앱이 없습니다</value>
   </data>
+  <data name="NothingToExport" xml:space="preserve">
+    <value>아직 내보낼 앱이 없습니다</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>열기</value>
   </data>
   <data name="OpenFailedTitle" xml:space="preserve">
     <value>열지 못했습니다</value>
+  </data>
+  <data name="PackEmpty" xml:space="preserve">
+    <value>이 파일에는 앱이 없습니다</value>
   </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>시작 메뉴의 “{0}” 폴더에 바로 가기를 추가했습니다.</value>
@@ -130,6 +199,9 @@
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>제거하지 못했습니다</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>모두 선택</value>
+  </data>
   <data name="SettingsBackground" xml:space="preserve">
     <value>닫아도 계속 실행</value>
   </data>
@@ -153,6 +225,15 @@
   </data>
   <data name="SwitchOn" xml:space="preserve">
     <value>켬</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>가져오기 및 내보내기</value>
+  </data>
+  <data name="TransferNoteBody" xml:space="preserve">
+    <value>Windows는 브라우저 세션을 이 컴퓨터의 이 계정에 봉인하므로 다른 곳에서는 읽을 수 없습니다. 다른 컴퓨터에서 다시 로그인하세요.</value>
+  </data>
+  <data name="TransferNoteTitle" xml:space="preserve">
+    <value>로그인 상태는 옮겨지지 않습니다</value>
   </data>
   <data name="UpdateAction" xml:space="preserve">
     <value>업데이트</value>

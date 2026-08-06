@@ -19,6 +19,9 @@
   <data name="AddAppButton" xml:space="preserve">
     <value>Thêm ứng dụng</value>
   </data>
+  <data name="AlreadyInstalled" xml:space="preserve">
+    <value>Đã cài trên máy này</value>
+  </data>
   <data name="AppsCountMany" xml:space="preserve">
     <value>{0} ứng dụng · lối tắt trong Start › Mica</value>
   </data>
@@ -76,6 +79,33 @@
   <data name="EmptyBody" xml:space="preserve">
     <value>Đưa cho Mica một địa chỉ trang web, bạn nhận được một ứng dụng Windows mang đúng tên, đúng biểu tượng của trang và có lối tắt riêng.</value>
   </data>
+  <data name="ExportAction" xml:space="preserve">
+    <value>Xuất</value>
+  </data>
+  <data name="ExportApps" xml:space="preserve">
+    <value>Xuất ứng dụng…</value>
+  </data>
+  <data name="ExportBody" xml:space="preserve">
+    <value>Chọn các ứng dụng để lưu vào một tệp. Địa chỉ, cài đặt và danh sách tiện ích mở rộng sẽ đi cùng.</value>
+  </data>
+  <data name="ExportedMany" xml:space="preserve">
+    <value>Đã xuất {0} ứng dụng</value>
+  </data>
+  <data name="ExportedOne" xml:space="preserve">
+    <value>Đã xuất 1 ứng dụng</value>
+  </data>
+  <data name="ExportFailedTitle" xml:space="preserve">
+    <value>Không xuất được</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>Xuất ứng dụng</value>
+  </data>
+  <data name="ExtensionsCountMany" xml:space="preserve">
+    <value>{0} tiện ích mở rộng</value>
+  </data>
+  <data name="ExtensionsCountOne" xml:space="preserve">
+    <value>1 tiện ích mở rộng</value>
+  </data>
   <data name="FetchingIcon" xml:space="preserve">
     <value>Đang lấy biểu tượng của {0}…</value>
   </data>
@@ -88,6 +118,39 @@
   <data name="IconRefreshedTitle" xml:space="preserve">
     <value>Đã cập nhật biểu tượng</value>
   </data>
+  <data name="ImportAction" xml:space="preserve">
+    <value>Nhập</value>
+  </data>
+  <data name="ImportApps" xml:space="preserve">
+    <value>Nhập ứng dụng…</value>
+  </data>
+  <data name="ImportBody" xml:space="preserve">
+    <value>Chọn các ứng dụng để tạo trên máy tính này. Mỗi ứng dụng được tạo với biểu tượng hiện tại của trang và bản hiện tại của tiện ích mở rộng.</value>
+  </data>
+  <data name="ImportedBody" xml:space="preserve">
+    <value>Chúng nằm trong Start › Mica; mỗi ứng dụng sẽ yêu cầu đăng nhập ở lần mở đầu tiên.</value>
+  </data>
+  <data name="ImportedMany" xml:space="preserve">
+    <value>Đã cài đặt {0} ứng dụng</value>
+  </data>
+  <data name="ImportedMissingExtensions" xml:space="preserve">
+    <value>Không tải được {0} tiện ích mở rộng. Ứng dụng vẫn chạy mà không cần chúng, và bạn có thể cài lại từ cửa hàng.</value>
+  </data>
+  <data name="ImportedOne" xml:space="preserve">
+    <value>Đã cài đặt 1 ứng dụng</value>
+  </data>
+  <data name="ImportFailedTitle" xml:space="preserve">
+    <value>Không nhập được</value>
+  </data>
+  <data name="ImportingApp" xml:space="preserve">
+    <value>Đang tạo {0}…</value>
+  </data>
+  <data name="ImportingExtensions" xml:space="preserve">
+    <value>Đang tải tiện ích mở rộng cho {0}…</value>
+  </data>
+  <data name="ImportTitle" xml:space="preserve">
+    <value>Nhập ứng dụng</value>
+  </data>
   <data name="MoreActions" xml:space="preserve">
     <value>Thao tác khác</value>
   </data>
@@ -97,11 +160,17 @@
   <data name="NoAppsYetTitle" xml:space="preserve">
     <value>Chưa có ứng dụng nào</value>
   </data>
+  <data name="NothingToExport" xml:space="preserve">
+    <value>Chưa có ứng dụng nào để xuất</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Mở</value>
   </data>
   <data name="OpenFailedTitle" xml:space="preserve">
     <value>Không mở được</value>
+  </data>
+  <data name="PackEmpty" xml:space="preserve">
+    <value>Tệp này không mô tả ứng dụng nào</value>
   </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>Đã thêm lối tắt vào menu Start, trong thư mục “{0}”.</value>
@@ -130,6 +199,9 @@
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>Không gỡ được</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Chọn tất cả</value>
+  </data>
   <data name="SettingsBackground" xml:space="preserve">
     <value>Vẫn chạy khi đóng</value>
   </data>
@@ -153,6 +225,15 @@
   </data>
   <data name="SwitchOn" xml:space="preserve">
     <value>Bật</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Nhập và xuất</value>
+  </data>
+  <data name="TransferNoteBody" xml:space="preserve">
+    <value>Windows niêm phong phiên duyệt web vào tài khoản này trên máy này, nên nơi khác không đọc được. Hãy đăng nhập lại trên máy tính kia.</value>
+  </data>
+  <data name="TransferNoteTitle" xml:space="preserve">
+    <value>Phiên đăng nhập không đi theo</value>
   </data>
   <data name="UpdateAction" xml:space="preserve">
     <value>Cập nhật</value>

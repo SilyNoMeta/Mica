@@ -5,6 +5,24 @@ matching the tag into the release body, and Mica displays the part written in th
 language. Keep both `### en` and `### fr` for every version — English is what Mica falls back to
 when it has no section for the current language.
 
+## 1.0.0
+
+### en
+- Export apps to one file and import them on another machine, extensions included. The file
+  carries settings and extension ids, not their bytes, so it stays a few kilobytes.
+- Sign-ins deliberately stay behind: Windows seals them to one account on one machine.
+- The update notice shows the real changelog, in your language.
+- Mica's own icon is legible again, and the window says which version this is.
+
+### fr
+- Exportez des apps dans un fichier et importez-les sur une autre machine, extensions comprises.
+  Le fichier porte les réglages et les identifiants d'extensions, pas leurs octets : il reste de
+  quelques kilo-octets.
+- Les connexions restent volontairement en arrière : Windows les scelle à un compte sur une
+  machine.
+- L'avis de mise à jour affiche le vrai changelog, dans votre langue.
+- L'icône de Mica est de nouveau lisible, et la fenêtre indique de quelle version il s'agit.
+
 ## 0.5.0
 
 Entries are one line each on purpose: Mica shows them in a notice, not a page.

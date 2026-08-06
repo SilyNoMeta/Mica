@@ -19,6 +19,9 @@
   <data name="AddAppButton" xml:space="preserve">
     <value>添加应用</value>
   </data>
+  <data name="AlreadyInstalled" xml:space="preserve">
+    <value>这台电脑上已安装</value>
+  </data>
   <data name="AppsCountMany" xml:space="preserve">
     <value>{0} 个应用 · 快捷方式位于“开始 › Mica”</value>
   </data>
@@ -76,6 +79,33 @@
   <data name="EmptyBody" xml:space="preserve">
     <value>给 Mica 一个网站地址，你就得到一个 Windows 应用，带着网站真实的名称、真实的图标和自己的快捷方式。</value>
   </data>
+  <data name="ExportAction" xml:space="preserve">
+    <value>导出</value>
+  </data>
+  <data name="ExportApps" xml:space="preserve">
+    <value>导出应用…</value>
+  </data>
+  <data name="ExportBody" xml:space="preserve">
+    <value>选择要保存到一个文件中的应用。它们的网址、设置和扩展列表会一并带走。</value>
+  </data>
+  <data name="ExportedMany" xml:space="preserve">
+    <value>已导出 {0} 个应用</value>
+  </data>
+  <data name="ExportedOne" xml:space="preserve">
+    <value>已导出 1 个应用</value>
+  </data>
+  <data name="ExportFailedTitle" xml:space="preserve">
+    <value>导出失败</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>导出应用</value>
+  </data>
+  <data name="ExtensionsCountMany" xml:space="preserve">
+    <value>{0} 个扩展</value>
+  </data>
+  <data name="ExtensionsCountOne" xml:space="preserve">
+    <value>1 个扩展</value>
+  </data>
   <data name="FetchingIcon" xml:space="preserve">
     <value>正在获取 {0} 的图标…</value>
   </data>
@@ -88,6 +118,39 @@
   <data name="IconRefreshedTitle" xml:space="preserve">
     <value>图标已刷新</value>
   </data>
+  <data name="ImportAction" xml:space="preserve">
+    <value>导入</value>
+  </data>
+  <data name="ImportApps" xml:space="preserve">
+    <value>导入应用…</value>
+  </data>
+  <data name="ImportBody" xml:space="preserve">
+    <value>选择要在这台电脑上创建的应用。每个应用都会使用站点当前的图标和扩展的当前版本。</value>
+  </data>
+  <data name="ImportedBody" xml:space="preserve">
+    <value>它们位于“开始 › Mica”；每个应用首次打开时都会要求登录。</value>
+  </data>
+  <data name="ImportedMany" xml:space="preserve">
+    <value>已安装 {0} 个应用</value>
+  </data>
+  <data name="ImportedMissingExtensions" xml:space="preserve">
+    <value>有 {0} 个扩展未能下载。应用不装它们也能用，你可以稍后从商店重新安装。</value>
+  </data>
+  <data name="ImportedOne" xml:space="preserve">
+    <value>已安装 1 个应用</value>
+  </data>
+  <data name="ImportFailedTitle" xml:space="preserve">
+    <value>导入失败</value>
+  </data>
+  <data name="ImportingApp" xml:space="preserve">
+    <value>正在创建 {0}…</value>
+  </data>
+  <data name="ImportingExtensions" xml:space="preserve">
+    <value>正在下载 {0} 的扩展…</value>
+  </data>
+  <data name="ImportTitle" xml:space="preserve">
+    <value>导入应用</value>
+  </data>
   <data name="MoreActions" xml:space="preserve">
     <value>更多操作</value>
   </data>
@@ -97,11 +160,17 @@
   <data name="NoAppsYetTitle" xml:space="preserve">
     <value>还没有应用</value>
   </data>
+  <data name="NothingToExport" xml:space="preserve">
+    <value>还没有可导出的应用</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>打开</value>
   </data>
   <data name="OpenFailedTitle" xml:space="preserve">
     <value>无法打开</value>
+  </data>
+  <data name="PackEmpty" xml:space="preserve">
+    <value>该文件不包含任何应用</value>
   </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>已在“开始”菜单的 {0} 文件夹中添加快捷方式。</value>
@@ -130,6 +199,9 @@
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>移除失败</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>全选</value>
+  </data>
   <data name="SettingsBackground" xml:space="preserve">
     <value>关闭后继续运行</value>
   </data>
@@ -153,6 +225,15 @@
   </data>
   <data name="SwitchOn" xml:space="preserve">
     <value>开</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>导入和导出</value>
+  </data>
+  <data name="TransferNoteBody" xml:space="preserve">
+    <value>Windows 会把浏览会话封存在本机的这个账户上，别处无法读取。请在另一台电脑上重新登录。</value>
+  </data>
+  <data name="TransferNoteTitle" xml:space="preserve">
+    <value>登录状态不会一起转移</value>
   </data>
   <data name="UpdateAction" xml:space="preserve">
     <value>更新</value>

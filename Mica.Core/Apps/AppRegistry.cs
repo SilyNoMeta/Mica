@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using System.Runtime.Versioning;
 using System.Text;
+using Microsoft.Web.WebView2.Core;
 using Microsoft.Win32;
+using Mica.Core.Extensions;
 using Mica.Core.Integration;
 using Mica.Core.Sites;
 
@@ -123,6 +125,155 @@ public static class AppRegistry
         }
 
         return config;
+    }
+
+    // ---- Transfer between machines -------------------------------------------
+
+    /// <summary>What an import produced, including anything it could not finish.</summary>
+    /// <param name="Config">The app that now exists on this machine.</param>
+    /// <param name="MissingExtensions">
+    /// Extensions named by the pack that could not be fetched — removed from the
+    /// store, or no network. The app is installed and works; these are what it is
+    /// missing.
+    /// </param>
+    public sealed record ImportResult(WebAppConfig Config, IReadOnlyList<string> MissingExtensions);
+
+    /// <summary>The installed app that opens the same address, if there is one.</summary>
+    public static WebAppConfig? FindByStartUrl(string startUrl) =>
+        List().FirstOrDefault(app => string.Equals(app.StartUrl, startUrl, StringComparison.OrdinalIgnoreCase));
+
+    /// <summary>
+    /// Installs an app described by a pack: the same folder, shortcut and registry
+    /// entries a freshly created app gets, carrying the settings it had on the
+    /// machine it came from.
+    /// <para>
+    /// The icon and the extensions are fetched now rather than read out of the file,
+    /// so the app arrives with the site's current icon and the current build of each
+    /// extension. A missing extension is reported, not fatal.
+    /// </para>
+    /// </summary>
+    public static async Task<ImportResult> ImportAsync(
+        AppPack.Entry entry,
+        IProgress<string>? progress = null,
+        CancellationToken cancellationToken = default)
+    {
+        var url = entry.StartUri;
+        var metadata = await SiteInspector.InspectAsync(url, cancellationToken);
+        var name = string.IsNullOrWhiteSpace(entry.Name) ? metadata.Name : entry.Name.Trim();
+        var slug = AvailableSlug(entry.Slug, name, url);
+
+        MicaPaths.EnsureAppFolder(slug);
+
+        var hosts = entry.AllowedHosts
+            .Select(host => host.Trim().ToLowerInvariant())
+            .Where(host => host.Length > 0)
+            .ToList();
+
+        // A hand-written pack may leave the rules out; without them every link the
+        // app follows would bounce to the system browser.
+        if (hosts.Count == 0)
+        {
+            hosts = HostRules.ForUrl(url);
+            hosts.AddRange(HostRules.ForUrl(metadata.ResolvedUrl));
+        }
+
+        var config = new WebAppConfig
+        {
+            Slug = slug,
+            Name = name,
+            StartUrl = entry.StartUrl,
+            AllowedHosts = [.. hosts.Distinct(StringComparer.OrdinalIgnoreCase)],
+            WindowWidth = entry.WindowWidth,
+            WindowHeight = entry.WindowHeight,
+            Zoom = entry.Zoom,
+            ToolbarPinned = entry.ToolbarPinned,
+            RunInBackground = entry.RunInBackground,
+            StartWithWindows = entry.StartWithWindows,
+            DedicatedEngine = entry.DedicatedEngine,
+        };
+
+        try
+        {
+            await IconPipeline.BuildAsync(
+                metadata.IconUrl,
+                name,
+                MicaPaths.IconFile(slug),
+                Path.Combine(MicaPaths.AppFolder(slug), "icon.png"),
+                cancellationToken);
+
+            config.Save(MicaPaths.ConfigFile(slug));
+
+            CreateShortcut(config);
+            WriteUninstallEntry(config);
+            AppIdentity.PublishDisplayInfo(
+                MicaPaths.AppUserModelId(slug),
+                config.Name,
+                MicaPaths.IconFile(slug));
+
+            StartupRegistration.Set(config, config.StartWithWindows);
+        }
+        catch
+        {
+            TryDiscard(config);
+            throw;
+        }
+
+        var missing = await FetchExtensionsAsync(config, entry.Extensions, progress, cancellationToken);
+        return new ImportResult(config, missing);
+    }
+
+    /// <summary>
+    /// Unpacks the extensions a pack names into the app's extensions folder. Nothing
+    /// loads them here — there is no browser yet — but the shell adds every unpacked
+    /// folder it finds when the app first opens, which is the same path a profile
+    /// reset already takes.
+    /// </summary>
+    private static async Task<IReadOnlyList<string>> FetchExtensionsAsync(
+        WebAppConfig config,
+        IReadOnlyList<string> ids,
+        IProgress<string>? progress,
+        CancellationToken cancellationToken)
+    {
+        var missing = new List<string>();
+        if (ids.Count == 0)
+        {
+            return missing;
+        }
+
+        string browserVersion;
+        try
+        {
+            browserVersion = CoreWebView2Environment.GetAvailableBrowserVersionString();
+        }
+        catch (Exception ex)
+        {
+            // No runtime means no app either, but that failure belongs to the first
+            // launch, where it can be explained. Here it only costs the extensions.
+            StartupLog.WriteException("Import.BrowserVersion", ex);
+            return [.. ids];
+        }
+
+        foreach (var id in ids)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            progress?.Report(id);
+
+            try
+            {
+                await CrxInstaller.InstallAsync(
+                    id,
+                    MicaPaths.ExtensionsFolder(config.Slug),
+                    browserVersion,
+                    cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                StartupLog.WriteException($"Import.Extension.{id}", ex);
+                missing.Add(id);
+            }
+        }
+
+        return missing;
     }
 
     /// <summary>Re-reads the site's icon and name for an existing app.</summary>
@@ -391,9 +542,21 @@ public static class AppRegistry
 
     // ---- Slugs ---------------------------------------------------------------
 
-    private static string UniqueSlug(string name, Uri url)
+    private static string UniqueSlug(string name, Uri url) => AvailableSlug(name, name, url);
+
+    /// <summary>
+    /// The first free slug, preferring <paramref name="preferred"/>. An import passes
+    /// the slug the app had on the machine it came from, so the same app keeps the
+    /// same folder across machines unless something else already holds it.
+    /// </summary>
+    private static string AvailableSlug(string preferred, string name, Uri url)
     {
-        var baseSlug = Slugify(name);
+        var baseSlug = Slugify(preferred);
+        if (baseSlug.Length == 0)
+        {
+            baseSlug = Slugify(name);
+        }
+
         if (baseSlug.Length == 0)
         {
             baseSlug = Slugify(url.Host);

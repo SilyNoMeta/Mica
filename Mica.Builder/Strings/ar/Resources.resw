@@ -19,6 +19,9 @@
   <data name="AddAppButton" xml:space="preserve">
     <value>إضافة تطبيق</value>
   </data>
+  <data name="AlreadyInstalled" xml:space="preserve">
+    <value>مثبَّت هنا بالفعل</value>
+  </data>
   <data name="AppsCountMany" xml:space="preserve">
     <value>{0} تطبيقات · الاختصارات في «ابدأ › Mica»</value>
   </data>
@@ -76,6 +79,33 @@
   <data name="EmptyBody" xml:space="preserve">
     <value>أعطِ Mica عنوان موقع، فتحصل على تطبيق Windows يحمل اسم الموقع الحقيقي وأيقونته الحقيقية واختصارًا خاصًا به.</value>
   </data>
+  <data name="ExportAction" xml:space="preserve">
+    <value>تصدير</value>
+  </data>
+  <data name="ExportApps" xml:space="preserve">
+    <value>تصدير التطبيقات…</value>
+  </data>
+  <data name="ExportBody" xml:space="preserve">
+    <value>اختر التطبيقات التي تريد حفظها في ملف واحد. ينتقل معها العنوان والإعدادات وقائمة الإضافات.</value>
+  </data>
+  <data name="ExportedMany" xml:space="preserve">
+    <value>تم تصدير {0} تطبيقات</value>
+  </data>
+  <data name="ExportedOne" xml:space="preserve">
+    <value>تم تصدير تطبيق واحد</value>
+  </data>
+  <data name="ExportFailedTitle" xml:space="preserve">
+    <value>تعذّر التصدير</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>تصدير التطبيقات</value>
+  </data>
+  <data name="ExtensionsCountMany" xml:space="preserve">
+    <value>{0} إضافات</value>
+  </data>
+  <data name="ExtensionsCountOne" xml:space="preserve">
+    <value>إضافة واحدة</value>
+  </data>
   <data name="FetchingIcon" xml:space="preserve">
     <value>جارٍ جلب أيقونة {0}…</value>
   </data>
@@ -88,6 +118,39 @@
   <data name="IconRefreshedTitle" xml:space="preserve">
     <value>تم تحديث الأيقونة</value>
   </data>
+  <data name="ImportAction" xml:space="preserve">
+    <value>استيراد</value>
+  </data>
+  <data name="ImportApps" xml:space="preserve">
+    <value>استيراد التطبيقات…</value>
+  </data>
+  <data name="ImportBody" xml:space="preserve">
+    <value>اختر التطبيقات التي تريد إنشاءها على هذا الحاسوب. يُنشأ كل تطبيق بأيقونة الموقع الحالية وبالإصدار الحالي من إضافاته.</value>
+  </data>
+  <data name="ImportedBody" xml:space="preserve">
+    <value>توجد في «ابدأ › Mica»، وسيطلب منك كل تطبيق تسجيل الدخول عند فتحه لأول مرة.</value>
+  </data>
+  <data name="ImportedMany" xml:space="preserve">
+    <value>تم تثبيت {0} تطبيقات</value>
+  </data>
+  <data name="ImportedMissingExtensions" xml:space="preserve">
+    <value>تعذّر تنزيل {0} من الإضافات. تعمل التطبيقات بدونها، ويمكنك تثبيتها مجددًا من المتجر.</value>
+  </data>
+  <data name="ImportedOne" xml:space="preserve">
+    <value>تم تثبيت تطبيق واحد</value>
+  </data>
+  <data name="ImportFailedTitle" xml:space="preserve">
+    <value>تعذّر الاستيراد</value>
+  </data>
+  <data name="ImportingApp" xml:space="preserve">
+    <value>جارٍ إنشاء {0}…</value>
+  </data>
+  <data name="ImportingExtensions" xml:space="preserve">
+    <value>جارٍ تنزيل إضافات {0}…</value>
+  </data>
+  <data name="ImportTitle" xml:space="preserve">
+    <value>استيراد التطبيقات</value>
+  </data>
   <data name="MoreActions" xml:space="preserve">
     <value>إجراءات أخرى</value>
   </data>
@@ -97,11 +160,17 @@
   <data name="NoAppsYetTitle" xml:space="preserve">
     <value>لا توجد تطبيقات بعد</value>
   </data>
+  <data name="NothingToExport" xml:space="preserve">
+    <value>لا توجد تطبيقات للتصدير بعد</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>فتح</value>
   </data>
   <data name="OpenFailedTitle" xml:space="preserve">
     <value>تعذّر الفتح</value>
+  </data>
+  <data name="PackEmpty" xml:space="preserve">
+    <value>لا يصف هذا الملف أي تطبيق</value>
   </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>تمت إضافة اختصار إلى قائمة «ابدأ»، في مجلد «{0}».</value>
@@ -130,6 +199,9 @@
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>تعذّرت الإزالة</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>تحديد الكل</value>
+  </data>
   <data name="SettingsBackground" xml:space="preserve">
     <value>الاستمرار في العمل بعد الإغلاق</value>
   </data>
@@ -153,6 +225,15 @@
   </data>
   <data name="SwitchOn" xml:space="preserve">
     <value>مفعّل</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>الاستيراد والتصدير</value>
+  </data>
+  <data name="TransferNoteBody" xml:space="preserve">
+    <value>يربط Windows جلسة التصفح بهذا الحساب على هذا الجهاز، فلا يمكن قراءتها في مكان آخر. سجّل الدخول من جديد على الحاسوب الآخر.</value>
+  </data>
+  <data name="TransferNoteTitle" xml:space="preserve">
+    <value>لا تنتقل عمليات تسجيل الدخول</value>
   </data>
   <data name="UpdateAction" xml:space="preserve">
     <value>تحديث</value>

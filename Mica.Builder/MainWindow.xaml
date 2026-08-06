@@ -52,16 +52,37 @@
                     Style="{StaticResource CaptionTextBlockStyle}" />
             </StackPanel>
 
-            <Button
+            <StackPanel
                 Grid.Column="1"
                 VerticalAlignment="Center"
-                Click="OnAddClick"
-                Style="{StaticResource AccentButtonStyle}">
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <FontIcon FontSize="14" Glyph="&#xE710;" />
-                    <TextBlock x:Name="AddAppText" />
-                </StackPanel>
-            </Button>
+                Orientation="Horizontal"
+                Spacing="8">
+                <Button Click="OnAddClick" Style="{StaticResource AccentButtonStyle}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon FontSize="14" Glyph="&#xE710;" />
+                        <TextBlock x:Name="AddAppText" />
+                    </StackPanel>
+                </Button>
+
+                <!--  Moving apps between machines: rare enough not to earn a place beside the primary action.  -->
+                <Button x:Name="TransferButton" Background="Transparent">
+                    <FontIcon FontSize="14" Glyph="&#xE712;" />
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Name="ExportMenuItem" Click="OnExportClick">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xEDE1;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                            <MenuFlyoutItem x:Name="ImportMenuItem" Click="OnImportClick">
+                                <MenuFlyoutItem.Icon>
+                                    <FontIcon Glyph="&#xE8B5;" />
+                                </MenuFlyoutItem.Icon>
+                            </MenuFlyoutItem>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
         </Grid>
 
         <Grid Grid.Row="2">

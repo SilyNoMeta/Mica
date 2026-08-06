@@ -32,6 +32,33 @@ extensions. Press <kbd>Alt</kbd> when you need the toolbar, pin it if you want i
   something to hand out unasked.
 - **Links stay sensible.** Off-site links you click open in your real browser; redirects and
   sign-in hops stay inside the app so a login never strands your session elsewhere.
+- **Apps move between machines.** Export any set of apps to one small file and import them on
+  another computer, extensions included. See below for what travels and what cannot.
+
+## Moving apps to another machine
+
+Mica › **⋯ › Export apps** writes the apps you tick into a single `.mica` file: their addresses,
+names, host rules, window sizes, zoom, engine and background settings, and the Chrome Web Store
+**ids** of the extensions each one runs. Not the extensions themselves and not the icons — both
+are fetched again on import, which is why three apps come to under two kilobytes where their
+unpacked extensions alone are tens of megabytes, and why an imported app arrives with the site's
+current icon and the current build of each extension rather than a snapshot of the day it left.
+
+**Import** offers the same list against what is already here. An app whose address you already
+have is shown but cannot be ticked: importing it again would leave two entries for one site
+rather than updating anything. Everything else is built exactly as if you had created it by
+hand — folder, icon, launcher, Start menu shortcut, Installed apps entry — and any extension
+that could not be downloaded is named afterwards, without failing the app it belonged to.
+
+The file is plain JSON, so a pack can be written by hand to provision a set of machines. An
+entry needs only `StartUrl`; anything it leaves out is derived the way `Add an app` derives it.
+
+**Sessions do not travel, and this is not a gap Mica intends to close.** Chromium encrypts its
+cookies with a key sealed by DPAPI to one Windows account on one machine, so copied cookies are
+undecryptable anywhere else. Carrying them would mean decrypting someone's sign-ins and moving
+them in the clear — the technique of a credential stealer, and a file that would *be* access to
+the accounts it names, for anyone who picked it up. You sign in once per app on the new machine,
+which a site asks of a new device regardless.
 
 ## How it works
 

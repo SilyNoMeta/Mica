@@ -405,5 +405,223 @@
     "ru": "Не удалось создать приложение: {0}", "zh-Hans": "无法创建应用：{0}",
     "ja": "アプリを作成できませんでした: {0}", "ko": "앱을 만들지 못했습니다: {0}",
     "vi": "Không thể tạo ứng dụng: {0}", "ar": "تعذّر إنشاء التطبيق: {0}"
+  },
+
+  "Transfer": {
+    "_note": "Tooltip on the overflow button that holds export and import.",
+    "en": "Import and export", "fr": "Importer et exporter", "es": "Importar y exportar",
+    "pt-BR": "Importar e exportar", "de": "Importieren und exportieren", "it": "Importa ed esporta",
+    "ru": "Импорт и экспорт", "zh-Hans": "导入和导出", "ja": "インポートとエクスポート",
+    "ko": "가져오기 및 내보내기", "vi": "Nhập và xuất", "ar": "الاستيراد والتصدير"
+  },
+  "ExportApps": {
+    "en": "Export apps…", "fr": "Exporter des apps…", "es": "Exportar apps…",
+    "pt-BR": "Exportar apps…", "de": "Apps exportieren…", "it": "Esporta app…",
+    "ru": "Экспорт приложений…", "zh-Hans": "导出应用…", "ja": "アプリをエクスポート…",
+    "ko": "앱 내보내기…", "vi": "Xuất ứng dụng…", "ar": "تصدير التطبيقات…"
+  },
+  "ImportApps": {
+    "en": "Import apps…", "fr": "Importer des apps…", "es": "Importar apps…",
+    "pt-BR": "Importar apps…", "de": "Apps importieren…", "it": "Importa app…",
+    "ru": "Импорт приложений…", "zh-Hans": "导入应用…", "ja": "アプリをインポート…",
+    "ko": "앱 가져오기…", "vi": "Nhập ứng dụng…", "ar": "استيراد التطبيقات…"
+  },
+  "ExportTitle": {
+    "en": "Export apps", "fr": "Exporter des apps", "es": "Exportar apps",
+    "pt-BR": "Exportar apps", "de": "Apps exportieren", "it": "Esporta app",
+    "ru": "Экспорт приложений", "zh-Hans": "导出应用", "ja": "アプリをエクスポート",
+    "ko": "앱 내보내기", "vi": "Xuất ứng dụng", "ar": "تصدير التطبيقات"
+  },
+  "ExportBody": {
+    "en": "Pick the apps to save into one file. Their addresses, settings and list of extensions travel with them.",
+    "fr": "Choisissez les apps à enregistrer dans un fichier. Leur adresse, leurs réglages et la liste de leurs extensions les accompagnent.",
+    "es": "Elige las apps que quieres guardar en un archivo. Se llevan su dirección, su configuración y su lista de extensiones.",
+    "pt-BR": "Escolha os apps a salvar em um arquivo. O endereço, as configurações e a lista de extensões vão junto.",
+    "de": "Wählen Sie die Apps, die in eine Datei gespeichert werden sollen. Adresse, Einstellungen und Erweiterungsliste kommen mit.",
+    "it": "Scegli le app da salvare in un file. Indirizzo, impostazioni ed elenco delle estensioni viaggiano con loro.",
+    "ru": "Выберите приложения для сохранения в файл. Вместе с ними переносятся адрес, настройки и список расширений.",
+    "zh-Hans": "选择要保存到一个文件中的应用。它们的网址、设置和扩展列表会一并带走。",
+    "ja": "1 つのファイルに保存するアプリを選びます。アドレス、設定、拡張機能の一覧が一緒に移動します。",
+    "ko": "하나의 파일에 저장할 앱을 고르세요. 주소, 설정, 확장 프로그램 목록이 함께 이동합니다.",
+    "vi": "Chọn các ứng dụng để lưu vào một tệp. Địa chỉ, cài đặt và danh sách tiện ích mở rộng sẽ đi cùng.",
+    "ar": "اختر التطبيقات التي تريد حفظها في ملف واحد. ينتقل معها العنوان والإعدادات وقائمة الإضافات."
+  },
+  "ExportAction": {
+    "en": "Export", "fr": "Exporter", "es": "Exportar", "pt-BR": "Exportar",
+    "de": "Exportieren", "it": "Esporta", "ru": "Экспортировать", "zh-Hans": "导出",
+    "ja": "エクスポート", "ko": "내보내기", "vi": "Xuất", "ar": "تصدير"
+  },
+  "ImportTitle": {
+    "en": "Import apps", "fr": "Importer des apps", "es": "Importar apps",
+    "pt-BR": "Importar apps", "de": "Apps importieren", "it": "Importa app",
+    "ru": "Импорт приложений", "zh-Hans": "导入应用", "ja": "アプリをインポート",
+    "ko": "앱 가져오기", "vi": "Nhập ứng dụng", "ar": "استيراد التطبيقات"
+  },
+  "ImportBody": {
+    "en": "Pick the apps to build on this computer. Each is created with the site's current icon and the current build of its extensions.",
+    "fr": "Choisissez les apps à créer sur cet ordinateur. Chacune est construite avec l'icône actuelle du site et la version actuelle de ses extensions.",
+    "es": "Elige las apps que quieres crear en este equipo. Cada una se crea con el icono actual del sitio y la versión actual de sus extensiones.",
+    "pt-BR": "Escolha os apps a criar neste computador. Cada um é criado com o ícone atual do site e a versão atual das suas extensões.",
+    "de": "Wählen Sie die Apps, die auf diesem Computer entstehen sollen. Jede wird mit dem aktuellen Symbol der Website und der aktuellen Fassung ihrer Erweiterungen gebaut.",
+    "it": "Scegli le app da creare su questo computer. Ognuna viene creata con l'icona attuale del sito e la versione attuale delle sue estensioni.",
+    "ru": "Выберите приложения для создания на этом компьютере. Каждое создаётся с текущим значком сайта и текущей версией его расширений.",
+    "zh-Hans": "选择要在这台电脑上创建的应用。每个应用都会使用站点当前的图标和扩展的当前版本。",
+    "ja": "このコンピューターに作成するアプリを選びます。それぞれ、サイトの現在のアイコンと拡張機能の現在のバージョンで作られます。",
+    "ko": "이 컴퓨터에 만들 앱을 고르세요. 각 앱은 사이트의 현재 아이콘과 확장 프로그램의 현재 버전으로 만들어집니다.",
+    "vi": "Chọn các ứng dụng để tạo trên máy tính này. Mỗi ứng dụng được tạo với biểu tượng hiện tại của trang và bản hiện tại của tiện ích mở rộng.",
+    "ar": "اختر التطبيقات التي تريد إنشاءها على هذا الحاسوب. يُنشأ كل تطبيق بأيقونة الموقع الحالية وبالإصدار الحالي من إضافاته."
+  },
+  "ImportAction": {
+    "en": "Import", "fr": "Importer", "es": "Importar", "pt-BR": "Importar",
+    "de": "Importieren", "it": "Importa", "ru": "Импортировать", "zh-Hans": "导入",
+    "ja": "インポート", "ko": "가져오기", "vi": "Nhập", "ar": "استيراد"
+  },
+  "SelectAll": {
+    "en": "Select all", "fr": "Tout sélectionner", "es": "Seleccionar todo",
+    "pt-BR": "Selecionar tudo", "de": "Alle auswählen", "it": "Seleziona tutto",
+    "ru": "Выбрать все", "zh-Hans": "全选", "ja": "すべて選択",
+    "ko": "모두 선택", "vi": "Chọn tất cả", "ar": "تحديد الكل"
+  },
+  "TransferNoteTitle": {
+    "_note": "Shown in both transfer dialogs. Sessions cannot travel: Chromium seals its cookie key with DPAPI, to one Windows account on one machine.",
+    "en": "Sign-ins do not travel", "fr": "Les connexions ne suivent pas",
+    "es": "Las sesiones no viajan", "pt-BR": "As sessões não vão junto",
+    "de": "Anmeldungen kommen nicht mit", "it": "Gli accessi non viaggiano",
+    "ru": "Входы в аккаунты не переносятся", "zh-Hans": "登录状态不会一起转移",
+    "ja": "サインインは移動しません", "ko": "로그인 상태는 옮겨지지 않습니다",
+    "vi": "Phiên đăng nhập không đi theo", "ar": "لا تنتقل عمليات تسجيل الدخول"
+  },
+  "TransferNoteBody": {
+    "en": "Windows seals a browser session to this account on this machine, so it cannot be read anywhere else. Sign in again on the other computer.",
+    "fr": "Windows scelle chaque session de navigation à ce compte sur cette machine ; elle est illisible ailleurs. Vous vous reconnecterez sur l'autre ordinateur.",
+    "es": "Windows sella cada sesión de navegación a esta cuenta en este equipo, así que no se puede leer en ningún otro sitio. Inicia sesión de nuevo en el otro equipo.",
+    "pt-BR": "O Windows sela cada sessão de navegação nesta conta e nesta máquina, então ela não pode ser lida em outro lugar. Faça login novamente no outro computador.",
+    "de": "Windows bindet jede Browsersitzung an dieses Konto auf diesem Rechner; anderswo ist sie nicht lesbar. Melden Sie sich auf dem anderen Computer erneut an.",
+    "it": "Windows lega ogni sessione di navigazione a questo account su questa macchina, quindi altrove è illeggibile. Accedi di nuovo sull'altro computer.",
+    "ru": "Windows привязывает сеанс браузера к этой учётной записи на этом компьютере, поэтому в другом месте он нечитаем. На другом компьютере войдите заново.",
+    "zh-Hans": "Windows 会把浏览会话封存在本机的这个账户上，别处无法读取。请在另一台电脑上重新登录。",
+    "ja": "Windows はブラウザーのセッションをこのマシンのこのアカウントに封じるため、他の場所では読み取れません。もう一方のコンピューターで改めてサインインしてください。",
+    "ko": "Windows는 브라우저 세션을 이 컴퓨터의 이 계정에 봉인하므로 다른 곳에서는 읽을 수 없습니다. 다른 컴퓨터에서 다시 로그인하세요.",
+    "vi": "Windows niêm phong phiên duyệt web vào tài khoản này trên máy này, nên nơi khác không đọc được. Hãy đăng nhập lại trên máy tính kia.",
+    "ar": "يربط Windows جلسة التصفح بهذا الحساب على هذا الجهاز، فلا يمكن قراءتها في مكان آخر. سجّل الدخول من جديد على الحاسوب الآخر."
+  },
+  "NothingToExport": {
+    "en": "There are no apps to export yet", "fr": "Aucune app à exporter pour l'instant",
+    "es": "Todavía no hay apps que exportar", "pt-BR": "Ainda não há apps para exportar",
+    "de": "Noch keine Apps zum Exportieren", "it": "Non c'è ancora nessuna app da esportare",
+    "ru": "Пока нечего экспортировать", "zh-Hans": "还没有可导出的应用",
+    "ja": "エクスポートできるアプリがまだありません", "ko": "아직 내보낼 앱이 없습니다",
+    "vi": "Chưa có ứng dụng nào để xuất", "ar": "لا توجد تطبيقات للتصدير بعد"
+  },
+  "ExportedOne": {
+    "en": "1 app exported", "fr": "1 app exportée", "es": "1 app exportada",
+    "pt-BR": "1 app exportado", "de": "1 App exportiert", "it": "1 app esportata",
+    "ru": "Экспортировано 1 приложение", "zh-Hans": "已导出 1 个应用",
+    "ja": "1 個のアプリをエクスポートしました", "ko": "앱 1개를 내보냈습니다",
+    "vi": "Đã xuất 1 ứng dụng", "ar": "تم تصدير تطبيق واحد"
+  },
+  "ExportedMany": {
+    "en": "{0} apps exported", "fr": "{0} apps exportées", "es": "{0} apps exportadas",
+    "pt-BR": "{0} apps exportados", "de": "{0} Apps exportiert", "it": "{0} app esportate",
+    "ru": "Экспортировано приложений: {0}", "zh-Hans": "已导出 {0} 个应用",
+    "ja": "{0} 個のアプリをエクスポートしました", "ko": "앱 {0}개를 내보냈습니다",
+    "vi": "Đã xuất {0} ứng dụng", "ar": "تم تصدير {0} تطبيقات"
+  },
+  "ExportFailedTitle": {
+    "en": "Could not export", "fr": "Exportation impossible", "es": "No se pudo exportar",
+    "pt-BR": "Não foi possível exportar", "de": "Export fehlgeschlagen",
+    "it": "Esportazione non riuscita", "ru": "Не удалось экспортировать", "zh-Hans": "导出失败",
+    "ja": "エクスポートできませんでした", "ko": "내보내지 못했습니다",
+    "vi": "Không xuất được", "ar": "تعذّر التصدير"
+  },
+  "ImportedOne": {
+    "en": "1 app installed", "fr": "1 app installée", "es": "1 app instalada",
+    "pt-BR": "1 app instalado", "de": "1 App installiert", "it": "1 app installata",
+    "ru": "Установлено 1 приложение", "zh-Hans": "已安装 1 个应用",
+    "ja": "1 個のアプリをインストールしました", "ko": "앱 1개를 설치했습니다",
+    "vi": "Đã cài đặt 1 ứng dụng", "ar": "تم تثبيت تطبيق واحد"
+  },
+  "ImportedMany": {
+    "en": "{0} apps installed", "fr": "{0} apps installées", "es": "{0} apps instaladas",
+    "pt-BR": "{0} apps instalados", "de": "{0} Apps installiert", "it": "{0} app installate",
+    "ru": "Установлено приложений: {0}", "zh-Hans": "已安装 {0} 个应用",
+    "ja": "{0} 個のアプリをインストールしました", "ko": "앱 {0}개를 설치했습니다",
+    "vi": "Đã cài đặt {0} ứng dụng", "ar": "تم تثبيت {0} تطبيقات"
+  },
+  "ImportedBody": {
+    "en": "They are in Start › Mica, and each asks you to sign in the first time it opens.",
+    "fr": "Elles sont dans Démarrer › Mica ; chacune vous demandera de vous connecter à sa première ouverture.",
+    "es": "Están en Inicio › Mica; cada una te pedirá iniciar sesión la primera vez que se abra.",
+    "pt-BR": "Estão em Iniciar › Mica; cada um pedirá que você faça login na primeira vez que abrir.",
+    "de": "Sie stehen unter Start › Mica; jede fragt beim ersten Öffnen nach der Anmeldung.",
+    "it": "Sono in Start › Mica; ognuna chiederà l'accesso alla prima apertura.",
+    "ru": "Они в «Пуск › Mica»; каждое попросит войти при первом открытии.",
+    "zh-Hans": "它们位于“开始 › Mica”；每个应用首次打开时都会要求登录。",
+    "ja": "[スタート] › Mica にあります。それぞれ初回起動時にサインインを求められます。",
+    "ko": "시작 › Mica에 있습니다. 각 앱은 처음 열 때 로그인을 요청합니다.",
+    "vi": "Chúng nằm trong Start › Mica; mỗi ứng dụng sẽ yêu cầu đăng nhập ở lần mở đầu tiên.",
+    "ar": "توجد في «ابدأ › Mica»، وسيطلب منك كل تطبيق تسجيل الدخول عند فتحه لأول مرة."
+  },
+  "ImportedMissingExtensions": {
+    "en": "{0} extension(s) could not be downloaded. The apps work without them, and you can install them again from the store.",
+    "fr": "{0} extension(s) n'ont pas pu être téléchargées. Les apps fonctionnent sans elles et vous pouvez les réinstaller depuis le store.",
+    "es": "No se pudieron descargar {0} extensión(es). Las apps funcionan sin ellas y puedes volver a instalarlas desde la tienda.",
+    "pt-BR": "Não foi possível baixar {0} extensão(ões). Os apps funcionam sem elas e você pode instalá-las de novo pela loja.",
+    "de": "{0} Erweiterung(en) konnten nicht geladen werden. Die Apps laufen auch ohne sie, und Sie können sie im Store erneut installieren.",
+    "it": "Non è stato possibile scaricare {0} estensione/i. Le app funzionano senza e puoi reinstallarle dallo store.",
+    "ru": "Не удалось загрузить расширений: {0}. Приложения работают и без них, а установить их можно снова из магазина.",
+    "zh-Hans": "有 {0} 个扩展未能下载。应用不装它们也能用，你可以稍后从商店重新安装。",
+    "ja": "{0} 個の拡張機能をダウンロードできませんでした。アプリは拡張機能なしでも動き、ストアから改めてインストールできます。",
+    "ko": "확장 프로그램 {0}개를 내려받지 못했습니다. 앱은 없이도 작동하며 스토어에서 다시 설치할 수 있습니다.",
+    "vi": "Không tải được {0} tiện ích mở rộng. Ứng dụng vẫn chạy mà không cần chúng, và bạn có thể cài lại từ cửa hàng.",
+    "ar": "تعذّر تنزيل {0} من الإضافات. تعمل التطبيقات بدونها، ويمكنك تثبيتها مجددًا من المتجر."
+  },
+  "ImportingApp": {
+    "en": "Building {0}…", "fr": "Création de {0}…", "es": "Creando {0}…",
+    "pt-BR": "Criando {0}…", "de": "{0} wird erstellt…", "it": "Creazione di {0}…",
+    "ru": "Создание «{0}»…", "zh-Hans": "正在创建 {0}…", "ja": "{0} を作成しています…",
+    "ko": "{0} 만드는 중…", "vi": "Đang tạo {0}…", "ar": "جارٍ إنشاء {0}…"
+  },
+  "ImportingExtensions": {
+    "en": "Downloading extensions for {0}…", "fr": "Téléchargement des extensions de {0}…",
+    "es": "Descargando las extensiones de {0}…", "pt-BR": "Baixando as extensões de {0}…",
+    "de": "Erweiterungen für {0} werden geladen…", "it": "Download delle estensioni di {0}…",
+    "ru": "Загрузка расширений для «{0}»…", "zh-Hans": "正在下载 {0} 的扩展…",
+    "ja": "{0} の拡張機能をダウンロードしています…", "ko": "{0}의 확장 프로그램을 내려받는 중…",
+    "vi": "Đang tải tiện ích mở rộng cho {0}…", "ar": "جارٍ تنزيل إضافات {0}…"
+  },
+  "ImportFailedTitle": {
+    "en": "Could not import", "fr": "Importation impossible", "es": "No se pudo importar",
+    "pt-BR": "Não foi possível importar", "de": "Import fehlgeschlagen",
+    "it": "Importazione non riuscita", "ru": "Не удалось импортировать", "zh-Hans": "导入失败",
+    "ja": "インポートできませんでした", "ko": "가져오지 못했습니다",
+    "vi": "Không nhập được", "ar": "تعذّر الاستيراد"
+  },
+  "AlreadyInstalled": {
+    "en": "Already installed here", "fr": "Déjà installée ici", "es": "Ya está instalada aquí",
+    "pt-BR": "Já instalado aqui", "de": "Hier bereits installiert", "it": "Già installata qui",
+    "ru": "Уже установлено здесь", "zh-Hans": "这台电脑上已安装",
+    "ja": "この PC には既にあります", "ko": "이 PC에 이미 설치됨",
+    "vi": "Đã cài trên máy này", "ar": "مثبَّت هنا بالفعل"
+  },
+  "PackEmpty": {
+    "en": "This file describes no apps", "fr": "Ce fichier ne décrit aucune app",
+    "es": "Este archivo no describe ninguna app", "pt-BR": "Este arquivo não descreve nenhum app",
+    "de": "Diese Datei beschreibt keine Apps", "it": "Questo file non descrive nessuna app",
+    "ru": "В этом файле нет приложений", "zh-Hans": "该文件不包含任何应用",
+    "ja": "このファイルにはアプリが含まれていません", "ko": "이 파일에는 앱이 없습니다",
+    "vi": "Tệp này không mô tả ứng dụng nào", "ar": "لا يصف هذا الملف أي تطبيق"
+  },
+  "ExtensionsCountOne": {
+    "en": "1 extension", "fr": "1 extension", "es": "1 extensión", "pt-BR": "1 extensão",
+    "de": "1 Erweiterung", "it": "1 estensione", "ru": "1 расширение", "zh-Hans": "1 个扩展",
+    "ja": "拡張機能 1 個", "ko": "확장 프로그램 1개", "vi": "1 tiện ích mở rộng",
+    "ar": "إضافة واحدة"
+  },
+  "ExtensionsCountMany": {
+    "en": "{0} extensions", "fr": "{0} extensions", "es": "{0} extensiones",
+    "pt-BR": "{0} extensões", "de": "{0} Erweiterungen", "it": "{0} estensioni",
+    "ru": "расширений: {0}", "zh-Hans": "{0} 个扩展", "ja": "拡張機能 {0} 個",
+    "ko": "확장 프로그램 {0}개", "vi": "{0} tiện ích mở rộng", "ar": "{0} إضافات"
   }
 }

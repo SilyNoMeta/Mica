@@ -6,6 +6,8 @@ using Mica.Core.Apps;
 using Mica.Core.Localization;
 using Mica.Core.Updates;
 using Windows.Graphics;
+using Windows.Storage.Pickers;
+using WinRT.Interop;
 
 namespace Mica.Builder;
 
@@ -94,6 +96,13 @@ public sealed partial class MainWindow : Window
         EmptyBodyText.Text = Strings.Get("EmptyBody");
         EmptyAddButton.Content = Strings.Get("AddAppButton");
         VersionText.Text = $"{MicaPaths.ProductName} {UpdateChecker.Current.ToString(3)}";
+
+        // The button carries only a glyph, so its name has to be published as well as
+        // shown: a tooltip is not something a screen reader reads out.
+        ToolTipService.SetToolTip(TransferButton, Strings.Get("Transfer"));
+        Microsoft.UI.Xaml.Automation.AutomationProperties.SetName(TransferButton, Strings.Get("Transfer"));
+        ExportMenuItem.Text = Strings.Get("ExportApps");
+        ImportMenuItem.Text = Strings.Get("ImportApps");
     }
 
     // ---- App list ------------------------------------------------------------
@@ -158,6 +167,203 @@ public sealed partial class MainWindow : Window
             InfoBarSeverity.Success,
             Strings.Format("ReadyTitle", created.Name),
             Strings.Format("ReadyBody", MicaPaths.ProductName));
+    }
+
+    // ---- Moving apps between machines ----------------------------------------
+
+    /// <summary>
+    /// Writes the chosen apps to one file: their addresses, names, host rules and
+    /// settings, plus the store ids of the extensions they run. Neither the icons nor
+    /// the extensions themselves travel — both are fetched again on import, which
+    /// keeps the file at a few kilobytes and delivers current versions rather than a
+    /// snapshot of today.
+    /// </summary>
+    private async void OnExportClick(object sender, RoutedEventArgs e)
+    {
+        var apps = AppRegistry.List();
+        if (apps.Count == 0)
+        {
+            ShowStatus(InfoBarSeverity.Informational, Strings.Get("NothingToExport"), string.Empty);
+            return;
+        }
+
+        var entries = apps.Select(AppPack.Describe).ToList();
+
+        var dialog = new TransferDialog(
+            Strings.Get("ExportTitle"),
+            Strings.Get("ExportBody"),
+            Strings.Get("ExportAction"),
+            entries.Select(entry => new TransferDialog.Row(entry, entry.Name, Describe(entry), enabled: true)))
+        {
+            XamlRoot = Content.XamlRoot,
+        };
+
+        if (await dialog.ShowAsync() != ContentDialogResult.Primary)
+        {
+            return;
+        }
+
+        var chosen = dialog.Selected.Cast<AppPack.Entry>().ToList();
+
+        var picker = new FileSavePicker();
+        InitializeWithWindow.Initialize(picker, App.WindowHandle);
+        picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+        picker.FileTypeChoices.Add(MicaPaths.ProductName, [AppPack.FileExtension]);
+        picker.SuggestedFileName = chosen.Count == 1 ? chosen[0].Slug : "mica-apps";
+
+        if (await picker.PickSaveFileAsync() is not { } file)
+        {
+            return;
+        }
+
+        try
+        {
+            new AppPack
+            {
+                CreatedBy = UpdateChecker.Current.ToString(3),
+                Apps = chosen,
+            }.Save(file.Path);
+
+            ShowStatus(
+                InfoBarSeverity.Success,
+                chosen.Count == 1 ? Strings.Get("ExportedOne") : Strings.Format("ExportedMany", chosen.Count),
+                file.Path);
+        }
+        catch (Exception ex)
+        {
+            ShowStatus(InfoBarSeverity.Error, Strings.Get("ExportFailedTitle"), ex.Message);
+        }
+    }
+
+    /// <summary>
+    /// Reads a pack and builds the apps the user picks out of it. An app already
+    /// installed here is shown but cannot be ticked: importing it again would leave
+    /// two entries for one site rather than updating anything.
+    /// </summary>
+    private async void OnImportClick(object sender, RoutedEventArgs e)
+    {
+        var picker = new FileOpenPicker();
+        InitializeWithWindow.Initialize(picker, App.WindowHandle);
+        picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+        picker.FileTypeFilter.Add(AppPack.FileExtension);
+
+        if (await picker.PickSingleFileAsync() is not { } file)
+        {
+            return;
+        }
+
+        AppPack pack;
+        try
+        {
+            pack = AppPack.Load(file.Path);
+        }
+        catch (Exception ex)
+        {
+            ShowStatus(InfoBarSeverity.Error, Strings.Get("ImportFailedTitle"), ex.Message);
+            return;
+        }
+
+        if (pack.Apps.Count == 0)
+        {
+            ShowStatus(InfoBarSeverity.Informational, Strings.Get("PackEmpty"), file.Path);
+            return;
+        }
+
+        var rows = pack.Apps.Select(entry =>
+        {
+            var installed = AppRegistry.FindByStartUrl(entry.StartUrl) is not null;
+
+            return new TransferDialog.Row(
+                entry,
+                string.IsNullOrWhiteSpace(entry.Name) ? entry.StartUri.Host : entry.Name,
+                installed ? Strings.Get("AlreadyInstalled") : Describe(entry),
+                enabled: !installed);
+        });
+
+        var dialog = new TransferDialog(
+            Strings.Get("ImportTitle"),
+            Strings.Get("ImportBody"),
+            Strings.Get("ImportAction"),
+            rows)
+        {
+            XamlRoot = Content.XamlRoot,
+        };
+
+        if (await dialog.ShowAsync() != ContentDialogResult.Primary)
+        {
+            return;
+        }
+
+        await ImportAsync([.. dialog.Selected.Cast<AppPack.Entry>()]);
+    }
+
+    private async Task ImportAsync(List<AppPack.Entry> entries)
+    {
+        var imported = 0;
+        var missingExtensions = 0;
+        var failures = new List<string>();
+
+        SetBusy(true);
+
+        try
+        {
+            foreach (var entry in entries)
+            {
+                var name = string.IsNullOrWhiteSpace(entry.Name) ? entry.StartUri.Host : entry.Name;
+                BusyText.Text = Strings.Format("ImportingApp", name);
+
+                try
+                {
+                    var progress = new Progress<string>(_ =>
+                        BusyText.Text = Strings.Format("ImportingExtensions", name));
+
+                    var result = await AppRegistry.ImportAsync(entry, progress);
+
+                    imported++;
+                    missingExtensions += result.MissingExtensions.Count;
+                }
+                catch (Exception ex)
+                {
+                    failures.Add($"{name} — {ex.Message}");
+                }
+            }
+        }
+        finally
+        {
+            SetBusy(false);
+        }
+
+        await RefreshAsync();
+
+        if (failures.Count > 0)
+        {
+            ShowStatus(
+                imported > 0 ? InfoBarSeverity.Warning : InfoBarSeverity.Error,
+                Strings.Get("ImportFailedTitle"),
+                string.Join(Environment.NewLine, failures));
+
+            return;
+        }
+
+        ShowStatus(
+            InfoBarSeverity.Success,
+            imported == 1 ? Strings.Get("ImportedOne") : Strings.Format("ImportedMany", imported),
+            missingExtensions > 0
+                ? Strings.Format("ImportedMissingExtensions", missingExtensions)
+                : Strings.Get("ImportedBody"));
+    }
+
+    /// <summary>The second line of a transfer row: where the app points, and what it carries.</summary>
+    private static string Describe(AppPack.Entry entry)
+    {
+        var host = entry.StartUri.Host;
+
+        return entry.Extensions.Count switch
+        {
+            0 => host,
+            1 => $"{host} · {Strings.Get("ExtensionsCountOne")}",
+            _ => $"{host} · {Strings.Format("ExtensionsCountMany", entry.Extensions.Count)}",
+        };
     }
 
     private void OnAppClick(object sender, ItemClickEventArgs e)

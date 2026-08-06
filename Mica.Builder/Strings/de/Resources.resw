@@ -19,6 +19,9 @@
   <data name="AddAppButton" xml:space="preserve">
     <value>App hinzufügen</value>
   </data>
+  <data name="AlreadyInstalled" xml:space="preserve">
+    <value>Hier bereits installiert</value>
+  </data>
   <data name="AppsCountMany" xml:space="preserve">
     <value>{0} Apps · Verknüpfungen unter Start › Mica</value>
   </data>
@@ -76,6 +79,33 @@
   <data name="EmptyBody" xml:space="preserve">
     <value>Geben Sie Mica eine Website-Adresse, und Sie erhalten eine Windows-App mit dem echten Namen, dem echten Symbol und einer eigenen Verknüpfung.</value>
   </data>
+  <data name="ExportAction" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+  <data name="ExportApps" xml:space="preserve">
+    <value>Apps exportieren…</value>
+  </data>
+  <data name="ExportBody" xml:space="preserve">
+    <value>Wählen Sie die Apps, die in eine Datei gespeichert werden sollen. Adresse, Einstellungen und Erweiterungsliste kommen mit.</value>
+  </data>
+  <data name="ExportedMany" xml:space="preserve">
+    <value>{0} Apps exportiert</value>
+  </data>
+  <data name="ExportedOne" xml:space="preserve">
+    <value>1 App exportiert</value>
+  </data>
+  <data name="ExportFailedTitle" xml:space="preserve">
+    <value>Export fehlgeschlagen</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>Apps exportieren</value>
+  </data>
+  <data name="ExtensionsCountMany" xml:space="preserve">
+    <value>{0} Erweiterungen</value>
+  </data>
+  <data name="ExtensionsCountOne" xml:space="preserve">
+    <value>1 Erweiterung</value>
+  </data>
   <data name="FetchingIcon" xml:space="preserve">
     <value>Symbol von {0} wird abgerufen…</value>
   </data>
@@ -88,6 +118,39 @@
   <data name="IconRefreshedTitle" xml:space="preserve">
     <value>Symbol aktualisiert</value>
   </data>
+  <data name="ImportAction" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
+  <data name="ImportApps" xml:space="preserve">
+    <value>Apps importieren…</value>
+  </data>
+  <data name="ImportBody" xml:space="preserve">
+    <value>Wählen Sie die Apps, die auf diesem Computer entstehen sollen. Jede wird mit dem aktuellen Symbol der Website und der aktuellen Fassung ihrer Erweiterungen gebaut.</value>
+  </data>
+  <data name="ImportedBody" xml:space="preserve">
+    <value>Sie stehen unter Start › Mica; jede fragt beim ersten Öffnen nach der Anmeldung.</value>
+  </data>
+  <data name="ImportedMany" xml:space="preserve">
+    <value>{0} Apps installiert</value>
+  </data>
+  <data name="ImportedMissingExtensions" xml:space="preserve">
+    <value>{0} Erweiterung(en) konnten nicht geladen werden. Die Apps laufen auch ohne sie, und Sie können sie im Store erneut installieren.</value>
+  </data>
+  <data name="ImportedOne" xml:space="preserve">
+    <value>1 App installiert</value>
+  </data>
+  <data name="ImportFailedTitle" xml:space="preserve">
+    <value>Import fehlgeschlagen</value>
+  </data>
+  <data name="ImportingApp" xml:space="preserve">
+    <value>{0} wird erstellt…</value>
+  </data>
+  <data name="ImportingExtensions" xml:space="preserve">
+    <value>Erweiterungen für {0} werden geladen…</value>
+  </data>
+  <data name="ImportTitle" xml:space="preserve">
+    <value>Apps importieren</value>
+  </data>
   <data name="MoreActions" xml:space="preserve">
     <value>Weitere Aktionen</value>
   </data>
@@ -97,11 +160,17 @@
   <data name="NoAppsYetTitle" xml:space="preserve">
     <value>Noch keine Apps</value>
   </data>
+  <data name="NothingToExport" xml:space="preserve">
+    <value>Noch keine Apps zum Exportieren</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Öffnen</value>
   </data>
   <data name="OpenFailedTitle" xml:space="preserve">
     <value>Öffnen fehlgeschlagen</value>
+  </data>
+  <data name="PackEmpty" xml:space="preserve">
+    <value>Diese Datei beschreibt keine Apps</value>
   </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>Verknüpfung im Startmenü hinzugefügt, im Ordner „{0}“.</value>
@@ -130,6 +199,9 @@
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>Entfernen fehlgeschlagen</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Alle auswählen</value>
+  </data>
   <data name="SettingsBackground" xml:space="preserve">
     <value>Beim Schließen weiterlaufen lassen</value>
   </data>
@@ -153,6 +225,15 @@
   </data>
   <data name="SwitchOn" xml:space="preserve">
     <value>Ein</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Importieren und exportieren</value>
+  </data>
+  <data name="TransferNoteBody" xml:space="preserve">
+    <value>Windows bindet jede Browsersitzung an dieses Konto auf diesem Rechner; anderswo ist sie nicht lesbar. Melden Sie sich auf dem anderen Computer erneut an.</value>
+  </data>
+  <data name="TransferNoteTitle" xml:space="preserve">
+    <value>Anmeldungen kommen nicht mit</value>
   </data>
   <data name="UpdateAction" xml:space="preserve">
     <value>Aktualisieren</value>

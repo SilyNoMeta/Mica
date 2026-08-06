@@ -19,6 +19,9 @@
   <data name="AddAppButton" xml:space="preserve">
     <value>Añadir una app</value>
   </data>
+  <data name="AlreadyInstalled" xml:space="preserve">
+    <value>Ya está instalada aquí</value>
+  </data>
   <data name="AppsCountMany" xml:space="preserve">
     <value>{0} apps · accesos directos en Inicio › Mica</value>
   </data>
@@ -76,6 +79,33 @@
   <data name="EmptyBody" xml:space="preserve">
     <value>Dale a Mica la dirección de un sitio y obtendrás una app de Windows con su nombre real, su icono real y su propio acceso directo.</value>
   </data>
+  <data name="ExportAction" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="ExportApps" xml:space="preserve">
+    <value>Exportar apps…</value>
+  </data>
+  <data name="ExportBody" xml:space="preserve">
+    <value>Elige las apps que quieres guardar en un archivo. Se llevan su dirección, su configuración y su lista de extensiones.</value>
+  </data>
+  <data name="ExportedMany" xml:space="preserve">
+    <value>{0} apps exportadas</value>
+  </data>
+  <data name="ExportedOne" xml:space="preserve">
+    <value>1 app exportada</value>
+  </data>
+  <data name="ExportFailedTitle" xml:space="preserve">
+    <value>No se pudo exportar</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>Exportar apps</value>
+  </data>
+  <data name="ExtensionsCountMany" xml:space="preserve">
+    <value>{0} extensiones</value>
+  </data>
+  <data name="ExtensionsCountOne" xml:space="preserve">
+    <value>1 extensión</value>
+  </data>
   <data name="FetchingIcon" xml:space="preserve">
     <value>Obteniendo el icono de {0}…</value>
   </data>
@@ -88,6 +118,39 @@
   <data name="IconRefreshedTitle" xml:space="preserve">
     <value>Icono actualizado</value>
   </data>
+  <data name="ImportAction" xml:space="preserve">
+    <value>Importar</value>
+  </data>
+  <data name="ImportApps" xml:space="preserve">
+    <value>Importar apps…</value>
+  </data>
+  <data name="ImportBody" xml:space="preserve">
+    <value>Elige las apps que quieres crear en este equipo. Cada una se crea con el icono actual del sitio y la versión actual de sus extensiones.</value>
+  </data>
+  <data name="ImportedBody" xml:space="preserve">
+    <value>Están en Inicio › Mica; cada una te pedirá iniciar sesión la primera vez que se abra.</value>
+  </data>
+  <data name="ImportedMany" xml:space="preserve">
+    <value>{0} apps instaladas</value>
+  </data>
+  <data name="ImportedMissingExtensions" xml:space="preserve">
+    <value>No se pudieron descargar {0} extensión(es). Las apps funcionan sin ellas y puedes volver a instalarlas desde la tienda.</value>
+  </data>
+  <data name="ImportedOne" xml:space="preserve">
+    <value>1 app instalada</value>
+  </data>
+  <data name="ImportFailedTitle" xml:space="preserve">
+    <value>No se pudo importar</value>
+  </data>
+  <data name="ImportingApp" xml:space="preserve">
+    <value>Creando {0}…</value>
+  </data>
+  <data name="ImportingExtensions" xml:space="preserve">
+    <value>Descargando las extensiones de {0}…</value>
+  </data>
+  <data name="ImportTitle" xml:space="preserve">
+    <value>Importar apps</value>
+  </data>
   <data name="MoreActions" xml:space="preserve">
     <value>Más acciones</value>
   </data>
@@ -97,11 +160,17 @@
   <data name="NoAppsYetTitle" xml:space="preserve">
     <value>Todavía no hay apps</value>
   </data>
+  <data name="NothingToExport" xml:space="preserve">
+    <value>Todavía no hay apps que exportar</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Abrir</value>
   </data>
   <data name="OpenFailedTitle" xml:space="preserve">
     <value>No se pudo abrir</value>
+  </data>
+  <data name="PackEmpty" xml:space="preserve">
+    <value>Este archivo no describe ninguna app</value>
   </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>Acceso directo añadido al menú Inicio, en la carpeta «{0}».</value>
@@ -130,6 +199,9 @@
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>No se pudo quitar</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Seleccionar todo</value>
+  </data>
   <data name="SettingsBackground" xml:space="preserve">
     <value>Seguir en ejecución al cerrar</value>
   </data>
@@ -153,6 +225,15 @@
   </data>
   <data name="SwitchOn" xml:space="preserve">
     <value>Activado</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Importar y exportar</value>
+  </data>
+  <data name="TransferNoteBody" xml:space="preserve">
+    <value>Windows sella cada sesión de navegación a esta cuenta en este equipo, así que no se puede leer en ningún otro sitio. Inicia sesión de nuevo en el otro equipo.</value>
+  </data>
+  <data name="TransferNoteTitle" xml:space="preserve">
+    <value>Las sesiones no viajan</value>
   </data>
   <data name="UpdateAction" xml:space="preserve">
     <value>Actualizar</value>

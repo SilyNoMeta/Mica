@@ -19,6 +19,9 @@
   <data name="AddAppButton" xml:space="preserve">
     <value>Add an app</value>
   </data>
+  <data name="AlreadyInstalled" xml:space="preserve">
+    <value>Already installed here</value>
+  </data>
   <data name="AppsCountMany" xml:space="preserve">
     <value>{0} apps · shortcuts in Start › Mica</value>
   </data>
@@ -76,6 +79,33 @@
   <data name="EmptyBody" xml:space="preserve">
     <value>Give Mica a site address and you get a Windows app with the site&apos;s real name, its real icon and a shortcut of its own.</value>
   </data>
+  <data name="ExportAction" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ExportApps" xml:space="preserve">
+    <value>Export apps…</value>
+  </data>
+  <data name="ExportBody" xml:space="preserve">
+    <value>Pick the apps to save into one file. Their addresses, settings and list of extensions travel with them.</value>
+  </data>
+  <data name="ExportedMany" xml:space="preserve">
+    <value>{0} apps exported</value>
+  </data>
+  <data name="ExportedOne" xml:space="preserve">
+    <value>1 app exported</value>
+  </data>
+  <data name="ExportFailedTitle" xml:space="preserve">
+    <value>Could not export</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>Export apps</value>
+  </data>
+  <data name="ExtensionsCountMany" xml:space="preserve">
+    <value>{0} extensions</value>
+  </data>
+  <data name="ExtensionsCountOne" xml:space="preserve">
+    <value>1 extension</value>
+  </data>
   <data name="FetchingIcon" xml:space="preserve">
     <value>Fetching {0}&apos;s icon…</value>
   </data>
@@ -88,6 +118,39 @@
   <data name="IconRefreshedTitle" xml:space="preserve">
     <value>Icon refreshed</value>
   </data>
+  <data name="ImportAction" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="ImportApps" xml:space="preserve">
+    <value>Import apps…</value>
+  </data>
+  <data name="ImportBody" xml:space="preserve">
+    <value>Pick the apps to build on this computer. Each is created with the site&apos;s current icon and the current build of its extensions.</value>
+  </data>
+  <data name="ImportedBody" xml:space="preserve">
+    <value>They are in Start › Mica, and each asks you to sign in the first time it opens.</value>
+  </data>
+  <data name="ImportedMany" xml:space="preserve">
+    <value>{0} apps installed</value>
+  </data>
+  <data name="ImportedMissingExtensions" xml:space="preserve">
+    <value>{0} extension(s) could not be downloaded. The apps work without them, and you can install them again from the store.</value>
+  </data>
+  <data name="ImportedOne" xml:space="preserve">
+    <value>1 app installed</value>
+  </data>
+  <data name="ImportFailedTitle" xml:space="preserve">
+    <value>Could not import</value>
+  </data>
+  <data name="ImportingApp" xml:space="preserve">
+    <value>Building {0}…</value>
+  </data>
+  <data name="ImportingExtensions" xml:space="preserve">
+    <value>Downloading extensions for {0}…</value>
+  </data>
+  <data name="ImportTitle" xml:space="preserve">
+    <value>Import apps</value>
+  </data>
   <data name="MoreActions" xml:space="preserve">
     <value>More actions</value>
   </data>
@@ -97,11 +160,17 @@
   <data name="NoAppsYetTitle" xml:space="preserve">
     <value>No apps yet</value>
   </data>
+  <data name="NothingToExport" xml:space="preserve">
+    <value>There are no apps to export yet</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>
   </data>
   <data name="OpenFailedTitle" xml:space="preserve">
     <value>Could not open</value>
+  </data>
+  <data name="PackEmpty" xml:space="preserve">
+    <value>This file describes no apps</value>
   </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>Shortcut added to the Start menu, in the {0} folder.</value>
@@ -130,6 +199,9 @@
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>Could not remove</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
   <data name="SettingsBackground" xml:space="preserve">
     <value>Keep running when closed</value>
   </data>
@@ -153,6 +225,15 @@
   </data>
   <data name="SwitchOn" xml:space="preserve">
     <value>On</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Import and export</value>
+  </data>
+  <data name="TransferNoteBody" xml:space="preserve">
+    <value>Windows seals a browser session to this account on this machine, so it cannot be read anywhere else. Sign in again on the other computer.</value>
+  </data>
+  <data name="TransferNoteTitle" xml:space="preserve">
+    <value>Sign-ins do not travel</value>
   </data>
   <data name="UpdateAction" xml:space="preserve">
     <value>Update</value>

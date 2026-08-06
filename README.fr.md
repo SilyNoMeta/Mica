@@ -33,6 +33,38 @@ et vous pouvez l'épingler pour qu'elle reste.
 - **Les liens se comportent bien.** Un lien externe que vous cliquez s'ouvre dans votre vrai
   navigateur ; les redirections et les étapes de connexion restent dans l'app, pour qu'une
   authentification ne laisse jamais votre session ailleurs.
+- **Les apps se déplacent d'une machine à l'autre.** Exportez un lot d'apps dans un petit
+  fichier et importez-les sur un autre ordinateur, extensions comprises. Ce qui suit précise ce
+  qui voyage et ce qui ne le peut pas.
+
+## Déplacer ses apps vers une autre machine
+
+Mica › **⋯ › Exporter des apps** écrit les apps cochées dans un seul fichier `.mica` : leur
+adresse, leur nom, leurs règles de domaines, la taille de fenêtre, le zoom, le moteur et les
+réglages d'arrière-plan, plus les **identifiants** Chrome Web Store des extensions installées.
+Pas les extensions elles-mêmes, ni les icônes : les deux sont récupérées à l'import. C'est
+pourquoi trois apps tiennent en moins de deux kilo-octets là où leurs extensions décompressées
+pèsent des dizaines de méga-octets, et pourquoi une app importée arrive avec l'icône actuelle du
+site et la version actuelle de chaque extension, plutôt qu'un instantané du jour du départ.
+
+**Importer** présente la même liste, confrontée à ce qui est déjà là. Une app dont vous avez déjà
+l'adresse est affichée mais non cochable : la réimporter créerait deux entrées pour un même site
+au lieu de mettre quoi que ce soit à jour. Tout le reste est construit exactement comme si vous
+l'aviez créée à la main — dossier, icône, lanceur, raccourci du menu Démarrer, ligne dans
+Applications installées — et une extension qui n'a pas pu être téléchargée est signalée après
+coup, sans faire échouer l'app à laquelle elle appartenait.
+
+Le fichier est du JSON lisible : un pack peut donc s'écrire à la main pour équiper un parc de
+machines. Une entrée n'a besoin que de `StartUrl` ; ce qu'elle omet est déduit comme le déduit
+« Ajouter une app ».
+
+**Les sessions ne voyagent pas, et ce n'est pas un manque que Mica compte combler.** Chromium
+chiffre ses cookies avec une clé scellée par DPAPI à un compte Windows sur une machine : copiés
+ailleurs, ils sont indéchiffrables. Les faire suivre supposerait de déchiffrer les connexions de
+quelqu'un et de les transporter en clair — la technique d'un voleur d'identifiants, et un fichier
+qui *serait* l'accès aux comptes qu'il nomme, pour quiconque le ramasse. Vous vous connectez une
+fois par app sur la nouvelle machine, ce qu'un site demande de toute façon depuis un appareil
+inconnu.
 
 ## Comment ça marche
 

@@ -19,6 +19,9 @@
   <data name="AddAppButton" xml:space="preserve">
     <value>Добавить приложение</value>
   </data>
+  <data name="AlreadyInstalled" xml:space="preserve">
+    <value>Уже установлено здесь</value>
+  </data>
   <data name="AppsCountMany" xml:space="preserve">
     <value>Приложений: {0} · ярлыки в «Пуск › Mica»</value>
   </data>
@@ -76,6 +79,33 @@
   <data name="EmptyBody" xml:space="preserve">
     <value>Укажите Mica адрес сайта — и получите приложение Windows с его настоящим именем, настоящим значком и собственным ярлыком.</value>
   </data>
+  <data name="ExportAction" xml:space="preserve">
+    <value>Экспортировать</value>
+  </data>
+  <data name="ExportApps" xml:space="preserve">
+    <value>Экспорт приложений…</value>
+  </data>
+  <data name="ExportBody" xml:space="preserve">
+    <value>Выберите приложения для сохранения в файл. Вместе с ними переносятся адрес, настройки и список расширений.</value>
+  </data>
+  <data name="ExportedMany" xml:space="preserve">
+    <value>Экспортировано приложений: {0}</value>
+  </data>
+  <data name="ExportedOne" xml:space="preserve">
+    <value>Экспортировано 1 приложение</value>
+  </data>
+  <data name="ExportFailedTitle" xml:space="preserve">
+    <value>Не удалось экспортировать</value>
+  </data>
+  <data name="ExportTitle" xml:space="preserve">
+    <value>Экспорт приложений</value>
+  </data>
+  <data name="ExtensionsCountMany" xml:space="preserve">
+    <value>расширений: {0}</value>
+  </data>
+  <data name="ExtensionsCountOne" xml:space="preserve">
+    <value>1 расширение</value>
+  </data>
   <data name="FetchingIcon" xml:space="preserve">
     <value>Получение значка {0}…</value>
   </data>
@@ -88,6 +118,39 @@
   <data name="IconRefreshedTitle" xml:space="preserve">
     <value>Значок обновлён</value>
   </data>
+  <data name="ImportAction" xml:space="preserve">
+    <value>Импортировать</value>
+  </data>
+  <data name="ImportApps" xml:space="preserve">
+    <value>Импорт приложений…</value>
+  </data>
+  <data name="ImportBody" xml:space="preserve">
+    <value>Выберите приложения для создания на этом компьютере. Каждое создаётся с текущим значком сайта и текущей версией его расширений.</value>
+  </data>
+  <data name="ImportedBody" xml:space="preserve">
+    <value>Они в «Пуск › Mica»; каждое попросит войти при первом открытии.</value>
+  </data>
+  <data name="ImportedMany" xml:space="preserve">
+    <value>Установлено приложений: {0}</value>
+  </data>
+  <data name="ImportedMissingExtensions" xml:space="preserve">
+    <value>Не удалось загрузить расширений: {0}. Приложения работают и без них, а установить их можно снова из магазина.</value>
+  </data>
+  <data name="ImportedOne" xml:space="preserve">
+    <value>Установлено 1 приложение</value>
+  </data>
+  <data name="ImportFailedTitle" xml:space="preserve">
+    <value>Не удалось импортировать</value>
+  </data>
+  <data name="ImportingApp" xml:space="preserve">
+    <value>Создание «{0}»…</value>
+  </data>
+  <data name="ImportingExtensions" xml:space="preserve">
+    <value>Загрузка расширений для «{0}»…</value>
+  </data>
+  <data name="ImportTitle" xml:space="preserve">
+    <value>Импорт приложений</value>
+  </data>
   <data name="MoreActions" xml:space="preserve">
     <value>Другие действия</value>
   </data>
@@ -97,11 +160,17 @@
   <data name="NoAppsYetTitle" xml:space="preserve">
     <value>Пока нет приложений</value>
   </data>
+  <data name="NothingToExport" xml:space="preserve">
+    <value>Пока нечего экспортировать</value>
+  </data>
   <data name="Open" xml:space="preserve">
     <value>Открыть</value>
   </data>
   <data name="OpenFailedTitle" xml:space="preserve">
     <value>Не удалось открыть</value>
+  </data>
+  <data name="PackEmpty" xml:space="preserve">
+    <value>В этом файле нет приложений</value>
   </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>Ярлык добавлен в меню «Пуск», в папку «{0}».</value>
@@ -130,6 +199,9 @@
   <data name="RemoveFailedTitle" xml:space="preserve">
     <value>Не удалось удалить</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Выбрать все</value>
+  </data>
   <data name="SettingsBackground" xml:space="preserve">
     <value>Продолжать работу после закрытия</value>
   </data>
@@ -153,6 +225,15 @@
   </data>
   <data name="SwitchOn" xml:space="preserve">
     <value>Вкл.</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Импорт и экспорт</value>
+  </data>
+  <data name="TransferNoteBody" xml:space="preserve">
+    <value>Windows привязывает сеанс браузера к этой учётной записи на этом компьютере, поэтому в другом месте он нечитаем. На другом компьютере войдите заново.</value>
+  </data>
+  <data name="TransferNoteTitle" xml:space="preserve">
+    <value>Входы в аккаунты не переносятся</value>
   </data>
   <data name="UpdateAction" xml:space="preserve">
     <value>Обновить</value>
