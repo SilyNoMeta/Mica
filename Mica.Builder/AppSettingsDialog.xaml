@@ -8,34 +8,51 @@
     DefaultButton="Primary"
     mc:Ignorable="d">
 
+
     <!--  Every label is assigned in ApplyStrings(); see MainWindow.xaml.  -->
 
-    <StackPanel Width="400" Spacing="20">
-        <StackPanel Spacing="4">
-            <ToggleSwitch x:Name="BackgroundToggle" Toggled="OnBackgroundToggled" />
-            <TextBlock
-                x:Name="BackgroundHint"
-                Opacity="0.7"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                TextWrapping="Wrap" />
-        </StackPanel>
+    <!--
+        A fixed height, not a maximum. This content is naturally tall enough to make
+        the dialog nearly fill the window, and the window's caption buttons are drawn
+        by the system above all XAML — so minimise and maximise end up painted across
+        the dialog's own top corner. Neither MaxHeight on the control nor overriding
+        ContentDialogMaxHeight here constrains the frame; giving the scroller a height
+        does, and it scrolls once translations run longer than English.
+    -->
+    <ScrollViewer
+        HorizontalScrollMode="Disabled"
+        VerticalScrollBarVisibility="Auto">
+        <StackPanel
+            Width="400"
+            Padding="0,0,4,0"
+            Spacing="16">
 
-        <StackPanel Spacing="4">
-            <ToggleSwitch x:Name="StartupToggle" Toggled="OnStartupToggled" />
-            <TextBlock
-                x:Name="StartupHint"
-                Opacity="0.7"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                TextWrapping="Wrap" />
-        </StackPanel>
+            <StackPanel Spacing="4">
+                <ToggleSwitch x:Name="BackgroundToggle" Toggled="OnBackgroundToggled" />
+                <TextBlock
+                    x:Name="BackgroundHint"
+                    Opacity="0.7"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
 
-        <StackPanel Spacing="4">
-            <ToggleSwitch x:Name="DedicatedToggle" Toggled="OnDedicatedToggled" />
-            <TextBlock
-                x:Name="DedicatedHint"
-                Opacity="0.7"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                TextWrapping="Wrap" />
+            <StackPanel Spacing="4">
+                <ToggleSwitch x:Name="StartupToggle" Toggled="OnStartupToggled" />
+                <TextBlock
+                    x:Name="StartupHint"
+                    Opacity="0.7"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
+
+            <StackPanel Spacing="4">
+                <ToggleSwitch x:Name="DedicatedToggle" Toggled="OnDedicatedToggled" />
+                <TextBlock
+                    x:Name="DedicatedHint"
+                    Opacity="0.7"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    TextWrapping="Wrap" />
+            </StackPanel>
         </StackPanel>
-    </StackPanel>
+    </ScrollViewer>
 </ContentDialog>

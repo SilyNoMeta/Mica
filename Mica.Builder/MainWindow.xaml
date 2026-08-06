@@ -27,7 +27,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TitleBar x:Name="AppTitleBar" Title="Mica" />
+        <!--
+            Mica keeps the system title bar rather than extending content under it.
+            Windows draws the caption buttons above all XAML, so with an extended
+            title bar a dialog tall enough to reach the top of the window gets
+            minimise and maximise painted across its own corner — and a ContentDialog
+            frame fills the window whatever its content, so it always reaches.
+        -->
 
         <Grid
             Grid.Row="1"

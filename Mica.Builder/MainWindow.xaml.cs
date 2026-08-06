@@ -18,16 +18,16 @@ public sealed partial class MainWindow : Window
     {
         InitializeComponent();
 
-        ExtendsContentIntoTitleBar = true;
-        SetTitleBar(AppTitleBar);
-
         var icon = Path.Combine(AppContext.BaseDirectory, "Assets", "AppIcon.ico");
         if (File.Exists(icon))
         {
             AppWindow.SetIcon(icon);
         }
 
-        AppWindow.Resize(new SizeInt32(880, 720));
+        // Tall enough for the per-app settings dialog to show all three options at
+        // once in the longer languages, rather than putting the last one below a
+        // fold nobody looks for.
+        AppWindow.Resize(new SizeInt32(880, 820));
 
         Root.FlowDirection = Strings.FlowDirection;
         ApplyStrings();
