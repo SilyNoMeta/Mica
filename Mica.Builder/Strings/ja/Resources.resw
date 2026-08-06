@@ -136,6 +136,12 @@
   <data name="SettingsBackgroundHint" xml:space="preserve">
     <value>アプリは終了せず通知領域で待機するため、通知が届き続けます。待機中はブラウザーエンジンがメモリに残ります。</value>
   </data>
+  <data name="SettingsDedicated" xml:space="preserve">
+    <value>専用のエンジンを与える</value>
+  </data>
+  <data name="SettingsDedicatedHint" xml:space="preserve">
+    <value>アプリは既定でブラウザーエンジンを共有し、1 つあたり約 250 MB を節約します。アカウントとデータはどちらの場合も別々のままです。フリーズやクラッシュしたアプリに他を巻き込ませたくない場合は、このアプリに専用のエンジンを与えてください。次回の起動から有効になり、ログインし直しが必要です。</value>
+  </data>
   <data name="SettingsStartup" xml:space="preserve">
     <value>Windows の起動時に開く</value>
   </data>

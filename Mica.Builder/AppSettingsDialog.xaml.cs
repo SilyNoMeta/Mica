@@ -26,6 +26,7 @@ public sealed partial class AppSettingsDialog : ContentDialog
         ApplyStrings();
 
         BackgroundToggle.IsOn = config.RunInBackground;
+        DedicatedToggle.IsOn = config.DedicatedEngine;
 
         // Read the registry rather than the config: the user may have switched the
         // app off in Windows' own startup settings, and that decision wins.
@@ -48,6 +49,11 @@ public sealed partial class AppSettingsDialog : ContentDialog
         StartupToggle.OnContent = Strings.Get("SwitchOn");
         StartupToggle.OffContent = Strings.Get("SwitchOff");
         StartupHint.Text = Strings.Get("SettingsStartupHint");
+
+        DedicatedToggle.Header = Strings.Get("SettingsDedicated");
+        DedicatedToggle.OnContent = Strings.Get("SwitchOn");
+        DedicatedToggle.OffContent = Strings.Get("SwitchOff");
+        DedicatedHint.Text = Strings.Get("SettingsDedicatedHint");
     }
 
     private void OnBackgroundToggled(object sender, RoutedEventArgs e)
@@ -70,6 +76,17 @@ public sealed partial class AppSettingsDialog : ContentDialog
 
         StartupRegistration.Set(_config, StartupToggle.IsOn);
         _config.StartWithWindows = StartupToggle.IsOn;
+        Save();
+    }
+
+    private void OnDedicatedToggled(object sender, RoutedEventArgs e)
+    {
+        if (_loading)
+        {
+            return;
+        }
+
+        _config.DedicatedEngine = DedicatedToggle.IsOn;
         Save();
     }
 

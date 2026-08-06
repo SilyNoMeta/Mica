@@ -156,6 +156,33 @@ Two things about resources are worth knowing before touching this, because both 
 - **A dot in a `.resw` key means "element dot property"** — `Meta.FlowDirection` compiles to
   `Meta/FlowDirection` and never resolves as a flat lookup. Keys here contain no dots.
 
+## Memory
+
+Apps share one browser engine by default. Measured with Gemini and Messenger open, both
+signed out, counting only the processes each run started:
+
+| | shared | dedicated |
+|---|---:|---:|
+| WebView2 processes | 9 | 13 |
+| browser | 147 MB | 258 MB |
+| gpu | 126 MB | 207 MB |
+| utility | 88 MB | 149 MB |
+| page renderers | 438 MB | 380 MB |
+| **total, hosts included** | **1157 MB** | **1370 MB** |
+
+Only the renderers are page content. Everything else is engine plumbing, and a dedicated
+engine duplicates all of it — roughly **250 MB per extra app**. Sharing collapses it to one
+set, so a second app costs little more than its own renderer.
+
+Sessions are separate either way: a shared user data folder still holds one named WebView2
+profile per app, with its own cookies, storage and extensions. What an app gives up by
+sharing is fault isolation — a frozen or crashed engine takes down every app on it. That is
+the whole trade, and it is a per-app switch in Mica's settings: *Give it its own engine*, off
+by default.
+
+Switching either way starts that app from a fresh, signed-out profile, since its data lives
+in a different place in each mode.
+
 ## Installer
 
 ```powershell

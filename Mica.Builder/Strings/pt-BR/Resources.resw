@@ -136,6 +136,12 @@
   <data name="SettingsBackgroundHint" xml:space="preserve">
     <value>O app espera na área de notificação em vez de sair, para que suas notificações continuem chegando. Enquanto isso, mantém o motor de navegação na memória.</value>
   </data>
+  <data name="SettingsDedicated" xml:space="preserve">
+    <value>Dar a ele seu próprio motor</value>
+  </data>
+  <data name="SettingsDedicatedHint" xml:space="preserve">
+    <value>Por padrão, os apps compartilham um motor de navegação, o que economiza cerca de 250 MB cada. As contas e os dados continuam separados nos dois casos. Dê a este o seu próprio motor se preferir que um app travado ou com falha não derrube os outros. Vale a partir da próxima inicialização, com a sessão desconectada.</value>
+  </data>
   <data name="SettingsStartup" xml:space="preserve">
     <value>Iniciar com o Windows</value>
   </data>

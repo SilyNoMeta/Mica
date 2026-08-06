@@ -136,6 +136,12 @@
   <data name="SettingsBackgroundHint" xml:space="preserve">
     <value>Die App wartet im Infobereich, statt sich zu beenden, damit ihre Benachrichtigungen weiter ankommen. Solange bleibt ihre Browser-Engine im Arbeitsspeicher.</value>
   </data>
+  <data name="SettingsDedicated" xml:space="preserve">
+    <value>Eigene Engine geben</value>
+  </data>
+  <data name="SettingsDedicatedHint" xml:space="preserve">
+    <value>Apps teilen sich standardmäßig eine Browser-Engine, was pro App rund 250 MB spart. Konten und Daten bleiben in beiden Fällen getrennt. Geben Sie dieser App eine eigene Engine, wenn eine hängende oder abgestürzte App die anderen nicht mitreißen soll. Gilt ab dem nächsten Start, mit abgemeldeter Sitzung.</value>
+  </data>
   <data name="SettingsStartup" xml:space="preserve">
     <value>Mit Windows starten</value>
   </data>

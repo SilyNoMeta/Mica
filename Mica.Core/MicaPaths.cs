@@ -31,8 +31,20 @@ public static class MicaPaths
 
     public static string IconFile(string slug) => Path.Combine(AppFolder(slug), "icon.ico");
 
-    /// <summary>The WebView2 user data folder: one profile per app, so sign-ins stay separate.</summary>
+    /// <summary>
+    /// The WebView2 user data folder for an app running on its own engine. An app
+    /// that shares the common engine keeps its data under <see cref="SharedBrowserFolder"/>
+    /// instead, in a profile of its own.
+    /// </summary>
     public static string ProfileFolder(string slug) => Path.Combine(AppFolder(slug), "profile");
+
+    /// <summary>
+    /// %LOCALAPPDATA%\Mica\browser — the user data folder shared by every app that
+    /// does not ask for its own engine. WebView2 gives clients that share a folder a
+    /// single browser, GPU and network process, while keeping each named profile's
+    /// cookies, storage and extensions apart.
+    /// </summary>
+    public static string SharedBrowserFolder { get; } = Path.Combine(Root, "browser");
 
     /// <summary>Unpacked browser extensions installed into this app's profile.</summary>
     public static string ExtensionsFolder(string slug) => Path.Combine(AppFolder(slug), "extensions");

@@ -49,6 +49,19 @@ public sealed class WebAppConfig
     /// <summary>True when the app starts with Windows, minimized to the notification area.</summary>
     public bool StartWithWindows { get; set; }
 
+    /// <summary>
+    /// Gives this app a browser engine of its own instead of sharing one with the
+    /// other apps.
+    /// <para>
+    /// Sharing is the default because the engine is what costs: apps that share one
+    /// pay for a single browser, GPU and network process between them — measured at
+    /// roughly 280 MB saved per app. Sessions are separate either way; what an app
+    /// gains by being alone is that a hung or crashed engine no longer takes the
+    /// others down with it.
+    /// </para>
+    /// </summary>
+    public bool DedicatedEngine { get; set; }
+
     public DateTimeOffset Created { get; set; } = DateTimeOffset.Now;
 
     [JsonIgnore]

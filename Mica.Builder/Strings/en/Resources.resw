@@ -136,6 +136,12 @@
   <data name="SettingsBackgroundHint" xml:space="preserve">
     <value>The app waits in the notification area instead of quitting, so its notifications keep arriving. It holds its browser engine in memory while it waits.</value>
   </data>
+  <data name="SettingsDedicated" xml:space="preserve">
+    <value>Give it its own engine</value>
+  </data>
+  <data name="SettingsDedicatedHint" xml:space="preserve">
+    <value>Apps share one browser engine by default, which saves around 250 MB each. Their accounts and data stay separate either way. Give this one its own engine if you would rather a frozen or crashed app not take the others down with it. Applies next time it starts, from a signed-out session.</value>
+  </data>
   <data name="SettingsStartup" xml:space="preserve">
     <value>Start with Windows</value>
   </data>

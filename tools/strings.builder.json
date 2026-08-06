@@ -328,6 +328,29 @@
     "vi": "Kết hợp với tùy chọn ở trên, ứng dụng khởi động thẳng vào khay thông báo. Windows liệt kê nó trong Cài đặt › Ứng dụng › Khởi động, nơi bạn cũng có thể tắt.",
     "ar": "مع الإعداد أعلاه، يبدأ التطبيق مباشرة في منطقة الإشعارات. ويُدرجه Windows ضمن الإعدادات › التطبيقات › بدء التشغيل، حيث يمكنك تعطيله أيضًا."
   },
+  "SettingsDedicated": {
+    "_note": "Framed as isolation, not sharing: sharing is the default, so the exception is what needs a name — and 'shared' alone reads as shared accounts, which it is not.",
+    "en": "Give it its own engine", "fr": "Lui donner son propre moteur",
+    "es": "Darle su propio motor", "pt-BR": "Dar a ele seu próprio motor",
+    "de": "Eigene Engine geben", "it": "Dagli un motore tutto suo",
+    "ru": "Отдельный движок для этого приложения", "zh-Hans": "为它单独分配一个引擎",
+    "ja": "専用のエンジンを与える", "ko": "전용 엔진 사용",
+    "vi": "Cấp cho nó bộ máy riêng", "ar": "منحه محركًا خاصًا به"
+  },
+  "SettingsDedicatedHint": {
+    "en": "Apps share one browser engine by default, which saves around 250 MB each. Their accounts and data stay separate either way. Give this one its own engine if you would rather a frozen or crashed app not take the others down with it. Applies next time it starts, from a signed-out session.",
+    "fr": "Les apps se partagent un moteur de navigation par défaut, ce qui économise environ 250 Mo chacune. Leurs comptes et leurs données restent séparés dans les deux cas. Donnez à celle-ci son propre moteur si vous préférez qu'une app figée ou plantée n'entraîne pas les autres. Prend effet au prochain démarrage, sur une session déconnectée.",
+    "es": "Las apps comparten un motor de navegación de forma predeterminada, lo que ahorra unos 250 MB por app. Sus cuentas y datos siguen separados en ambos casos. Dale a esta su propio motor si prefieres que una app bloqueada o caída no arrastre a las demás. Se aplica al próximo inicio, con la sesión cerrada.",
+    "pt-BR": "Por padrão, os apps compartilham um motor de navegação, o que economiza cerca de 250 MB cada. As contas e os dados continuam separados nos dois casos. Dê a este o seu próprio motor se preferir que um app travado ou com falha não derrube os outros. Vale a partir da próxima inicialização, com a sessão desconectada.",
+    "de": "Apps teilen sich standardmäßig eine Browser-Engine, was pro App rund 250 MB spart. Konten und Daten bleiben in beiden Fällen getrennt. Geben Sie dieser App eine eigene Engine, wenn eine hängende oder abgestürzte App die anderen nicht mitreißen soll. Gilt ab dem nächsten Start, mit abgemeldeter Sitzung.",
+    "it": "Per impostazione predefinita le app condividono un motore di navigazione, il che fa risparmiare circa 250 MB ciascuna. Account e dati restano separati in entrambi i casi. Dai a questa un motore tutto suo se preferisci che un'app bloccata o in crash non trascini le altre. Vale dal prossimo avvio, con la sessione disconnessa.",
+    "ru": "По умолчанию приложения используют один браузерный движок — это экономит около 250 МБ на каждом. Учётные записи и данные в любом случае остаются раздельными. Отдайте этому приложению отдельный движок, если не хотите, чтобы зависшее или упавшее приложение утянуло за собой остальные. Вступит в силу при следующем запуске, с выходом из аккаунта.",
+    "zh-Hans": "应用默认共用一个浏览器引擎，每个应用因此节省约 250 MB。无论哪种方式，账号和数据都是各自独立的。如果你希望某个应用卡死或崩溃时不连累其他应用，就给它单独分配一个引擎。下次启动时生效，届时需重新登录。",
+    "ja": "アプリは既定でブラウザーエンジンを共有し、1 つあたり約 250 MB を節約します。アカウントとデータはどちらの場合も別々のままです。フリーズやクラッシュしたアプリに他を巻き込ませたくない場合は、このアプリに専用のエンジンを与えてください。次回の起動から有効になり、ログインし直しが必要です。",
+    "ko": "앱은 기본적으로 브라우저 엔진 하나를 공유하며, 앱당 약 250MB를 절약합니다. 어느 쪽이든 계정과 데이터는 서로 분리된 상태로 유지됩니다. 멈추거나 다운된 앱이 다른 앱까지 끌고 내려가지 않게 하려면 이 앱에 전용 엔진을 주세요. 다음 실행부터 적용되며, 로그인은 다시 해야 합니다.",
+    "vi": "Theo mặc định, các ứng dụng dùng chung một bộ máy trình duyệt, tiết kiệm khoảng 250 MB mỗi ứng dụng. Tài khoản và dữ liệu vẫn tách biệt trong cả hai trường hợp. Hãy cấp cho ứng dụng này bộ máy riêng nếu bạn không muốn một ứng dụng bị treo hay lỗi kéo theo những ứng dụng khác. Có hiệu lực từ lần khởi động sau, với phiên đã đăng xuất.",
+    "ar": "تتشارك التطبيقات محرك تصفح واحدًا افتراضيًا، ما يوفّر نحو 250 ميغابايت لكل تطبيق. تبقى الحسابات والبيانات منفصلة في الحالتين. امنح هذا التطبيق محركًا خاصًا به إن كنت تفضّل ألا يجرّ تطبيق متجمّد أو منهار البقية معه. يسري من التشغيل التالي، مع جلسة مسجَّل خروجها."
+  },
   "Done": {
     "en": "Done", "fr": "Terminé", "es": "Listo", "pt-BR": "Concluído",
     "de": "Fertig", "it": "Fatto", "ru": "Готово", "zh-Hans": "完成",

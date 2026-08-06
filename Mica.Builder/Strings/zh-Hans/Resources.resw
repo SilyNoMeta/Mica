@@ -136,6 +136,12 @@
   <data name="SettingsBackgroundHint" xml:space="preserve">
     <value>应用会留在通知区域等待而不是退出，因此通知会继续送达。等待期间它的浏览器引擎会一直占用内存。</value>
   </data>
+  <data name="SettingsDedicated" xml:space="preserve">
+    <value>为它单独分配一个引擎</value>
+  </data>
+  <data name="SettingsDedicatedHint" xml:space="preserve">
+    <value>应用默认共用一个浏览器引擎，每个应用因此节省约 250 MB。无论哪种方式，账号和数据都是各自独立的。如果你希望某个应用卡死或崩溃时不连累其他应用，就给它单独分配一个引擎。下次启动时生效，届时需重新登录。</value>
+  </data>
   <data name="SettingsStartup" xml:space="preserve">
     <value>开机时启动</value>
   </data>

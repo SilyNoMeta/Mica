@@ -164,6 +164,33 @@ Deux choses à savoir avant d'y toucher, parce que les deux échouent en silence
 - **Un point dans une clé `.resw` signifie « élément point propriété »** — `Meta.FlowDirection`
   est compilé en `Meta/FlowDirection` et ne se résout jamais à plat. Les clés ici sont sans point.
 
+## Mémoire
+
+Les apps se partagent un moteur de navigation par défaut. Mesuré avec Gemini et Messenger
+ouverts, déconnectés, en ne comptant que les process créés par chaque exécution :
+
+| | partagé | dédié |
+|---|---:|---:|
+| process WebView2 | 9 | 13 |
+| browser | 147 Mo | 258 Mo |
+| gpu | 126 Mo | 207 Mo |
+| utility | 88 Mo | 149 Mo |
+| renderers (pages) | 438 Mo | 380 Mo |
+| **total, hôtes compris** | **1157 Mo** | **1370 Mo** |
+
+Seuls les renderers sont du contenu réel. Tout le reste est la plomberie du moteur, qu'un
+moteur dédié duplique intégralement — environ **250 Mo par app supplémentaire**. Le partage la
+ramène à un seul jeu : une app de plus ne coûte guère plus que son propre renderer.
+
+Les sessions restent séparées dans les deux cas : un dossier de données partagé contient
+quand même un profil WebView2 nommé par app, avec ses cookies, son stockage et ses extensions.
+Ce qu'une app perd en partageant, c'est l'isolation des pannes — un moteur figé ou planté
+emporte toutes les apps qui l'utilisent. C'est tout l'arbitrage, et c'est un réglage par app
+dans Mica : *Lui donner son propre moteur*, désactivé par défaut.
+
+Changer de mode redémarre l'app sur un profil vierge et déconnecté, ses données n'étant pas
+rangées au même endroit dans les deux cas.
+
 ## Installateur
 
 ```powershell

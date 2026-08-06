@@ -136,6 +136,12 @@
   <data name="SettingsBackgroundHint" xml:space="preserve">
     <value>ينتظر التطبيق في منطقة الإشعارات بدل الخروج، فتستمر إشعاراته في الوصول. ويبقي محرك المتصفح في الذاكرة طوال ذلك.</value>
   </data>
+  <data name="SettingsDedicated" xml:space="preserve">
+    <value>منحه محركًا خاصًا به</value>
+  </data>
+  <data name="SettingsDedicatedHint" xml:space="preserve">
+    <value>تتشارك التطبيقات محرك تصفح واحدًا افتراضيًا، ما يوفّر نحو 250 ميغابايت لكل تطبيق. تبقى الحسابات والبيانات منفصلة في الحالتين. امنح هذا التطبيق محركًا خاصًا به إن كنت تفضّل ألا يجرّ تطبيق متجمّد أو منهار البقية معه. يسري من التشغيل التالي، مع جلسة مسجَّل خروجها.</value>
+  </data>
   <data name="SettingsStartup" xml:space="preserve">
     <value>التشغيل مع بدء Windows</value>
   </data>

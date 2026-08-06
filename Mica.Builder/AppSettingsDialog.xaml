@@ -28,5 +28,14 @@
                 Style="{StaticResource CaptionTextBlockStyle}"
                 TextWrapping="Wrap" />
         </StackPanel>
+
+        <StackPanel Spacing="4">
+            <ToggleSwitch x:Name="DedicatedToggle" Toggled="OnDedicatedToggled" />
+            <TextBlock
+                x:Name="DedicatedHint"
+                Opacity="0.7"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                TextWrapping="Wrap" />
+        </StackPanel>
     </StackPanel>
 </ContentDialog>

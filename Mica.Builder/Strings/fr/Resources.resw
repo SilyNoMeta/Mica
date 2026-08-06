@@ -136,6 +136,12 @@
   <data name="SettingsBackgroundHint" xml:space="preserve">
     <value>L&apos;app attend dans la zone de notification au lieu de quitter, pour que ses notifications continuent d&apos;arriver. Elle garde son moteur de rendu en mémoire pendant ce temps.</value>
   </data>
+  <data name="SettingsDedicated" xml:space="preserve">
+    <value>Lui donner son propre moteur</value>
+  </data>
+  <data name="SettingsDedicatedHint" xml:space="preserve">
+    <value>Les apps se partagent un moteur de navigation par défaut, ce qui économise environ 250 Mo chacune. Leurs comptes et leurs données restent séparés dans les deux cas. Donnez à celle-ci son propre moteur si vous préférez qu&apos;une app figée ou plantée n&apos;entraîne pas les autres. Prend effet au prochain démarrage, sur une session déconnectée.</value>
+  </data>
   <data name="SettingsStartup" xml:space="preserve">
     <value>Lancer au démarrage de Windows</value>
   </data>

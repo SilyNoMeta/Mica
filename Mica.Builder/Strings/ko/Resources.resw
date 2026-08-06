@@ -136,6 +136,12 @@
   <data name="SettingsBackgroundHint" xml:space="preserve">
     <value>앱이 종료되지 않고 알림 영역에서 대기하므로 알림이 계속 도착합니다. 대기하는 동안 브라우저 엔진이 메모리에 남아 있습니다.</value>
   </data>
+  <data name="SettingsDedicated" xml:space="preserve">
+    <value>전용 엔진 사용</value>
+  </data>
+  <data name="SettingsDedicatedHint" xml:space="preserve">
+    <value>앱은 기본적으로 브라우저 엔진 하나를 공유하며, 앱당 약 250MB를 절약합니다. 어느 쪽이든 계정과 데이터는 서로 분리된 상태로 유지됩니다. 멈추거나 다운된 앱이 다른 앱까지 끌고 내려가지 않게 하려면 이 앱에 전용 엔진을 주세요. 다음 실행부터 적용되며, 로그인은 다시 해야 합니다.</value>
+  </data>
   <data name="SettingsStartup" xml:space="preserve">
     <value>Windows 시작 시 실행</value>
   </data>

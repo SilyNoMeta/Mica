@@ -113,14 +113,34 @@ public sealed partial class BrowserShellPage : UserControl
     {
         StartupLog.Write("Creating WebView2 environment");
 
-        // Extensions can only be turned on when the environment is created, and the
-        // profile folder is what keeps each app's sign-ins separate.
+        // Extensions can only be turned on when the environment is created.
         var options = new CoreWebView2EnvironmentOptions { AreBrowserExtensionsEnabled = true };
-        var profileFolder = MicaPaths.ProfileFolder(_config.Slug);
-        Directory.CreateDirectory(profileFolder);
 
-        var environment = await CoreWebView2Environment.CreateWithOptionsAsync(null, profileFolder, options);
-        await Browser.EnsureCoreWebView2Async(environment);
+        // Which user data folder an app uses is what decides whether it gets its own
+        // browser engine: WebView2 gives every client sharing a folder one browser,
+        // GPU and network process between them. Sign-ins stay separate either way —
+        // a shared folder still holds one named profile per app.
+        var userDataFolder = _config.DedicatedEngine
+            ? MicaPaths.ProfileFolder(_config.Slug)
+            : MicaPaths.SharedBrowserFolder;
+
+        Directory.CreateDirectory(userDataFolder);
+        var environment = await CoreWebView2Environment.CreateWithOptionsAsync(null, userDataFolder, options);
+
+        if (_config.DedicatedEngine)
+        {
+            await Browser.EnsureCoreWebView2Async(environment);
+        }
+        else
+        {
+            var controllerOptions = environment.CreateCoreWebView2ControllerOptions();
+            controllerOptions.ProfileName = ProfileName(_config.Slug);
+            await Browser.EnsureCoreWebView2Async(environment, controllerOptions);
+        }
+
+        StartupLog.Write(_config.DedicatedEngine
+            ? "Running on a dedicated browser engine"
+            : $"Sharing the browser engine, profile '{ProfileName(_config.Slug)}'");
 
         _core = Browser.CoreWebView2;
         _profile = _core.Profile;
@@ -140,6 +160,25 @@ public sealed partial class BrowserShellPage : UserControl
 
         StartupLog.Write($"Navigating to {_config.StartUrl}");
         _core.Navigate(_config.StartUrl);
+    }
+
+    /// <summary>
+    /// A slug as WebView2 will accept it for a profile name: letters, digits, dashes
+    /// and underscores only, not starting or ending with one, at most 64 characters.
+    /// Mica's slugs already satisfy this, but a profile name is a stricter contract
+    /// than a folder name and a rejected one fails the whole launch.
+    /// </summary>
+    private static string ProfileName(string slug)
+    {
+        var cleaned = new string([.. slug.Where(c => char.IsAsciiLetterOrDigit(c) || c is '-' or '_')])
+            .Trim('-', '_');
+
+        if (cleaned.Length > 64)
+        {
+            cleaned = cleaned[..64].Trim('-', '_');
+        }
+
+        return cleaned.Length == 0 ? "default" : cleaned;
     }
 
     private void ConfigureWebView(CoreWebView2 webView)

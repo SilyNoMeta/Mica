@@ -136,6 +136,12 @@
   <data name="SettingsBackgroundHint" xml:space="preserve">
     <value>L&apos;app resta in attesa nell&apos;area di notifica invece di uscire, così le sue notifiche continuano ad arrivare. Nel frattempo tiene in memoria il suo motore di rendering.</value>
   </data>
+  <data name="SettingsDedicated" xml:space="preserve">
+    <value>Dagli un motore tutto suo</value>
+  </data>
+  <data name="SettingsDedicatedHint" xml:space="preserve">
+    <value>Per impostazione predefinita le app condividono un motore di navigazione, il che fa risparmiare circa 250 MB ciascuna. Account e dati restano separati in entrambi i casi. Dai a questa un motore tutto suo se preferisci che un&apos;app bloccata o in crash non trascini le altre. Vale dal prossimo avvio, con la sessione disconnessa.</value>
+  </data>
   <data name="SettingsStartup" xml:space="preserve">
     <value>Avvia con Windows</value>
   </data>

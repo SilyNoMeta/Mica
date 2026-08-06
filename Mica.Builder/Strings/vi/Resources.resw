@@ -136,6 +136,12 @@
   <data name="SettingsBackgroundHint" xml:space="preserve">
     <value>Ứng dụng chờ ở khay thông báo thay vì thoát, nhờ đó thông báo của nó vẫn tiếp tục đến. Trong lúc chờ, nó giữ bộ máy trình duyệt trong bộ nhớ.</value>
   </data>
+  <data name="SettingsDedicated" xml:space="preserve">
+    <value>Cấp cho nó bộ máy riêng</value>
+  </data>
+  <data name="SettingsDedicatedHint" xml:space="preserve">
+    <value>Theo mặc định, các ứng dụng dùng chung một bộ máy trình duyệt, tiết kiệm khoảng 250 MB mỗi ứng dụng. Tài khoản và dữ liệu vẫn tách biệt trong cả hai trường hợp. Hãy cấp cho ứng dụng này bộ máy riêng nếu bạn không muốn một ứng dụng bị treo hay lỗi kéo theo những ứng dụng khác. Có hiệu lực từ lần khởi động sau, với phiên đã đăng xuất.</value>
+  </data>
   <data name="SettingsStartup" xml:space="preserve">
     <value>Khởi động cùng Windows</value>
   </data>
