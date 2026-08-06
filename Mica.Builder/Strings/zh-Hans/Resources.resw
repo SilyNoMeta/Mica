@@ -172,6 +172,15 @@
   <data name="PackEmpty" xml:space="preserve">
     <value>该文件不包含任何应用</value>
   </data>
+  <data name="PackFileType" xml:space="preserve">
+    <value>Mica 应用包</value>
+  </data>
+  <data name="PackNotAPack" xml:space="preserve">
+    <value>该文件不是 Mica 应用包。</value>
+  </data>
+  <data name="PackTooNew" xml:space="preserve">
+    <value>该包由更新版本的 Mica 生成（格式 {0}）。请先更新 Mica 再导入。</value>
+  </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>已在“开始”菜单的 {0} 文件夹中添加快捷方式。</value>
   </data>

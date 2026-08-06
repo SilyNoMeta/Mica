@@ -172,6 +172,15 @@
   <data name="PackEmpty" xml:space="preserve">
     <value>This file describes no apps</value>
   </data>
+  <data name="PackFileType" xml:space="preserve">
+    <value>Mica apps</value>
+  </data>
+  <data name="PackNotAPack" xml:space="preserve">
+    <value>This file is not a Mica app pack.</value>
+  </data>
+  <data name="PackTooNew" xml:space="preserve">
+    <value>This pack was written by a newer Mica (format {0}). Update Mica to import it.</value>
+  </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>Shortcut added to the Start menu, in the {0} folder.</value>
   </data>

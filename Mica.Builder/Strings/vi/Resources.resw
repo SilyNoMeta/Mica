@@ -172,6 +172,15 @@
   <data name="PackEmpty" xml:space="preserve">
     <value>Tệp này không mô tả ứng dụng nào</value>
   </data>
+  <data name="PackFileType" xml:space="preserve">
+    <value>Ứng dụng Mica</value>
+  </data>
+  <data name="PackNotAPack" xml:space="preserve">
+    <value>Tệp này không phải gói ứng dụng Mica.</value>
+  </data>
+  <data name="PackTooNew" xml:space="preserve">
+    <value>Gói này do một bản Mica mới hơn tạo ra (định dạng {0}). Hãy cập nhật Mica để nhập.</value>
+  </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>Đã thêm lối tắt vào menu Start, trong thư mục “{0}”.</value>
   </data>

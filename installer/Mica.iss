@@ -21,6 +21,8 @@
 #define AppPublisher "Mica"
 #define AppExeName "Mica.Builder.exe"
 #define AppUserModelId "Mica.Builder"
+#define PackExtension ".mica"
+#define PackProgId "Mica.AppPack"
 #define RuntimeUrl "https://aka.ms/windowsappsdk/2.3/latest/windowsappruntimeinstall-x64.exe"
 
 [Setup]
@@ -55,11 +57,19 @@ PrivilegesRequired=lowest
 CloseApplications=yes
 RestartApplications=no
 
+; Mica claims .mica, so Setup notifies the shell instead of leaving Explorer to
+; show the old icon until it next restarts.
+ChangesAssociations=yes
+
 [Languages]
 Name: "en"; MessagesFile: "compiler:Default.isl"
 Name: "fr"; MessagesFile: "compiler:Languages\French.isl"
 
 [CustomMessages]
+; Only the placeholder: Mica rewrites this on first run in whichever of its twelve
+; languages the user reads, which Setup has no way to know.
+en.PackFileType=Mica apps
+fr.PackFileType=Apps Mica
 en.RuntimeInstalling=Installing the Windows App Runtime...
 en.RemoveAppsTitle=Remove the apps you created?
 en.RemoveAppsPrompt=Mica created separate apps on this computer. Removing them also deletes their browser profiles, so you will be signed out of every site they open.%n%nRemove them? Choosing No leaves them installed and working.
@@ -75,6 +85,23 @@ Source: "..\dist\payload-{#Architecture}\*"; DestDir: "{app}"; \
 ; The AppUserModelID has to match what the builder sets on its window, or Windows
 ; treats the shortcut and the running app as two different things.
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; AppUserModelID: "{#AppUserModelId}"
+
+[Registry]
+; Double-clicking an app pack opens it in Mica. Declared here so that uninstalling
+; gives the file type back — Mica rewrites these on every run, where it can put the
+; type name in the user's own language, but only Setup knows when it is leaving.
+Root: HKCU; Subkey: "Software\Classes\{#PackExtension}"; \
+    ValueType: string; ValueName: ""; ValueData: "{#PackProgId}"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "Software\Classes\{#PackExtension}\OpenWithProgids"; \
+    ValueType: none; ValueName: "{#PackProgId}"; Flags: uninsdeletevalue
+Root: HKCU; Subkey: "Software\Classes\{#PackProgId}"; \
+    ValueType: string; ValueName: ""; ValueData: "{cm:PackFileType}"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "Software\Classes\{#PackProgId}\DefaultIcon"; \
+    ValueType: string; ValueName: ""; ValueData: """{app}\{#AppExeName}"",0"
+Root: HKCU; Subkey: "Software\Classes\{#PackProgId}\shell\open"; \
+    ValueType: string; ValueName: "FriendlyAppName"; ValueData: "{#AppName}"
+Root: HKCU; Subkey: "Software\Classes\{#PackProgId}\shell\open\command"; \
+    ValueType: string; ValueName: ""; ValueData: """{app}\{#AppExeName}"" ""%1"""
 
 [Run]
 Filename: "{tmp}\WindowsAppRuntimeInstall.exe"; Parameters: "--quiet"; \

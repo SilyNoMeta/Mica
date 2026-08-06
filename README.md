@@ -44,6 +44,13 @@ are fetched again on import, which is why three apps come to under two kilobytes
 unpacked extensions alone are tens of megabytes, and why an imported app arrives with the site's
 current icon and the current build of each extension rather than a snapshot of the day it left.
 
+Double-clicking a `.mica` file opens it in Mica. The association is written to
+`HKCU\Software\Classes` on every run — it holds an absolute path, so a moved or
+reinstalled Mica would otherwise leave Explorer opening packs with an executable that
+is gone — and the type name Explorer shows is taken from Mica's own string catalogue,
+in whichever of the twelve languages the user reads. If Mica is already open, the file
+goes to that window rather than starting a second one.
+
 **Import** offers the same list against what is already here. An app whose address you already
 have is shown but cannot be ticked: importing it again would leave two entries for one site
 rather than updating anything. Everything else is built exactly as if you had created it by

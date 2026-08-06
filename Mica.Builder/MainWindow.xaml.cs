@@ -17,9 +17,17 @@ namespace Mica.Builder;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
-    public MainWindow()
+    /// <param name="pendingPack">
+    /// An app pack the shell handed us — Mica was started by double-clicking a
+    /// <c>.mica</c> file. Offered once the window is up, not from the constructor:
+    /// a dialog needs a XamlRoot, which does not exist yet.
+    /// </param>
+    public MainWindow(string? pendingPack = null)
     {
         InitializeComponent();
+
+        _pendingPack = pendingPack;
+        Root.Loaded += OnRootLoaded;
 
         var icon = Path.Combine(AppContext.BaseDirectory, "Assets", "AppIcon.ico");
         if (File.Exists(icon))
@@ -37,6 +45,19 @@ public sealed partial class MainWindow : Window
 
         _ = RefreshAsync();
         _ = CheckForUpdateAsync();
+    }
+
+    private string? _pendingPack;
+
+    private void OnRootLoaded(object sender, RoutedEventArgs e)
+    {
+        Root.Loaded -= OnRootLoaded;
+
+        if (_pendingPack is { } path)
+        {
+            _pendingPack = null;
+            OfferImport(path);
+        }
     }
 
     // ---- Updates -------------------------------------------------------------
@@ -155,7 +176,7 @@ public sealed partial class MainWindow : Window
             XamlRoot = Content.XamlRoot,
             FlowDirection = Strings.FlowDirection,
         };
-        await dialog.ShowAsync();
+        await ShowDialogAsync(dialog);
 
         if (dialog.Created is not { } created)
         {
@@ -198,7 +219,7 @@ public sealed partial class MainWindow : Window
             XamlRoot = Content.XamlRoot,
         };
 
-        if (await dialog.ShowAsync() != ContentDialogResult.Primary)
+        if (await ShowDialogAsync(dialog) != ContentDialogResult.Primary)
         {
             return;
         }
@@ -247,15 +268,43 @@ public sealed partial class MainWindow : Window
         picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
         picker.FileTypeFilter.Add(AppPack.FileExtension);
 
-        if (await picker.PickSingleFileAsync() is not { } file)
+        if (await picker.PickSingleFileAsync() is { } file)
+        {
+            await OfferImportAsync(file.Path);
+        }
+    }
+
+    /// <summary>
+    /// Offers a pack the shell handed over — a double-clicked <c>.mica</c>, whether
+    /// it started Mica or arrived while it was already open.
+    /// </summary>
+    public async void OfferImport(string path)
+    {
+        // A file can be double-clicked at any moment, including while the user is
+        // in the middle of another dialog; a second one would throw rather than
+        // queue. Dropping the request is better than crashing on it, and the user
+        // still has ⋯ › Import.
+        if (_openDialogs > 0)
         {
             return;
         }
 
+        try
+        {
+            await OfferImportAsync(path);
+        }
+        catch (Exception ex)
+        {
+            ShowStatus(InfoBarSeverity.Error, Strings.Get("ImportFailedTitle"), ex.Message);
+        }
+    }
+
+    private async Task OfferImportAsync(string path)
+    {
         AppPack pack;
         try
         {
-            pack = AppPack.Load(file.Path);
+            pack = AppPack.Load(path);
         }
         catch (Exception ex)
         {
@@ -265,7 +314,7 @@ public sealed partial class MainWindow : Window
 
         if (pack.Apps.Count == 0)
         {
-            ShowStatus(InfoBarSeverity.Informational, Strings.Get("PackEmpty"), file.Path);
+            ShowStatus(InfoBarSeverity.Informational, Strings.Get("PackEmpty"), path);
             return;
         }
 
@@ -289,7 +338,7 @@ public sealed partial class MainWindow : Window
             XamlRoot = Content.XamlRoot,
         };
 
-        if (await dialog.ShowAsync() != ContentDialogResult.Primary)
+        if (await ShowDialogAsync(dialog) != ContentDialogResult.Primary)
         {
             return;
         }
@@ -436,7 +485,7 @@ public sealed partial class MainWindow : Window
         }
 
         var dialog = new AppSettingsDialog(config) { XamlRoot = Content.XamlRoot };
-        await dialog.ShowAsync();
+        await ShowDialogAsync(dialog);
     }
 
     private async void OnRemoveAppClick(object sender, RoutedEventArgs e)
@@ -457,7 +506,7 @@ public sealed partial class MainWindow : Window
             DefaultButton = ContentDialogButton.Close,
         };
 
-        if (await confirm.ShowAsync() != ContentDialogResult.Primary)
+        if (await ShowDialogAsync(confirm) != ContentDialogResult.Primary)
         {
             return;
         }
@@ -478,6 +527,25 @@ public sealed partial class MainWindow : Window
 
     private static string? SlugOf(object sender) =>
         sender is FrameworkElement { Tag: string slug } ? slug : null;
+
+    // A XamlRoot hosts one ContentDialog at a time; a second call throws rather
+    // than waiting. Every dialog goes through here so anything arriving from
+    // outside the UI — a double-clicked file — can tell whether it may show one.
+    private int _openDialogs;
+
+    private async Task<ContentDialogResult> ShowDialogAsync(ContentDialog dialog)
+    {
+        _openDialogs++;
+
+        try
+        {
+            return await dialog.ShowAsync();
+        }
+        finally
+        {
+            _openDialogs--;
+        }
+    }
 
     private void SetBusy(bool busy, string message = "")
     {

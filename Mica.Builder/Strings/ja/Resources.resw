@@ -172,6 +172,15 @@
   <data name="PackEmpty" xml:space="preserve">
     <value>このファイルにはアプリが含まれていません</value>
   </data>
+  <data name="PackFileType" xml:space="preserve">
+    <value>Mica アプリ</value>
+  </data>
+  <data name="PackNotAPack" xml:space="preserve">
+    <value>このファイルは Mica のアプリ パックではありません。</value>
+  </data>
+  <data name="PackTooNew" xml:space="preserve">
+    <value>このパックはより新しい Mica で書かれています (形式 {0})。Mica を更新してからインポートしてください。</value>
+  </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>[スタート] メニューの「{0}」フォルダーにショートカットを追加しました。</value>
   </data>

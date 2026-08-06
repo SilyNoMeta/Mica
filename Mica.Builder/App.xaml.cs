@@ -1,4 +1,6 @@
+using System.Text.RegularExpressions;
 using Microsoft.UI.Xaml;
+using Microsoft.Windows.AppLifecycle;
 using Mica.Core;
 using Mica.Core.Apps;
 using Mica.Core.Integration;
@@ -55,6 +57,17 @@ public partial class App : Application
 
         StartupLog.Write($"UI reading direction: {Strings.Get("FlowDirection")}");
 
+        // Double-clicking an app pack has to reach the Mica already open rather than
+        // starting a second one — two windows managing the same apps would show each
+        // other's work as stale. The running instance gets the path through Activated.
+        if (SingleInstanceHelper.RedirectIfAlreadyRunning(
+                $"{MicaPaths.ProductName}.Builder", OnRedirectedActivation))
+        {
+            StartupLog.Write("Redirected to the running Mica");
+            Environment.Exit(0);
+            return;
+        }
+
         var appUserModelId = $"{MicaPaths.ProductName}.Builder";
         AppIdentity.ApplyToProcess(appUserModelId);
 
@@ -63,14 +76,68 @@ public partial class App : Application
         // what the user did to get here.
         AppRegistry.EnsureBuilderShortcut();
 
+        // Same reasoning for the file type, plus one of its own: the association
+        // holds an absolute path, and it carries a name Explorer shows, which is
+        // written here because here is where Mica knows the user's language.
+        FileAssociation.Register(AppRegistry.BuilderExecutable, Strings.Get("PackFileType"));
+
         // Shortcuts hold an absolute path to the host, so a moved or rebuilt
         // installation would leave every app pointing at a path that is gone.
         AppRegistry.RepairAll();
 
-        Window = new MainWindow();
+        Window = new MainWindow(PackArgument(argv.Skip(1)));
         AppIdentity.ApplyToWindow(WindowHandle, appUserModelId);
         Window.Activate();
     }
+
+    // ---- Packs handed over by the shell ---------------------------------------
+
+    /// <summary>
+    /// A later launch was redirected here. Runs off the UI thread, so everything it
+    /// touches goes through the dispatcher.
+    /// </summary>
+    private void OnRedirectedActivation(object? sender, AppActivationArguments args)
+    {
+        if (PackFromActivation(args) is not { } path)
+        {
+            return;
+        }
+
+        Window?.DispatcherQueue.TryEnqueue(() =>
+        {
+            // The user double-clicked a file; the window they are being asked about
+            // it in should be in front of them.
+            Window.Activate();
+
+            if (Window is MainWindow main)
+            {
+                main.OfferImport(path);
+            }
+        });
+    }
+
+    private static string? PackFromActivation(AppActivationArguments args) =>
+        args.Data is Windows.ApplicationModel.Activation.ILaunchActivatedEventArgs launch
+            ? PackFromCommandLine(launch.Arguments)
+            : null;
+
+    /// <summary>
+    /// The pack named on a redirected activation. Unpackaged apps receive the raw
+    /// command line rather than a parsed list, so the file has to be picked back out
+    /// of it — quoted, as the shell passes it, or bare if someone typed it.
+    /// </summary>
+    private static string? PackFromCommandLine(string commandLine) =>
+        PackArgument(PackReferenceRegex()
+            .Matches(commandLine)
+            .Select(match => match.Groups["path"].Value));
+
+    private static string? PackArgument(IEnumerable<string> candidates) =>
+        candidates.FirstOrDefault(candidate =>
+            candidate.EndsWith(AppPack.FileExtension, StringComparison.OrdinalIgnoreCase)
+            && File.Exists(candidate));
+
+    [GeneratedRegex("\"(?<path>[^\"]+\\.mica)\"|(?<path>\\S+\\.mica)", RegexOptions.IgnoreCase)]
+    private static partial Regex PackReferenceRegex();
 
     /// <summary>Runs a silent maintenance action; nothing can be reported from one.</summary>
     private static void Run(Action action)

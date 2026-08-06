@@ -172,6 +172,15 @@
   <data name="PackEmpty" xml:space="preserve">
     <value>Este arquivo não descreve nenhum app</value>
   </data>
+  <data name="PackFileType" xml:space="preserve">
+    <value>Apps do Mica</value>
+  </data>
+  <data name="PackNotAPack" xml:space="preserve">
+    <value>Este arquivo não é um pacote de apps do Mica.</value>
+  </data>
+  <data name="PackTooNew" xml:space="preserve">
+    <value>Este pacote foi escrito por um Mica mais recente (formato {0}). Atualize o Mica para importá-lo.</value>
+  </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>Atalho adicionado ao menu Iniciar, na pasta “{0}”.</value>
   </data>

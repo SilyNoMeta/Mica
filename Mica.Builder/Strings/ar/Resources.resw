@@ -172,6 +172,15 @@
   <data name="PackEmpty" xml:space="preserve">
     <value>لا يصف هذا الملف أي تطبيق</value>
   </data>
+  <data name="PackFileType" xml:space="preserve">
+    <value>تطبيقات Mica</value>
+  </data>
+  <data name="PackNotAPack" xml:space="preserve">
+    <value>هذا الملف ليس حزمة تطبيقات Mica.</value>
+  </data>
+  <data name="PackTooNew" xml:space="preserve">
+    <value>أُنشئت هذه الحزمة بإصدار أحدث من Mica (التنسيق {0}). حدّث Mica لاستيرادها.</value>
+  </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>تمت إضافة اختصار إلى قائمة «ابدأ»، في مجلد «{0}».</value>
   </data>

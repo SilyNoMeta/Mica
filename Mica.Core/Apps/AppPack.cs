@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Mica.Core.Extensions;
+using Mica.Core.Localization;
 
 namespace Mica.Core.Apps;
 
@@ -127,9 +128,9 @@ public sealed class AppPack
         File.WriteAllText(path, JsonSerializer.Serialize(this, Options));
 
     /// <summary>
-    /// Reads a pack, rejecting anything that is not one. The messages are shown to
-    /// the user, so they name what is wrong with the file rather than which
-    /// deserializer gave up.
+    /// Reads a pack, rejecting anything that is not one. These messages reach the
+    /// user, so they are translated and they name what is wrong with the file rather
+    /// than which deserializer gave up.
     /// </summary>
     public static AppPack Load(string path)
     {
@@ -141,18 +142,17 @@ public sealed class AppPack
         }
         catch (JsonException)
         {
-            throw new InvalidDataException("This file is not a Mica app pack.");
+            throw new InvalidDataException(Strings.Get("PackNotAPack"));
         }
 
         if (pack is null || pack.Apps is null)
         {
-            throw new InvalidDataException("This file is not a Mica app pack.");
+            throw new InvalidDataException(Strings.Get("PackNotAPack"));
         }
 
         if (pack.Format > CurrentFormat)
         {
-            throw new InvalidDataException(
-                $"This pack was written by a newer Mica (format {pack.Format}). Update Mica to import it.");
+            throw new InvalidDataException(Strings.Format("PackTooNew", pack.Format));
         }
 
         // A pack is plain JSON and someone may well write one by hand to set up a

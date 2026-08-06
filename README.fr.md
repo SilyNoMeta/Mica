@@ -47,6 +47,13 @@ pourquoi trois apps tiennent en moins de deux kilo-octets là où leurs extensio
 pèsent des dizaines de méga-octets, et pourquoi une app importée arrive avec l'icône actuelle du
 site et la version actuelle de chaque extension, plutôt qu'un instantané du jour du départ.
 
+Un double-clic sur un fichier `.mica` l'ouvre dans Mica. L'association est écrite dans
+`HKCU\Software\Classes` à chaque lancement — elle contient un chemin absolu, sinon un
+Mica déplacé ou réinstallé laisserait l'Explorateur ouvrir les packs avec un exécutable
+disparu — et le nom de type affiché par l'Explorateur vient du catalogue de chaînes de
+Mica, dans celle des douze langues que lit l'utilisateur. Si Mica est déjà ouvert, le
+fichier arrive dans cette fenêtre au lieu d'en démarrer une seconde.
+
 **Importer** présente la même liste, confrontée à ce qui est déjà là. Une app dont vous avez déjà
 l'adresse est affichée mais non cochable : la réimporter créerait deux entrées pour un même site
 au lieu de mettre quoi que ce soit à jour. Tout le reste est construit exactement comme si vous

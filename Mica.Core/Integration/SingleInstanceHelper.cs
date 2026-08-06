@@ -14,13 +14,26 @@ public static class SingleInstanceHelper
     /// True when another instance already owns this app and activation was
     /// redirected to it — the caller should exit immediately.
     /// </summary>
-    public static bool RedirectIfAlreadyRunning(string key)
+    /// <param name="key">What counts as "the same app" — a slug, or a product name.</param>
+    /// <param name="onActivated">
+    /// Raised on the instance that owns the key, each time a later launch is
+    /// redirected to it. This is how a second launch carrying a file gets that file
+    /// to the window already open. Fires on a background thread.
+    /// </param>
+    public static bool RedirectIfAlreadyRunning(
+        string key,
+        EventHandler<AppActivationArguments>? onActivated = null)
     {
         try
         {
             var instance = AppInstance.FindOrRegisterForKey(key);
             if (instance.IsCurrent)
             {
+                if (onActivated is not null)
+                {
+                    instance.Activated += onActivated;
+                }
+
                 return false;
             }
 

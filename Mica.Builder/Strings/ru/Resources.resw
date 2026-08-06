@@ -172,6 +172,15 @@
   <data name="PackEmpty" xml:space="preserve">
     <value>В этом файле нет приложений</value>
   </data>
+  <data name="PackFileType" xml:space="preserve">
+    <value>Приложения Mica</value>
+  </data>
+  <data name="PackNotAPack" xml:space="preserve">
+    <value>Это не пакет приложений Mica.</value>
+  </data>
+  <data name="PackTooNew" xml:space="preserve">
+    <value>Этот пакет создан более новой версией Mica (формат {0}). Обновите Mica, чтобы импортировать его.</value>
+  </data>
   <data name="ReadyBody" xml:space="preserve">
     <value>Ярлык добавлен в меню «Пуск», в папку «{0}».</value>
   </data>

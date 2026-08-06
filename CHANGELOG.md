@@ -10,6 +10,7 @@ when it has no section for the current language.
 ### en
 - Export apps to one file and import them on another machine, extensions included. The file
   carries settings and extension ids, not their bytes, so it stays a few kilobytes.
+- Double-click a .mica file to import it; it opens in the Mica you already have running.
 - Sign-ins deliberately stay behind: Windows seals them to one account on one machine.
 - The update notice shows the real changelog, in your language.
 - Mica's own icon is legible again, and the window says which version this is.
@@ -18,6 +19,7 @@ when it has no section for the current language.
 - Exportez des apps dans un fichier et importez-les sur une autre machine, extensions comprises.
   Le fichier porte les réglages et les identifiants d'extensions, pas leurs octets : il reste de
   quelques kilo-octets.
+- Un double-clic sur un fichier .mica l'importe ; il s'ouvre dans le Mica déjà lancé.
 - Les connexions restent volontairement en arrière : Windows les scelle à un compte sur une
   machine.
 - L'avis de mise à jour affiche le vrai changelog, dans votre langue.

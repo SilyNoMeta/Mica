@@ -618,6 +618,36 @@
     "ja": "拡張機能 1 個", "ko": "확장 프로그램 1개", "vi": "1 tiện ích mở rộng",
     "ar": "إضافة واحدة"
   },
+  "PackNotAPack": {
+    "en": "This file is not a Mica app pack.", "fr": "Ce fichier n'est pas un pack d'apps Mica.",
+    "es": "Este archivo no es un paquete de apps de Mica.",
+    "pt-BR": "Este arquivo não é um pacote de apps do Mica.",
+    "de": "Diese Datei ist kein Mica-App-Paket.", "it": "Questo file non è un pacchetto di app Mica.",
+    "ru": "Это не пакет приложений Mica.", "zh-Hans": "该文件不是 Mica 应用包。",
+    "ja": "このファイルは Mica のアプリ パックではありません。",
+    "ko": "이 파일은 Mica 앱 팩이 아닙니다.", "vi": "Tệp này không phải gói ứng dụng Mica.",
+    "ar": "هذا الملف ليس حزمة تطبيقات Mica."
+  },
+  "PackTooNew": {
+    "en": "This pack was written by a newer Mica (format {0}). Update Mica to import it.",
+    "fr": "Ce pack a été écrit par un Mica plus récent (format {0}). Mettez Mica à jour pour l'importer.",
+    "es": "Este paquete lo escribió un Mica más reciente (formato {0}). Actualiza Mica para importarlo.",
+    "pt-BR": "Este pacote foi escrito por um Mica mais recente (formato {0}). Atualize o Mica para importá-lo.",
+    "de": "Dieses Paket stammt von einem neueren Mica (Format {0}). Aktualisieren Sie Mica, um es zu importieren.",
+    "it": "Questo pacchetto è stato scritto da un Mica più recente (formato {0}). Aggiorna Mica per importarlo.",
+    "ru": "Этот пакет создан более новой версией Mica (формат {0}). Обновите Mica, чтобы импортировать его.",
+    "zh-Hans": "该包由更新版本的 Mica 生成（格式 {0}）。请先更新 Mica 再导入。",
+    "ja": "このパックはより新しい Mica で書かれています (形式 {0})。Mica を更新してからインポートしてください。",
+    "ko": "이 팩은 더 새로운 Mica가 만들었습니다(형식 {0}). Mica를 업데이트한 뒤 가져오세요.",
+    "vi": "Gói này do một bản Mica mới hơn tạo ra (định dạng {0}). Hãy cập nhật Mica để nhập.",
+    "ar": "أُنشئت هذه الحزمة بإصدار أحدث من Mica (التنسيق {0}). حدّث Mica لاستيرادها."
+  },
+  "PackFileType": {
+    "_note": "What Explorer calls a .mica file. Written into the registry on every run, so it follows the interface language.",
+    "en": "Mica apps", "fr": "Apps Mica", "es": "Apps de Mica", "pt-BR": "Apps do Mica",
+    "de": "Mica-Apps", "it": "App Mica", "ru": "Приложения Mica", "zh-Hans": "Mica 应用包",
+    "ja": "Mica アプリ", "ko": "Mica 앱", "vi": "Ứng dụng Mica", "ar": "تطبيقات Mica"
+  },
   "ExtensionsCountMany": {
     "en": "{0} extensions", "fr": "{0} extensions", "es": "{0} extensiones",
     "pt-BR": "{0} extensões", "de": "{0} Erweiterungen", "it": "{0} estensioni",
