@@ -80,7 +80,8 @@ recompilation ne les laisse pas orphelins.
 ```
 
 ```
-%APPDATA%\...\Menu Démarrer\Programmes\Mica\<Nom>.lnk  → Mica.Host.exe --app <slug>
+<dossier d'installation>\<slug>.exe  +  <slug>.pri     l'exécutable propre à l'app
+%APPDATA%\...\Menu Démarrer\Programmes\Mica\<Nom>.lnk  → <slug>.exe --app <slug>
 HKCU\...\Uninstall\Mica.<slug>                         → Paramètres › Applications installées
 ```
 
@@ -93,7 +94,8 @@ Mica.slnx
 ├── Mica.Core/            Tout ce que les deux apps partagent
 │   ├── Shell/            BrowserShellPage — le contenu de la fenêtre d'une app générée
 │   ├── Apps/             AppRegistry (créer/lister/retirer), ShortcutFactory (.lnk + AUMID),
-│   │                     AppLauncherFactory (exécutable par app + ressource icône)
+│   │                     AppLauncherFactory + VersionResource (exécutable par app,
+│   │                     ressources icône et version)
 │   ├── Sites/            SiteInspector (nom + icône), IconPipeline (rendu → .ico), HostRules
 │   ├── Extensions/       CrxInstaller — le chemin d'installation depuis le Chrome Web Store
 │   ├── Integration/      Notifications, instance unique, journal de démarrage

@@ -71,8 +71,10 @@ current install, so moving or rebuilding Mica does not strand them.
 ```
 
 ```
-%APPDATA%\...\Start Menu\Programs\Mica\<Name>.lnk   → Mica.Host.exe --app <slug>
-HKCU\...\Uninstall\Mica.<slug>                      → Settings › Installed apps
+<install folder>\<slug>.exe  +  <slug>.pri            the app's own executable
+%APPDATA%\...\Start Menu\Programs\Mica\<Name>.lnk    → <slug>.exe --app <slug>
+HKCU\...\Uninstall\Mica.<slug>                       → Settings › Installed apps
+HKCU\...\Classes\AppUserModelId\Mica.App.<slug>      → the name and icon the shell shows
 ```
 
 Removing an app deletes all of it: shortcut, profile, extensions, registry entry.
@@ -84,7 +86,8 @@ Mica.slnx
 ├── Mica.Core/            Everything both apps share
 │   ├── Shell/            BrowserShellPage — the window content of a generated app
 │   ├── Apps/             AppRegistry (create/list/remove), ShortcutFactory (.lnk + AUMID),
-│   │                     AppLauncherFactory (per-app executable + icon resource)
+│   │                     AppLauncherFactory + VersionResource (per-app executable,
+│   │                     icon and version resources)
 │   ├── Sites/            SiteInspector (name + icon), IconPipeline (render → .ico), HostRules
 │   ├── Extensions/       CrxInstaller — the Chrome Web Store install path
 │   ├── Integration/      Notifications, single instance, startup log
