@@ -228,9 +228,18 @@ shrinking what the engine reserves.
 
 Two settings the engine takes at startup have to be identical for every app sharing it —
 whether extensions are on, and the browser arguments — because an environment cannot attach
-to a browser started with different ones, and the attempt leaves a live window with nothing
-in it. Both are therefore constants in the code, never derived from what happens to be
-installed.
+to a browser started with different ones. Both are therefore constants in the code, never
+derived from what happens to be installed: a value computed from whether any extension
+exists flips the moment someone installs their first, and the next app they open is the one
+that breaks.
+
+The one case Mica cannot rule out is an app still running from the version installed before
+an update. WebView2 reports that as `ERROR_INVALID_STATE` — but it reports it to the
+control, which finishes its initialization as though nothing were wrong and simply leaves
+`CoreWebView2` null, so the first line to touch it raises a `NullReferenceException` and the
+window explains an object reference to someone who wanted their messages. The shell listens
+for that report, logs it, and says what actually happened instead: another Mica app is
+running a browser set up differently, close them and open this one again.
 
 ## Updates
 

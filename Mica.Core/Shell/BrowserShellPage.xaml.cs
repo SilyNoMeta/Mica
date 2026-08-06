@@ -184,20 +184,53 @@ public sealed partial class BrowserShellPage : UserControl
         Directory.CreateDirectory(userDataFolder);
         var environment = await CoreWebView2Environment.CreateWithOptionsAsync(null, userDataFolder, options);
 
-        if (_config.DedicatedEngine)
+        // The control keeps its own initialisation failures to itself: it reports
+        // them here and lets the await finish as if nothing were wrong, leaving
+        // CoreWebView2 null. Without this the first thing to touch it raises a
+        // NullReferenceException, and the window ends up telling the user about an
+        // object reference instead of about their browser.
+        Exception? initializationFailure = null;
+        void OnInitialized(WebView2 _, CoreWebView2InitializedEventArgs e) =>
+            initializationFailure = e.Exception;
+
+        Browser.CoreWebView2Initialized += OnInitialized;
+
+        try
         {
-            await Browser.EnsureCoreWebView2Async(environment);
+            if (_config.DedicatedEngine)
+            {
+                await Browser.EnsureCoreWebView2Async(environment);
+            }
+            else
+            {
+                var controllerOptions = environment.CreateCoreWebView2ControllerOptions();
+                controllerOptions.ProfileName = ProfileName(_config.Slug);
+                await Browser.EnsureCoreWebView2Async(environment, controllerOptions);
+            }
         }
-        else
+        finally
         {
-            var controllerOptions = environment.CreateCoreWebView2ControllerOptions();
-            controllerOptions.ProfileName = ProfileName(_config.Slug);
-            await Browser.EnsureCoreWebView2Async(environment, controllerOptions);
+            Browser.CoreWebView2Initialized -= OnInitialized;
         }
 
         StartupLog.Write(_config.DedicatedEngine
             ? "Running on a dedicated browser engine"
             : $"Sharing the browser engine, profile '{ProfileName(_config.Slug)}'");
+
+        if (Browser.CoreWebView2 is null)
+        {
+            if (initializationFailure is not null)
+            {
+                StartupLog.WriteException("WebView2.Initialization", initializationFailure);
+            }
+
+            // The way this happens in practice is a mismatch: an app already running
+            // started the shared browser with different settings, and a second one
+            // cannot attach to it. Mica keeps those settings constant so its own
+            // apps agree, which leaves one case — apps still running from the
+            // version installed before an update.
+            throw new InvalidOperationException(Strings.Get("ShellEngineMismatch"));
+        }
 
         _core = Browser.CoreWebView2;
         _profile = _core.Profile;

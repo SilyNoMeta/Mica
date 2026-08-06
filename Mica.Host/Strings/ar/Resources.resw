@@ -37,6 +37,9 @@
   <data name="ShellDownloading" xml:space="preserve">
     <value>جارٍ تنزيل الإضافة…</value>
   </data>
+  <data name="ShellEngineMismatch" xml:space="preserve">
+    <value>يشغّل تطبيق Mica آخر متصفحًا بإعدادات مختلفة، ولا يمكن لهذا التطبيق الانضمام إليه. أغلق تطبيقات Mica الأخرى ثم افتح هذا التطبيق من جديد.</value>
+  </data>
   <data name="ShellExtensionLink" xml:space="preserve">
     <value>رابط الإضافة</value>
   </data>

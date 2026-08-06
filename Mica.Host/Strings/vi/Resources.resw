@@ -37,6 +37,9 @@
   <data name="ShellDownloading" xml:space="preserve">
     <value>Đang tải tiện ích…</value>
   </data>
+  <data name="ShellEngineMismatch" xml:space="preserve">
+    <value>Một ứng dụng Mica khác đang chạy trình duyệt với cấu hình khác, nên ứng dụng này không thể tham gia. Hãy đóng các ứng dụng Mica khác rồi mở lại ứng dụng này.</value>
+  </data>
   <data name="ShellExtensionLink" xml:space="preserve">
     <value>Liên kết tiện ích</value>
   </data>

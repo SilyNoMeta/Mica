@@ -37,6 +37,9 @@
   <data name="ShellDownloading" xml:space="preserve">
     <value>확장 프로그램을 내려받는 중…</value>
   </data>
+  <data name="ShellEngineMismatch" xml:space="preserve">
+    <value>다른 Mica 앱이 다르게 설정된 브라우저를 이미 실행 중이라 이 앱은 합류할 수 없습니다. 다른 Mica 앱을 닫은 뒤 이 앱을 다시 여세요.</value>
+  </data>
   <data name="ShellExtensionLink" xml:space="preserve">
     <value>확장 프로그램 링크</value>
   </data>

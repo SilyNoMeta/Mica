@@ -5,6 +5,16 @@ matching the tag into the release body, and Mica displays the part written in th
 language. Keep both `### en` and `### fr` for every version — English is what Mica falls back to
 when it has no section for the current language.
 
+## 1.1.1
+
+### en
+- An app that cannot start its browser now says why and what to do about it, instead of
+  reporting an object reference.
+
+### fr
+- Une app qui n'arrive pas à démarrer son navigateur explique maintenant pourquoi et quoi
+  faire, au lieu d'afficher une histoire de référence d'objet.
+
 ## 1.1.0
 
 ### en

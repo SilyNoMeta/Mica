@@ -208,6 +208,22 @@
     "ko": "제거하지 못했습니다", "vi": "Không gỡ được", "ar": "تعذّرت الإزالة"
   },
 
+  "ShellEngineMismatch": {
+    "_note": "Shown when the control reports no CoreWebView2. In practice: an app from before an update is still running the shared browser with different settings.",
+    "en": "Another Mica app is already running a browser set up differently, so this one cannot join it. Close the other Mica apps, then open this one again.",
+    "fr": "Une autre app Mica fait déjà tourner un navigateur configuré différemment, et celle-ci ne peut pas s'y joindre. Fermez les autres apps Mica, puis rouvrez celle-ci.",
+    "es": "Otra app de Mica ya está ejecutando un navegador configurado de otra manera, y esta no puede unirse a él. Cierra las demás apps de Mica y vuelve a abrir esta.",
+    "pt-BR": "Outro app do Mica já está executando um navegador configurado de outra forma, e este não consegue se juntar a ele. Feche os outros apps do Mica e abra este novamente.",
+    "de": "Eine andere Mica-App betreibt bereits einen anders eingerichteten Browser, dem diese hier nicht beitreten kann. Schließen Sie die anderen Mica-Apps und öffnen Sie diese erneut.",
+    "it": "Un'altra app Mica sta già eseguendo un browser configurato diversamente, e questa non può unirsi. Chiudi le altre app Mica, poi riapri questa.",
+    "ru": "Другое приложение Mica уже использует браузер с другими настройками, и это к нему присоединиться не может. Закройте остальные приложения Mica и откройте это снова.",
+    "zh-Hans": "另一个 Mica 应用正在运行一个配置不同的浏览器，本应用无法加入。请关闭其他 Mica 应用，然后重新打开本应用。",
+    "ja": "別の Mica アプリが異なる設定のブラウザーを実行中で、このアプリはそれに参加できません。ほかの Mica アプリを閉じてから、このアプリを開き直してください。",
+    "ko": "다른 Mica 앱이 다르게 설정된 브라우저를 이미 실행 중이라 이 앱은 합류할 수 없습니다. 다른 Mica 앱을 닫은 뒤 이 앱을 다시 여세요.",
+    "vi": "Một ứng dụng Mica khác đang chạy trình duyệt với cấu hình khác, nên ứng dụng này không thể tham gia. Hãy đóng các ứng dụng Mica khác rồi mở lại ứng dụng này.",
+    "ar": "يشغّل تطبيق Mica آخر متصفحًا بإعدادات مختلفة، ولا يمكن لهذا التطبيق الانضمام إليه. أغلق تطبيقات Mica الأخرى ثم افتح هذا التطبيق من جديد."
+  },
+
   "ShellBackground": {
     "en": "Background", "fr": "Arrière-plan", "es": "Segundo plano", "pt-BR": "Segundo plano",
     "de": "Hintergrund", "it": "Secondo piano", "ru": "Фоновый режим", "zh-Hans": "后台运行",
