@@ -46,11 +46,25 @@ function New-Mark([int]$w) {
 
     # Three stacked sheets, each thinner and brighter: the layering mica is known for.
     $g.SetClip($path)
-    $sheets = @(
-        @{ Offset = 0.30; Thickness = 0.035; Alpha = 55 },
-        @{ Offset = 0.45; Thickness = 0.050; Alpha = 90 },
-        @{ Offset = 0.63; Thickness = 0.075; Alpha = 150 }
-    )
+    # Fewer, thicker, brighter sheets as the icon shrinks. Drawn at one geometry for
+    # every size, the three thin sheets merge into a smudge by 16 px — which is the
+    # size a title bar and a taskbar actually ask for.
+    $sheets = if ($w -ge 64) {
+        @(
+            @{ Offset = 0.30; Thickness = 0.035; Alpha = 55 },
+            @{ Offset = 0.45; Thickness = 0.050; Alpha = 90 },
+            @{ Offset = 0.63; Thickness = 0.075; Alpha = 150 }
+        )
+    }
+    elseif ($w -ge 32) {
+        @(
+            @{ Offset = 0.34; Thickness = 0.075; Alpha = 105 },
+            @{ Offset = 0.60; Thickness = 0.105; Alpha = 175 }
+        )
+    }
+    else {
+        @( @{ Offset = 0.44; Thickness = 0.170; Alpha = 200 } )
+    }
 
     foreach ($sheet in $sheets) {
         $y = $w * $sheet.Offset

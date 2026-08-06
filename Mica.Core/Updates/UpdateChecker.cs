@@ -113,8 +113,9 @@ public static class UpdateChecker
 
                 var size = asset.TryGetProperty("size", out var s) ? s.GetInt64() : 0;
                 var notes = release.TryGetProperty("body", out var b) ? b.GetString() ?? string.Empty : string.Empty;
+                var language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
-                return new UpdateInfo(version, url, size, Trim(notes));
+                return new UpdateInfo(version, url, size, SelectNotes(notes, language));
             }
 
             return null;
@@ -197,16 +198,105 @@ public static class UpdateChecker
         }
     }
 
-    /// <summary>Release notes are markdown written for a web page; keep a readable line or two.</summary>
-    private static string Trim(string notes)
-    {
-        var lines = notes
-            .Split('\n', StringSplitOptions.RemoveEmptyEntries)
-            .Select(line => line.Trim())
-            .Where(line => line.Length > 0 && !line.StartsWith('#') && !line.StartsWith("<!--"))
-            .Take(3);
+    /// <summary>
+    /// Picks the reader's language out of the release notes.
+    /// <para>
+    /// A release body is the matching CHANGELOG section, which carries one
+    /// <c>### &lt;language&gt;</c> block per language the project writes. English is the
+    /// fallback: Mica's interface is translated into twelve languages, but its
+    /// changelog is written by hand, so most readers get English notes under a
+    /// translated heading rather than nothing at all.
+    /// </para>
+    /// </summary>
+    // A notice, not the changelog itself: left unbounded it grows until it squeezes
+    // the list of apps out of the window.
+    private const int MaxEntries = 4;
+    private const int MaxEntryLength = 150;
 
-        var text = string.Join(' ', lines);
-        return text.Length > 300 ? text[..300].TrimEnd() + "…" : text;
+    private static string SelectNotes(string body, string language)
+    {
+        var blocks = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
+        List<string>? current = null;
+
+        foreach (var raw in body.Replace("\r", string.Empty).Split('\n'))
+        {
+            var line = raw.Trim();
+
+            if (line.StartsWith("###", StringComparison.Ordinal))
+            {
+                var tag = line.TrimStart('#').Trim();
+
+                // First block per language wins. A body holding several versions
+                // would otherwise run them all together as one list.
+                if (blocks.ContainsKey(tag))
+                {
+                    current = null;
+                    continue;
+                }
+
+                current = blocks[tag] = [];
+                continue;
+            }
+
+            if (line.StartsWith("##", StringComparison.Ordinal))
+            {
+                current = null;
+                continue;
+            }
+
+            current?.Add(line);
+        }
+
+        var wanted = blocks.TryGetValue(language, out var exact)
+            ? exact
+            : blocks.TryGetValue("en", out var english) ? english : null;
+
+        var lines = wanted ?? [.. body.Replace("\r", string.Empty).Split('\n').Select(l => l.Trim())];
+        return Reflow(lines);
+    }
+
+    /// <summary>
+    /// Turns changelog markdown into something an InfoBar can show. The file is hard
+    /// wrapped for reading in a diff, so its line breaks land mid-sentence when they
+    /// are carried straight into a panel that wraps on its own.
+    /// </summary>
+    private static string Reflow(IEnumerable<string> lines)
+    {
+        var entries = new List<string>();
+
+        foreach (var line in lines)
+        {
+            if (line.Length == 0 || line.StartsWith('#') || line.StartsWith("<!--"))
+            {
+                continue;
+            }
+
+            if (line.StartsWith("- ", StringComparison.Ordinal) || line.StartsWith("* ", StringComparison.Ordinal))
+            {
+                entries.Add("• " + line[2..].Trim());
+            }
+            else if (entries.Count > 0)
+            {
+                entries[^1] = $"{entries[^1]} {line}";
+            }
+            else
+            {
+                entries.Add(line);
+            }
+        }
+
+        var shown = entries
+            .Take(MaxEntries)
+            .Select(entry => entry.Length > MaxEntryLength
+                ? entry[..MaxEntryLength].TrimEnd() + "…"
+                : entry)
+            .ToList();
+
+        if (entries.Count > MaxEntries)
+        {
+            shown.Add("…");
+        }
+
+        return string.Join(Environment.NewLine, shown).Trim();
     }
 }

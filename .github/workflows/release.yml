@@ -63,6 +63,24 @@ jobs:
 
           if ($LASTEXITCODE -ne 0) { throw "ISCC failed with exit code $LASTEXITCODE." }
 
+      - name: Extract the release notes
+        shell: pwsh
+        # Mica shows these in its update notice, picking the reader's language, so the
+        # release body has to be the changelog section rather than a generic blurb.
+        run: |
+          $version = '${{ steps.version.outputs.version }}'
+          $lines = Get-Content CHANGELOG.md
+          $start = ($lines | Select-String -Pattern "^##\s+$([regex]::Escape($version))\s*$" | Select-Object -First 1).LineNumber
+
+          if (-not $start) { throw "CHANGELOG.md has no section for $version." }
+
+          $rest = $lines[$start..($lines.Count - 1)]
+          $end = ($rest | Select-String -Pattern '^##\s' | Select-Object -First 1).LineNumber
+          $body = if ($end) { $rest[0..($end - 2)] } else { $rest }
+
+          ($body -join "`n").Trim() | Set-Content release-notes.md -Encoding UTF8
+          Get-Content release-notes.md
+
       - uses: actions/upload-artifact@v4
         with:
           name: MicaSetup-${{ steps.version.outputs.version }}-x64
@@ -74,9 +92,4 @@ jobs:
         with:
           files: dist/MicaSetup-*.exe
           draft: true
-          generate_release_notes: true
-          body: |
-            Mica ${{ steps.version.outputs.version }} — build a native Windows app from any URL.
-
-            Installs per user, no Developer Mode and no administrator rights. The
-            installer fetches the Windows App Runtime if it is not already present.
+          body_path: release-notes.md

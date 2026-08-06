@@ -93,6 +93,7 @@ public sealed partial class MainWindow : Window
         EmptyTitleText.Text = Strings.Get("NoAppsYetTitle");
         EmptyBodyText.Text = Strings.Get("EmptyBody");
         EmptyAddButton.Content = Strings.Get("AddAppButton");
+        VersionText.Text = $"{MicaPaths.ProductName} {UpdateChecker.Current.ToString(3)}";
     }
 
     // ---- App list ------------------------------------------------------------

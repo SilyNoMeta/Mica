@@ -200,6 +200,13 @@
             </InfoBar>
 
             <InfoBar x:Name="StatusBar" IsOpen="False" />
+
+            <!--  Which Mica this is: nothing else in the window says so.  -->
+            <TextBlock
+                x:Name="VersionText"
+                HorizontalAlignment="Left"
+                Opacity="0.5"
+                Style="{StaticResource CaptionTextBlockStyle}" />
         </StackPanel>
     </Grid>
 </Window>
