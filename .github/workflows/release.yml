@@ -38,6 +38,18 @@ jobs:
             throw "Expected a version like 1.2.3, got '$version'."
           }
 
+          # The version is stamped into the assemblies by Publish.ps1 and into the
+          # installer by ISCC, but the csproj <Version> is the value a local build
+          # carries and what the in-app update check reads. A tag whose version has
+          # drifted behind the csproj (or ahead of it) ships a setup that disagrees
+          # with itself, so fail here rather than build something misleading.
+          foreach ($project in 'Mica.Builder', 'Mica.Host') {
+            $csproj = Get-Content "$project/$project.csproj" -Raw
+            if ($csproj -notmatch "<Version>\s*$([regex]::Escape($version))\s*</Version>") {
+              throw "$project.csproj <Version> does not match the release tag '$version'. Bump it before tagging."
+            }
+          }
+
           "version=$version" >> $env:GITHUB_OUTPUT
 
       - name: Publish payload

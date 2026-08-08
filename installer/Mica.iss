@@ -7,10 +7,10 @@
 ;
 ; Build:
 ;   powershell -ExecutionPolicy Bypass -File installer\Publish.ps1
-;   iscc installer\Mica.iss /DAppVersion=0.1.0
+;   iscc installer\Mica.iss /DAppVersion=1.1.2
 
 #ifndef AppVersion
-  #define AppVersion "0.1.0"
+  #define AppVersion "1.1.2"
 #endif
 
 #ifndef Architecture

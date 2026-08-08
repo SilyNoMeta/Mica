@@ -5,6 +5,32 @@ matching the tag into the release body, and Mica displays the part written in th
 language. Keep both `### en` and `### fr` for every version — English is what Mica falls back to
 when it has no section for the current language.
 
+## 1.1.2
+
+### en
+- Icons no longer come out with a grey bar on one edge and the glyph pushed off centre on
+  high-DPI displays. Headless Edge measures the window frame in physical pixels, so at 200%
+  scale the icon overflowed its viewport and Edge painted scrollbars that the trim step read
+  as part of the artwork; the icon is now drawn with room around it and scrollbars hidden.
+  Existing apps keep their broken icon until refreshed from the app's menu.
+- Installing a build whose version is older than the one present no longer runs the uninstaller
+  first and asks whether to delete your apps. The version held in the source had drifted behind
+  the release tags, so local builds reported a lower number than the installed copy; it is back
+  in step, and a release check keeps it that way.
+
+### fr
+- Les icônes ne sortent plus avec une barre grise sur un bord et le glyphe décentré sur les
+  écrans à haute résolution. Edge headless mesure le cadre de fenêtre en pixels physiques, donc
+  à 200 % d'échelle l'icône débordait de son viewport et Edge peignait des barres de défilement
+  que l'étape de recadrage prenait pour de l'artwork ; l'icône est maintenant dessinée avec de la
+  marge autour et les barres masquées. Les apps existantes gardent leur icône abîmée jusqu'à un
+  rafraîchissement depuis le menu de l'app.
+- Installer une build dont la version est antérieure à celle déjà présente ne lance plus le
+  désinstallateur au passage et ne demande plus s'il faut supprimer vos apps. La version portée
+  par le source avait décroché des tags de release, donc les builds locales affichaient un numéro
+  inférieur à la copie installée ; elle est de nouveau alignée, et un contrôle de release la
+  maintient à jour.
+
 ## 1.1.1
 
 ### en

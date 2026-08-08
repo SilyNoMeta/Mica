@@ -30,7 +30,7 @@
       it has to be the real version. The release workflow overrides it from the tag;
       this value is what a local build reports.
     -->
-    <Version>0.5.0</Version>
+    <Version>1.1.2</Version>
 
     <!-- See Mica.Host.csproj for why Mica is unpackaged and framework-dependent. -->
     <WindowsPackageType>None</WindowsPackageType>
