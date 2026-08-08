@@ -18,6 +18,13 @@ public static class IconPipeline
 {
     private const int SourceSize = 512;
 
+    /// <summary>
+    /// The headless window the icon is rendered in. Deliberately larger than
+    /// <see cref="SourceSize"/> — see the wrapper page in
+    /// <see cref="TryRenderInBrowserAsync"/> for why the icon needs room around it.
+    /// </summary>
+    private const int ViewportSize = 1024;
+
     private static readonly int[] IcoSizes = [16, 24, 32, 48, 64, 128, 256];
 
     private static readonly HttpClient Http = new() { Timeout = TimeSpan.FromSeconds(25) };
@@ -129,17 +136,27 @@ public static class IconPipeline
 
         try
         {
-            // The wrapper forces the icon to fill the viewport: pointing the browser
+            // The wrapper draws the icon at a size we choose: pointing the browser
             // straight at an SVG renders it at its intrinsic size, which is often tiny.
+            //
+            // The icon is drawn smaller than the window on purpose. Headless Edge takes
+            // the window frame out of --window-size, and that frame is measured in
+            // physical pixels: on a 200% display it costs 34 px of width and 98 px of
+            // height. An icon sized to the window therefore overflows, gets clipped, and
+            // has a scrollbar painted down its edge — which Trim() below then reads as
+            // part of the artwork, leaving a grey bar baked into every icon and the glyph
+            // pushed off centre. Leaving room means the icon lands whole on a transparent
+            // canvas at any display scale, and Trim() crops back to the glyph itself.
             var page = Path.Combine(work, "wrap.html");
             await File.WriteAllTextAsync(
                 page,
-                $"""
-                 <!doctype html><meta charset="utf-8">
-                 <body style="margin:0;background:transparent">
-                 <img src="{url}" style="width:{SourceSize}px;height:{SourceSize}px;display:block">
-                 </body>
-                 """,
+                $$"""
+                  <!doctype html><meta charset="utf-8">
+                  <style>html,body{margin:0;padding:0;overflow:hidden;background:transparent}</style>
+                  <body>
+                  <img src="{{url}}" style="width:{{SourceSize}}px;height:{{SourceSize}}px;display:block">
+                  </body>
+                  """,
                 cancellationToken);
 
             var startInfo = new ProcessStartInfo(edge)
@@ -154,9 +171,10 @@ public static class IconPipeline
                 "--disable-gpu",
                 "--no-first-run",
                 "--no-default-browser-check",
+                "--hide-scrollbars",
                 $"--user-data-dir={Path.Combine(work, "profile")}",
                 "--default-background-color=00000000",
-                $"--window-size={SourceSize},{SourceSize}",
+                $"--window-size={ViewportSize},{ViewportSize}",
                 $"--screenshot={shot}",
                 page,
             })

@@ -146,7 +146,12 @@ public sealed partial class MainWindow : Window
                 app.Name,
                 app.StartUri.Host,
                 app.StartUrl,
-                await ImageLoader.LoadAsync(MicaPaths.IconFile(app.Slug), 64),
+                // 128 rather than the 36 the row draws it at: the decode is in physical
+                // pixels, so a 200% display already needs 72 and a 300% one 108. The list
+                // is built before the window has a XamlRoot to read a scale off, so it
+                // decodes for the largest scale instead and lets XAML shrink from there —
+                // and 128 is an entry in the .ico, so nothing is resampled on the way in.
+                await ImageLoader.LoadAsync(MicaPaths.IconFile(app.Slug), 128),
                 moreActions,
                 open,
                 refresh,

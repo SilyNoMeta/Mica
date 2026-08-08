@@ -14,6 +14,12 @@ public static class ImageLoader
     /// Decodes the image at this width rather than at its natural size. An icon
     /// drawn at 16 px otherwise keeps a 512 px surface in memory for nothing;
     /// the size it is shown at is enough. Zero keeps the natural size.
+    /// <para>
+    /// This is a count of physical pixels, not of the DIPs a control is sized in:
+    /// a 36 px image needs 72 here on a 200% display, and asking for less leaves
+    /// XAML enlarging the bitmap to fit. Decode for the largest scale worth
+    /// supporting — shrinking a bitmap stays sharp, stretching one does not.
+    /// </para>
     /// </param>
     public static async Task<BitmapImage?> LoadAsync(string path, int decodePixelWidth = 0)
     {
