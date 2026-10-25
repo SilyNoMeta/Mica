@@ -37,6 +37,15 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Cambiar icono…</value>
+  </data>
+  <data name="CustomIconApplied" xml:space="preserve">
+    <value>Se ha cambiado el icono de {0}. Reinicia la app para actualizar los iconos de la ventana y la bandeja.</value>
+  </data>
+  <data name="CustomIconFailed" xml:space="preserve">
+    <value>No se pudo aplicar esta imagen. Elige una imagen PNG, ICO, JPEG o BMP válida e inténtalo de nuevo.</value>
+  </data>
   <data name="DialogBusy" xml:space="preserve">
     <value>Leyendo el sitio y su icono…</value>
   </data>

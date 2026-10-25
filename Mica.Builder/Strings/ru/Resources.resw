@@ -37,6 +37,15 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Изменить значок…</value>
+  </data>
+  <data name="CustomIconApplied" xml:space="preserve">
+    <value>Значок {0} изменён. Перезапустите приложение, чтобы обновить значки окна и области уведомлений.</value>
+  </data>
+  <data name="CustomIconFailed" xml:space="preserve">
+    <value>Не удалось применить изображение. Выберите доступное изображение PNG, ICO, JPEG или BMP и повторите попытку.</value>
+  </data>
   <data name="DialogBusy" xml:space="preserve">
     <value>Чтение сайта и его значка…</value>
   </data>

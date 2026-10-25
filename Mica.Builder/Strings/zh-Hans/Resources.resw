@@ -37,6 +37,15 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>更改图标…</value>
+  </data>
+  <data name="CustomIconApplied" xml:space="preserve">
+    <value>已更改 {0} 的图标。请重启应用以更新窗口和托盘图标。</value>
+  </data>
+  <data name="CustomIconFailed" xml:space="preserve">
+    <value>无法应用此图片。请选择可读取的 PNG、ICO、JPEG 或 BMP 图片，然后重试。</value>
+  </data>
   <data name="DialogBusy" xml:space="preserve">
     <value>正在读取网站及其图标…</value>
   </data>

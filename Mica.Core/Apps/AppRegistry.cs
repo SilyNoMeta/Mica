@@ -290,7 +290,64 @@ public static class AppRegistry
 
         CreateShortcut(config);
         WriteUninstallEntry(config);
+        AppIdentity.PublishDisplayInfo(
+            MicaPaths.AppUserModelId(config.Slug), config.Name, MicaPaths.IconFile(config.Slug));
+        NotifyIconChanged();
     }
+
+    /// <summary>Copies a custom icon into the installation; the original file is no longer needed.</summary>
+    public static async Task ChangeIconAsync(WebAppConfig config, string sourcePath)
+    {
+        var folder = MicaPaths.AppFolder(config.Slug);
+        var work = Path.Combine(folder, "icon-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(work);
+        try
+        {
+            var ico = Path.Combine(work, "icon.ico");
+            var png = Path.Combine(work, "icon.png");
+            // Decode and build both files before touching the installed icon.
+            await Task.Run(() => IconPipeline.BuildFromFile(sourcePath, ico, png));
+            var targetIco = MicaPaths.IconFile(config.Slug);
+            var targetPng = Path.Combine(folder, "icon.png");
+            var oldIco = File.Exists(targetIco) ? await File.ReadAllBytesAsync(targetIco) : null;
+            var oldPng = File.Exists(targetPng) ? await File.ReadAllBytesAsync(targetPng) : null;
+            try
+            {
+                File.Copy(ico, targetIco, overwrite: true);
+                File.Copy(png, targetPng, overwrite: true);
+            }
+            catch
+            {
+                if (oldIco is not null) File.WriteAllBytes(targetIco, oldIco);
+                else File.Delete(targetIco);
+                if (oldPng is not null) File.WriteAllBytes(targetPng, oldPng);
+                else File.Delete(targetPng);
+                throw;
+            }
+
+            CreateShortcut(config);
+            WriteUninstallEntry(config);
+            AppIdentity.PublishDisplayInfo(MicaPaths.AppUserModelId(config.Slug), config.Name, targetIco);
+            NotifyIconChanged();
+        }
+        finally
+        {
+            try
+            {
+                Directory.Delete(work, recursive: true);
+            }
+            catch (Exception ex)
+            {
+                StartupLog.WriteException("Icon.Cleanup", ex);
+            }
+        }
+    }
+
+    // Tell Explorer to invalidate its cached icons after replacing the assets.
+    private static void NotifyIconChanged() => SHChangeNotify(0x08000000, 0, IntPtr.Zero, IntPtr.Zero);
+
+    [System.Runtime.InteropServices.DllImport("shell32.dll")]
+    private static extern void SHChangeNotify(uint eventId, uint flags, IntPtr item1, IntPtr item2);
 
     /// <summary>
     /// Removes an app completely: shortcut, uninstall entry, configuration,

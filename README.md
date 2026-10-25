@@ -37,6 +37,12 @@ extensions. Press <kbd>Alt</kbd> when you need the toolbar, pin it if you want i
 
 ## Moving apps to another machine
 
+To choose your own icon, open an app's **⋯ › Change icon…** menu and select a PNG,
+ICO, JPEG or BMP image. Mica copies it into the app, so the original file can be moved
+or deleted afterwards. Restart an open app to update its window and tray icon.
+**Refresh the site's icon** restores the website's current icon. Custom icons stay
+on this computer; importing an exported app fetches the site's icon again.
+
 Mica › **⋯ › Export apps** writes the apps you tick into a single `.mica` file: their addresses,
 names, host rules, window sizes, zoom, engine and background settings, and the Chrome Web Store
 **ids** of the extensions each one runs. Not the extensions themselves and not the icons — both

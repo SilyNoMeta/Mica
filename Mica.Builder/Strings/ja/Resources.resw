@@ -37,6 +37,15 @@
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>アイコンを変更…</value>
+  </data>
+  <data name="CustomIconApplied" xml:space="preserve">
+    <value>{0} のアイコンを変更しました。ウィンドウとトレイのアイコンを更新するにはアプリを再起動してください。</value>
+  </data>
+  <data name="CustomIconFailed" xml:space="preserve">
+    <value>画像を適用できませんでした。読み取り可能な PNG、ICO、JPEG、BMP 画像を選んで再試行してください。</value>
+  </data>
   <data name="DialogBusy" xml:space="preserve">
     <value>サイトとアイコンを読み取っています…</value>
   </data>

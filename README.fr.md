@@ -1,5 +1,12 @@
 # Mica
 
+Pour personnaliser une icône, ouvrez le menu **⋯ › Changer l’icône…** de l’app et
+choisissez une image PNG, ICO, JPEG ou BMP. Mica en conserve une copie : vous pouvez
+ensuite déplacer ou supprimer l’original. Redémarrez une app ouverte pour actualiser
+son icône de fenêtre et de zone de notification. L’option de récupération de l’icône
+du site permet de revenir à celle du site. Les icônes personnalisées restent sur ce
+PC ; l’import d’une app récupère à nouveau l’icône du site.
+
 *[English version](README.md)*
 
 Transformez n'importe quel site en vraie app Windows. Vous donnez une adresse à Mica : il lit le
