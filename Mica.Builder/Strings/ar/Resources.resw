@@ -37,6 +37,15 @@
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>تغيير الأيقونة…</value>
+  </data>
+  <data name="CustomIconApplied" xml:space="preserve">
+    <value>تم تغيير أيقونة {0}. أعد تشغيل التطبيق لتحديث أيقونة النافذة ومنطقة الإعلام.</value>
+  </data>
+  <data name="CustomIconFailed" xml:space="preserve">
+    <value>تعذر تطبيق هذه الصورة. اختر صورة PNG أو ICO أو JPEG أو BMP قابلة للقراءة وحاول مجددًا.</value>
+  </data>
   <data name="DialogBusy" xml:space="preserve">
     <value>جارٍ قراءة الموقع وأيقونته…</value>
   </data>

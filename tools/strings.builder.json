@@ -9,6 +9,39 @@
     "ja": "LeftToRight", "ko": "LeftToRight", "vi": "LeftToRight", "ar": "RightToLeft"
   },
 
+  "ChangeIcon": {
+    "en": "Change icon…", "fr": "Changer l’icône…", "es": "Cambiar icono…", "pt-BR": "Alterar ícone…",
+    "de": "Symbol ändern…", "it": "Cambia icona…", "ru": "Изменить значок…", "zh-Hans": "更改图标…",
+    "ja": "アイコンを変更…", "ko": "아이콘 변경…", "vi": "Đổi biểu tượng…", "ar": "تغيير الأيقونة…"
+  },
+  "CustomIconApplied": {
+    "en": "The icon for {0} has been changed. Restart the app to update its window and tray icon.",
+    "fr": "L’icône de {0} a été modifiée. Redémarrez l’app pour actualiser son icône de fenêtre et de zone de notification.",
+    "es": "Se ha cambiado el icono de {0}. Reinicia la app para actualizar los iconos de la ventana y la bandeja.",
+    "pt-BR": "O ícone de {0} foi alterado. Reinicie o app para atualizar os ícones da janela e da bandeja.",
+    "de": "Das Symbol für {0} wurde geändert. Starten Sie die App neu, um das Fenster- und Infobereichssymbol zu aktualisieren.",
+    "it": "L’icona di {0} è stata cambiata. Riavvia l’app per aggiornare le icone della finestra e dell’area di notifica.",
+    "ru": "Значок {0} изменён. Перезапустите приложение, чтобы обновить значки окна и области уведомлений.",
+    "zh-Hans": "已更改 {0} 的图标。请重启应用以更新窗口和托盘图标。",
+    "ja": "{0} のアイコンを変更しました。ウィンドウとトレイのアイコンを更新するにはアプリを再起動してください。",
+    "ko": "{0}의 아이콘이 변경되었습니다. 창과 트레이 아이콘을 업데이트하려면 앱을 다시 시작하세요.",
+    "vi": "Đã đổi biểu tượng của {0}. Khởi động lại ứng dụng để cập nhật biểu tượng cửa sổ và khay hệ thống.",
+    "ar": "تم تغيير أيقونة {0}. أعد تشغيل التطبيق لتحديث أيقونة النافذة ومنطقة الإعلام."
+  },
+  "CustomIconFailed": {
+    "en": "Could not apply this image. Choose a readable PNG, ICO, JPEG or BMP image and try again.",
+    "fr": "Impossible d’appliquer cette image. Choisissez une image PNG, ICO, JPEG ou BMP lisible et réessayez.",
+    "es": "No se pudo aplicar esta imagen. Elige una imagen PNG, ICO, JPEG o BMP válida e inténtalo de nuevo.",
+    "pt-BR": "Não foi possível aplicar esta imagem. Escolha uma imagem PNG, ICO, JPEG ou BMP válida e tente novamente.",
+    "de": "Dieses Bild konnte nicht angewendet werden. Wählen Sie ein lesbares PNG-, ICO-, JPEG- oder BMP-Bild und versuchen Sie es erneut.",
+    "it": "Impossibile applicare questa immagine. Scegli un’immagine PNG, ICO, JPEG o BMP leggibile e riprova.",
+    "ru": "Не удалось применить изображение. Выберите доступное изображение PNG, ICO, JPEG или BMP и повторите попытку.",
+    "zh-Hans": "无法应用此图片。请选择可读取的 PNG、ICO、JPEG 或 BMP 图片，然后重试。",
+    "ja": "画像を適用できませんでした。読み取り可能な PNG、ICO、JPEG、BMP 画像を選んで再試行してください。",
+    "ko": "이미지를 적용할 수 없습니다. 읽을 수 있는 PNG, ICO, JPEG 또는 BMP 이미지를 선택하고 다시 시도하세요.",
+    "vi": "Không thể áp dụng ảnh này. Hãy chọn ảnh PNG, ICO, JPEG hoặc BMP có thể đọc được rồi thử lại.",
+    "ar": "تعذر تطبيق هذه الصورة. اختر صورة PNG أو ICO أو JPEG أو BMP قابلة للقراءة وحاول مجددًا."
+  },
   "YourApps": {
     "en": "Your apps", "fr": "Vos apps", "es": "Tus apps", "pt-BR": "Seus apps",
     "de": "Ihre Apps", "it": "Le tue app", "ru": "Ваши приложения", "zh-Hans": "你的应用",

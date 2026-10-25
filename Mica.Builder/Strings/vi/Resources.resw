@@ -37,6 +37,15 @@
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
   </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Đổi biểu tượng…</value>
+  </data>
+  <data name="CustomIconApplied" xml:space="preserve">
+    <value>Đã đổi biểu tượng của {0}. Khởi động lại ứng dụng để cập nhật biểu tượng cửa sổ và khay hệ thống.</value>
+  </data>
+  <data name="CustomIconFailed" xml:space="preserve">
+    <value>Không thể áp dụng ảnh này. Hãy chọn ảnh PNG, ICO, JPEG hoặc BMP có thể đọc được rồi thử lại.</value>
+  </data>
   <data name="DialogBusy" xml:space="preserve">
     <value>Đang đọc trang web và biểu tượng…</value>
   </data>

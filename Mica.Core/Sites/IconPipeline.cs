@@ -56,6 +56,23 @@ public static class IconPipeline
 
     // ---- Source acquisition --------------------------------------------------
 
+    /// <summary>Converts a local image without silently substituting a lettermark.</summary>
+    public static void BuildFromFile(string sourcePath, string icoPath, string pngPath)
+    {
+        using var stream = File.OpenRead(sourcePath);
+        using var image = Image.FromStream(stream);
+        using var source = new Bitmap(image);
+        using var trimmed = Trim(source);
+        if (IsBlank(trimmed))
+        {
+            throw new InvalidDataException("The image is fully transparent.");
+        }
+
+        using var preview = Compose(trimmed, SourceSize, SourceSize, 1.0f);
+        preview.Save(pngPath, ImageFormat.Png);
+        WriteIco(trimmed, icoPath);
+    }
+
     private static async Task<Bitmap> LoadSourceAsync(
         Uri? iconUrl,
         string appName,

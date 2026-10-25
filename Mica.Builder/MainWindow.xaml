@@ -136,6 +136,14 @@
                                             </MenuFlyoutItem.Icon>
                                         </MenuFlyoutItem>
                                         <MenuFlyoutItem
+                                            Click="OnChangeIconClick"
+                                            Tag="{Binding Slug}"
+                                            Text="{Binding ChangeIconLabel}">
+                                            <MenuFlyoutItem.Icon>
+                                                <FontIcon Glyph="&#xE91B;" />
+                                            </MenuFlyoutItem.Icon>
+                                        </MenuFlyoutItem>
+                                        <MenuFlyoutItem
                                             Click="OnRefreshIconClick"
                                             Tag="{Binding Slug}"
                                             Text="{Binding RefreshLabel}">

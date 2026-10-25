@@ -37,6 +37,15 @@
   <data name="Cancel" xml:space="preserve">
     <value>취소</value>
   </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>아이콘 변경…</value>
+  </data>
+  <data name="CustomIconApplied" xml:space="preserve">
+    <value>{0}의 아이콘이 변경되었습니다. 창과 트레이 아이콘을 업데이트하려면 앱을 다시 시작하세요.</value>
+  </data>
+  <data name="CustomIconFailed" xml:space="preserve">
+    <value>이미지를 적용할 수 없습니다. 읽을 수 있는 PNG, ICO, JPEG 또는 BMP 이미지를 선택하고 다시 시도하세요.</value>
+  </data>
   <data name="DialogBusy" xml:space="preserve">
     <value>사이트와 아이콘을 읽는 중…</value>
   </data>

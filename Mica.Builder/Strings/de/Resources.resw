@@ -37,6 +37,15 @@
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="ChangeIcon" xml:space="preserve">
+    <value>Symbol ändern…</value>
+  </data>
+  <data name="CustomIconApplied" xml:space="preserve">
+    <value>Das Symbol für {0} wurde geändert. Starten Sie die App neu, um das Fenster- und Infobereichssymbol zu aktualisieren.</value>
+  </data>
+  <data name="CustomIconFailed" xml:space="preserve">
+    <value>Dieses Bild konnte nicht angewendet werden. Wählen Sie ein lesbares PNG-, ICO-, JPEG- oder BMP-Bild und versuchen Sie es erneut.</value>
+  </data>
   <data name="DialogBusy" xml:space="preserve">
     <value>Website und Symbol werden gelesen…</value>
   </data>

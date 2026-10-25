@@ -154,6 +154,7 @@ public sealed partial class MainWindow : Window
                 await ImageLoader.LoadAsync(MicaPaths.IconFile(app.Slug), 128),
                 moreActions,
                 open,
+                Strings.Get("ChangeIcon"),
                 refresh,
                 settings,
                 remove));
@@ -454,6 +455,44 @@ public sealed partial class MainWindow : Window
         }
     }
 
+    private async void OnChangeIconClick(object sender, RoutedEventArgs e)
+    {
+        if (SlugOf(sender) is not { } slug || AppRegistry.Find(slug) is not { } config)
+        {
+            return;
+        }
+
+        try
+        {
+            var picker = new FileOpenPicker();
+            InitializeWithWindow.Initialize(picker, App.WindowHandle);
+            picker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            foreach (var extension in new[] { ".png", ".ico", ".jpg", ".jpeg", ".bmp" })
+            {
+                picker.FileTypeFilter.Add(extension);
+            }
+
+            if (await picker.PickSingleFileAsync() is not { } file)
+            {
+                return;
+            }
+
+            SetBusy(true, Strings.Get("ChangeIcon"));
+            await AppRegistry.ChangeIconAsync(config, file.Path);
+            await RefreshAsync();
+            ShowStatus(InfoBarSeverity.Success, Strings.Get("IconRefreshedTitle"),
+                Strings.Format("CustomIconApplied", config.Name));
+        }
+        catch (Exception)
+        {
+            ShowStatus(InfoBarSeverity.Error, Strings.Get("RefreshFailedTitle"), Strings.Get("CustomIconFailed"));
+        }
+        finally
+        {
+            SetBusy(false);
+        }
+    }
+
     private async void OnRefreshIconClick(object sender, RoutedEventArgs e)
     {
         if (SlugOf(sender) is not { } slug || AppRegistry.Find(slug) is not { } config)
@@ -578,6 +617,7 @@ public sealed partial class MainWindow : Window
         BitmapImage? Icon,
         string MoreActionsLabel,
         string OpenLabel,
+        string ChangeIconLabel,
         string RefreshLabel,
         string SettingsLabel,
         string RemoveLabel);

@@ -5,6 +5,26 @@ matching the tag into the release body, and Mica displays the part written in th
 language. Keep both `### en` and `### fr` for every version — English is what Mica falls back to
 when it has no section for the current language.
 
+## 1.1.3
+
+### en
+- Choose your own app icon from the app's ⋯ › Change icon… menu. PNG, ICO, JPEG and BMP
+  images are copied into the app; the original file is no longer needed. Refresh the site's
+  icon to restore it. Restart an open app to update its window and tray icon.
+- Invalid or fully transparent images are rejected before replacing the installed icon.
+- Includes the 1.1.2 fixes for grey bars and off-centre icons on high-DPI displays, and
+  the installer version alignment fix.
+
+### fr
+- Choisissez une icône personnalisée depuis le menu ⋯ › Changer l’icône… de l’app. Les
+  images PNG, ICO, JPEG et BMP sont copiées dans l’app : l’original n’est plus nécessaire.
+  Récupérez l’icône du site pour la restaurer. Redémarrez une app ouverte pour actualiser
+  son icône de fenêtre et de zone de notification.
+- Les images invalides ou entièrement transparentes sont refusées avant de remplacer
+  l’icône installée.
+- Inclut les correctifs de la 1.1.2 pour les barres grises et les icônes décentrées sur les
+  écrans à haute résolution, ainsi que l’alignement de version de l’installateur.
+
 ## 1.1.2
 
 ### en
